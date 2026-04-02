@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Lato:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Fraunces:ital,wght@0,700;0,800;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0B1F3A;
+  --pink: #E91E8C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  color: #0B1F3A;
+  background: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+}
+
+@layer components {
+  .btn-pink {
+    @apply bg-[#E91E8C] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#C0176E] transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 inline-block;
+  }
+  .btn-outline-white {
+    @apply border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-[#0B1F3A] transition-all duration-200 inline-block;
+  }
+  .btn-outline-navy {
+    @apply border-2 border-[#0B1F3A] text-[#0B1F3A] font-semibold px-6 py-3 rounded-lg hover:bg-[#0B1F3A] hover:text-white transition-all duration-200 inline-block;
+  }
+  .btn-navy {
+    @apply bg-[#0B1F3A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#112850] transition-all duration-200 inline-block;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  .section-heading {
+    @apply font-bold text-[#0B1F3A] text-3xl md:text-4xl;
+  }
+  .discipline-tag {
+    @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider;
+  }
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #E91E8C;
+  z-index: 9999;
+  transition: width 0.1s;
+  width: 0%;
+}
