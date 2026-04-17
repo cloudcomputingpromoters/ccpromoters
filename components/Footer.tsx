@@ -69,7 +69,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 mt-4 text-white/50 text-sm">
               <span>✉</span>
-              <span>hello@ccpromoters.com</span>
+              <a href="mailto:hr@ccpromoters.com" className="hover:text-white transition-colors">hr@ccpromoters.com</a>
             </div>
           </div>
 
