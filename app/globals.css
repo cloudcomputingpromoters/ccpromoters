@@ -5,50 +5,24 @@
 @tailwind utilities;
 
 :root {
-  --navy: #0B1F3A;
-  --pink: #E91E8C;
+  --royal-blue: #1A3A8F;
+  --royal-blue-dark: #163298;
+  --gold: #D4AF37;
+  --gold-dark: #B8960C;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #0B1F3A;
+  color: #1A3A8F;
   background: #ffffff;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Manrope', sans-serif;
-}
-
-@layer components {
-  .btn-pink {
-    @apply bg-[#E91E8C] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#C0176E] transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 inline-block;
-  }
-  .btn-outline-white {
-    @apply border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-[#0B1F3A] transition-all duration-200 inline-block;
-  }
-  .btn-outline-navy {
-    @apply border-2 border-[#0B1F3A] text-[#0B1F3A] font-semibold px-6 py-3 rounded-lg hover:bg-[#0B1F3A] hover:text-white transition-all duration-200 inline-block;
-  }
-  .btn-navy {
-    @apply bg-[#0B1F3A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#112850] transition-all duration-200 inline-block;
-  }
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
-  }
-  .section-heading {
-    @apply font-bold text-[#0B1F3A] text-3xl md:text-4xl;
-  }
-  .discipline-tag {
-    @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider;
-  }
+  color: #1A3A8F;
 }
 
 #scroll-progress {
@@ -56,8 +30,107 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   left: 0;
   height: 3px;
-  background: #E91E8C;
+  background: linear-gradient(90deg, #D4AF37, #1A3A8F);
   z-index: 9999;
   transition: width 0.1s;
   width: 0%;
+}
+
+@layer components {
+  .btn-pink {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
+    background-color: #1A3A8F;
+    color: #ffffff;
+    border: 2px solid #D4AF37;
+  }
+  .btn-pink:hover {
+    background-color: #163298;
+    box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+  }
+  .btn-outline-white {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    border: 2px solid #D4AF37;
+    color: #ffffff;
+  }
+  .btn-outline-white:hover {
+    background-color: #D4AF37;
+    color: #ffffff;
+  }
+  .btn-outline-navy {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    border: 2px solid #1A3A8F;
+    color: #1A3A8F;
+  }
+  .btn-outline-navy:hover {
+    background-color: #1A3A8F;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(26,58,143,0.3);
+  }
+  .btn-navy {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    background-color: #1A3A8F;
+    color: #ffffff;
+    border: 2px solid #D4AF37;
+  }
+  .btn-navy:hover { background-color: #163298; }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    box-shadow: 0 8px 30px rgba(212,175,55,0.25);
+    transform: translateY(-4px);
+  }
+
+  .section-heading {
+    @apply font-bold text-3xl md:text-4xl;
+    color: #1A3A8F;
+  }
+
+  .discipline-tag {
+    background-color: #ffffff;
+    color: #D4AF37;
+    border: 1.5px solid #D4AF37;
+    @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider inline-block;
+  }
+}
+
+/* Gold hover glow on cards */
+.hover\:border-\[\#D4AF37\]:hover {
+  box-shadow: 0 6px 28px rgba(212,175,55,0.22);
+}
+
+/* Input/select/textarea focus → gold ring */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.15) !important;
+}
+
+/* Navbar "Post a Job" button → royal blue bg + gold border */
+nav a[href="/register/employer"] {
+  background-color: #1A3A8F !important;
+  border: 2px solid #D4AF37 !important;
+  color: #ffffff !important;
+}
+nav a[href="/register/employer"]:hover {
+  background-color: #163298 !important;
+  box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+}
+
+/* "Submit Resume" button → white bg + royal blue text + gold border */
+nav a[href="/register/candidate"] {
+  background-color: #ffffff !important;
+  border: 2px solid #D4AF37 !important;
+  color: #1A3A8F !important;
+}
+nav a[href="/register/candidate"]:hover {
+  background-color: #faf8f0 !important;
+}
+
+/* Featured badge */
+span.absolute:has(+ *) {
+  /* Handled by inline classes */
 }

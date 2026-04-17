@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic';
 import { insforge } from '@/lib/insforge';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, DollarSign, Award, Clock, Briefcase, ArrowLeft, Share2, Bookmark, CheckCircle } from 'lucide-react';
+import { MapPin, DollarSign, Award, Briefcase, ArrowLeft, Share2, Bookmark, CheckCircle } from 'lucide-react';
+import ApplyButton from './ApplyButton';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -100,13 +101,13 @@ export default async function JobDetailPage({ params }: { params: { slug: string
         {/* Breadcrumb */}
         <div className="bg-white border-b border-[#E2E8F0]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 text-sm text-[#4A5568]">
-            <Link href="/" className="hover:text-[#E91E8C] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#D4AF37] transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/jobs" className="hover:text-[#E91E8C] transition-colors">Jobs</Link>
+            <Link href="/jobs" className="hover:text-[#D4AF37] transition-colors">Jobs</Link>
             <span>/</span>
-            <Link href={`/disciplines/${job.discipline_slug}`} className="hover:text-[#E91E8C] transition-colors">{job.discipline}</Link>
+            <Link href={`/disciplines/${job.discipline_slug}`} className="hover:text-[#D4AF37] transition-colors">{job.discipline}</Link>
             <span>/</span>
-            <span className="text-[#0B1F3A] font-medium truncate">{job.title}</span>
+            <span className="text-[#1A3A8F] font-medium truncate">{job.title}</span>
           </div>
         </div>
 
@@ -114,7 +115,7 @@ export default async function JobDetailPage({ params }: { params: { slug: string
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main content */}
             <div className="flex-1 min-w-0">
-              <Link href="/jobs" className="inline-flex items-center gap-2 text-sm text-[#4A5568] hover:text-[#E91E8C] mb-6 transition-colors">
+              <Link href="/jobs" className="inline-flex items-center gap-2 text-sm text-[#4A5568] hover:text-[#D4AF37] mb-6 transition-colors">
                 <ArrowLeft size={16} /> Back to Jobs
               </Link>
 
@@ -129,39 +130,35 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                   {job.is_featured && <span className="discipline-tag bg-yellow-100 text-yellow-700">⭐ Featured</span>}
                 </div>
 
-                <h1 className="text-2xl md:text-3xl font-bold text-[#0B1F3A] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <h1 className="text-2xl md:text-3xl font-bold text-[#1A3A8F] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>
                   {job.title}
                 </h1>
 
                 {/* Meta pills */}
                 <div className="flex flex-wrap gap-4 text-sm text-[#4A5568] mb-8 pb-8 border-b border-[#E2E8F0]">
                   <span className="flex items-center gap-1.5 bg-[#F7F9FC] px-3 py-2 rounded-lg">
-                    <MapPin size={15} className="text-[#E91E8C]" />
+                    <MapPin size={15} className="text-[#D4AF37]" />
                     {job.is_remote ? 'Remote (US)' : `${job.location_city}, ${job.location_state}`}
                   </span>
                   <span className="flex items-center gap-1.5 bg-[#F7F9FC] px-3 py-2 rounded-lg">
-                    <DollarSign size={15} className="text-[#E91E8C]" />
+                    <DollarSign size={15} className="text-[#D4AF37]" />
                     {salaryDisplay}
                   </span>
                   <span className="flex items-center gap-1.5 bg-[#F7F9FC] px-3 py-2 rounded-lg">
-                    <Briefcase size={15} className="text-[#E91E8C]" />
+                    <Briefcase size={15} className="text-[#D4AF37]" />
                     {job.experience_level ? job.experience_level.charAt(0).toUpperCase() + job.experience_level.slice(1) + ' Level' : 'All levels'}
                   </span>
                   {job.license_required && (
-                    <span className="flex items-center gap-1.5 bg-[#FFF0F7] px-3 py-2 rounded-lg border border-[#E91E8C]/20">
-                      <Award size={15} className="text-[#E91E8C]" />
-                      <span className="font-semibold text-[#E91E8C]">{job.license_required}</span>
+                    <span className="flex items-center gap-1.5 bg-[#FFF0F7] px-3 py-2 rounded-lg border border-[#D4AF37]/20">
+                      <Award size={15} className="text-[#D4AF37]" />
+                      <span className="font-semibold text-[#D4AF37]">{job.license_required}</span>
                     </span>
                   )}
-                  <span className="flex items-center gap-1.5 bg-[#F7F9FC] px-3 py-2 rounded-lg">
-                    <Clock size={15} className="text-[#E91E8C]" />
-                    Posted {new Date(job.posted_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                  </span>
                 </div>
 
                 {/* Description */}
                 <div className="mb-8">
-                  <h2 className="text-xl font-bold text-[#0B1F3A] mb-4">About This Role</h2>
+                  <h2 className="text-xl font-bold text-[#1A3A8F] mb-4">About This Role</h2>
                   <div className="text-[#4A5568] leading-relaxed space-y-4">
                     {job.description?.split('\n').map((p: string, i: number) => p.trim() && <p key={i}>{p}</p>)}
                   </div>
@@ -170,11 +167,11 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                 {/* Requirements */}
                 {job.requirements && (
                   <div className="mb-8">
-                    <h2 className="text-xl font-bold text-[#0B1F3A] mb-4">Requirements</h2>
+                    <h2 className="text-xl font-bold text-[#1A3A8F] mb-4">Requirements</h2>
                     <ul className="space-y-2">
                       {job.requirements.split('. ').filter((r: string) => r.trim()).map((req: string, i: number) => (
                         <li key={i} className="flex items-start gap-3 text-[#4A5568]">
-                          <CheckCircle size={16} className="text-[#E91E8C] mt-0.5 shrink-0" />
+                          <CheckCircle size={16} className="text-[#D4AF37] mt-0.5 shrink-0" />
                           <span>{req.trim().replace(/\.$/, '')}.</span>
                         </li>
                       ))}
@@ -185,10 +182,10 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                 {/* Skills */}
                 {job.skills?.length > 0 && (
                   <div className="mb-8">
-                    <h2 className="text-xl font-bold text-[#0B1F3A] mb-4">Key Skills & Tools</h2>
+                    <h2 className="text-xl font-bold text-[#1A3A8F] mb-4">Key Skills & Tools</h2>
                     <div className="flex flex-wrap gap-2">
                       {job.skills.map((skill: string) => (
-                        <span key={skill} className="bg-[#F7F9FC] border border-[#E2E8F0] text-[#0B1F3A] text-sm px-3 py-1.5 rounded-lg font-medium">
+                        <span key={skill} className="bg-[#F7F9FC] border border-[#E2E8F0] text-[#1A3A8F] text-sm px-3 py-1.5 rounded-lg font-medium">
                           {skill}
                         </span>
                       ))}
@@ -199,7 +196,7 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                 {/* Benefits */}
                 {job.benefits && (
                   <div className="bg-[#F7F9FC] rounded-xl p-6">
-                    <h2 className="text-xl font-bold text-[#0B1F3A] mb-4">Benefits & Package</h2>
+                    <h2 className="text-xl font-bold text-[#1A3A8F] mb-4">Benefits & Package</h2>
                     <p className="text-[#4A5568]">{job.benefits}</p>
                   </div>
                 )}
@@ -208,16 +205,16 @@ export default async function JobDetailPage({ params }: { params: { slug: string
               {/* Related Jobs */}
               {relatedJobs.length > 0 && (
                 <div>
-                  <h2 className="text-xl font-bold text-[#0B1F3A] mb-5">Similar {job.discipline} Roles</h2>
+                  <h2 className="text-xl font-bold text-[#1A3A8F] mb-5">Similar {job.discipline} Roles</h2>
                   <div className="grid md:grid-cols-3 gap-4">
                     {relatedJobs.map((rj) => (
                       <Link key={rj.id} href={`/jobs/${rj.slug}`}
-                        className="bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-[#E91E8C] hover:shadow-md transition-all group">
-                        <h3 className="font-bold text-[#0B1F3A] text-sm mb-2 group-hover:text-[#E91E8C] transition-colors leading-snug">{rj.title}</h3>
+                        className="bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-[#D4AF37] hover:shadow-md transition-all group">
+                        <h3 className="font-bold text-[#1A3A8F] text-sm mb-2 group-hover:text-[#D4AF37] transition-colors leading-snug">{rj.title}</h3>
                         <p className="text-xs text-[#4A5568]">
                           {rj.is_remote ? 'Remote' : `${rj.location_city}, ${rj.location_state}`}
                         </p>
-                        <p className="text-xs text-[#E91E8C] mt-2 font-semibold">View Role →</p>
+                        <p className="text-xs text-[#D4AF37] mt-2 font-semibold">View Role →</p>
                       </Link>
                     ))}
                   </div>
@@ -230,28 +227,31 @@ export default async function JobDetailPage({ params }: { params: { slug: string
               <div className="sticky top-24 space-y-5">
                 {/* Apply card */}
                 <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 shadow-sm">
-                  <h3 className="font-bold text-[#0B1F3A] text-lg mb-2">Ready to Apply?</h3>
+                  <h3 className="font-bold text-[#1A3A8F] text-lg mb-2">Ready to Apply?</h3>
                   <p className="text-[#4A5568] text-sm mb-5">
                     Submit your application and a CCPromoters recruiter will be in touch within 1 business day.
                   </p>
-                  <Link href={`/register/candidate?job=${job.slug}`}
-                    className="block bg-[#E91E8C] text-white font-bold text-center py-4 rounded-xl hover:bg-[#C0176E] transition-colors text-lg mb-3">
-                    Apply Now →
-                  </Link>
+                  <ApplyButton
+                    jobId={job.id}
+                    jobTitle={job.title}
+                    jobSlug={job.slug}
+                    discipline={job.discipline}
+                    location={job.is_remote ? 'Remote (US)' : `${job.location_city}, ${job.location_state}`}
+                  />
                   <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#E91E8C] hover:text-[#E91E8C] transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
                       <Bookmark size={15} /> Save Job
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#E91E8C] hover:text-[#E91E8C] transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
                       <Share2 size={15} /> Share
                     </button>
                   </div>
                 </div>
 
                 {/* Recruiter card */}
-                <div className="bg-[#0B1F3A] rounded-2xl p-6">
+                <div className="bg-[#1A3A8F] rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-[#E91E8C] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-12 h-12 bg-[#D4AF37] rounded-full flex items-center justify-center text-white font-bold text-lg">
                       CC
                     </div>
                     <div>
@@ -269,11 +269,11 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                 </div>
 
                 {/* Job alert */}
-                <div className="bg-[#FFF0F7] border border-[#E91E8C]/20 rounded-2xl p-6">
-                  <h4 className="font-bold text-[#0B1F3A] mb-2">Get Job Alerts</h4>
+                <div className="bg-[#FFF0F7] border border-[#D4AF37]/20 rounded-2xl p-6">
+                  <h4 className="font-bold text-[#1A3A8F] mb-2">Get Job Alerts</h4>
                   <p className="text-[#4A5568] text-sm mb-4">Never miss a new {job.discipline} role. Set up a free job alert today.</p>
                   <Link href="/register/candidate"
-                    className="block text-center bg-[#0B1F3A] text-white text-sm font-semibold py-3 rounded-lg hover:bg-[#112850] transition-colors">
+                    className="block text-center bg-[#1A3A8F] text-white text-sm font-semibold py-3 rounded-lg hover:bg-[#163298] transition-colors">
                     Create Free Alert
                   </Link>
                 </div>

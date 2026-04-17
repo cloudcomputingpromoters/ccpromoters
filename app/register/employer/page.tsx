@@ -92,18 +92,18 @@ export default function EmployerRegister() {
     return (
       <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center px-4">
         <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-[#E91E8C]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle size={32} className="text-[#E91E8C]" />
+          <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle size={32} className="text-[#D4AF37]" />
           </div>
-          <h2 className="text-2xl font-bold text-[#0B1F3A] mb-2">Verify Your Email</h2>
+          <h2 className="text-2xl font-bold text-[#1A3A8F] mb-2">Verify Your Email</h2>
           <p className="text-[#4A5568] mb-6">We sent a 6-digit code to <strong>{form.email}</strong></p>
           {error && <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">{error}</div>}
           <form onSubmit={handleVerify} className="space-y-4">
             <input type="text" value={otp} onChange={e => setOtp(e.target.value)} maxLength={6} required
               placeholder="000000"
-              className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-center text-2xl font-bold tracking-widest outline-none focus:border-[#E91E8C]" />
+              className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-center text-2xl font-bold tracking-widest outline-none focus:border-[#D4AF37]" />
             <button type="submit" disabled={loading}
-              className="w-full bg-[#E91E8C] text-white font-bold py-3 rounded-lg hover:bg-[#C0176E] transition-colors">
+              className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B8960C] transition-colors">
               {loading ? 'Verifying...' : 'Verify & Continue'}
             </button>
           </form>
@@ -117,34 +117,34 @@ export default function EmployerRegister() {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#E91E8C] rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#D4AF37] rounded flex items-center justify-center">
               <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
                 <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <span className="font-bold text-[#0B1F3A] text-lg">CC<span className="text-[#E91E8C]">Promoters</span></span>
+            <span className="font-bold text-[#1A3A8F] text-lg">CC<span className="text-[#D4AF37]">Promoters</span></span>
           </Link>
-          <h1 className="text-2xl font-bold text-[#0B1F3A] mt-4">Register as an Employer</h1>
+          <h1 className="text-2xl font-bold text-[#1A3A8F] mt-4">Register as an Employer</h1>
           <p className="text-[#4A5568] mt-1">Start hiring pre-screened civil engineers today</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-5">
-            <h2 className="text-lg font-bold text-[#0B1F3A] pb-3 border-b border-[#E2E8F0]">Company Information</h2>
+            <h2 className="text-lg font-bold text-[#1A3A8F] pb-3 border-b border-[#E2E8F0]">Company Information</h2>
             <Field label="Company Name *" value={form.companyName} onChange={v => update('companyName', v)} placeholder="Apex Civil Engineering" required />
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#0B1F3A] mb-1.5">Industry *</label>
+                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Industry *</label>
                 <select value={form.industry} onChange={e => update('industry', e.target.value)} required
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#E91E8C]">
+                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
                   <option value="">Select...</option>
                   {['Engineering Firm', 'Government Agency', 'Construction Company', 'Consulting Firm', 'Other'].map(o => <option key={o} value={o}>{o}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#0B1F3A] mb-1.5">Company Size</label>
+                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Company Size</label>
                 <select value={form.size} onChange={e => update('size', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#E91E8C]">
+                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
                   <option value="">Select...</option>
                   {['1-10', '11-50', '51-200', '201-500', '500+'].map(s => <option key={s} value={s}>{s} employees</option>)}
                 </select>
@@ -155,7 +155,7 @@ export default function EmployerRegister() {
               <Field label="Primary State" value={form.state} onChange={v => update('state', v)} placeholder="TX" />
             </div>
 
-            <h2 className="text-lg font-bold text-[#0B1F3A] pt-2 pb-3 border-b border-[#E2E8F0]">Contact Person</h2>
+            <h2 className="text-lg font-bold text-[#1A3A8F] pt-2 pb-3 border-b border-[#E2E8F0]">Contact Person</h2>
             <div className="grid grid-cols-2 gap-4">
               <Field label="Contact Name *" value={form.contactName} onChange={v => update('contactName', v)} placeholder="Jane Smith" required />
               <Field label="Job Title" value={form.contactTitle} onChange={v => update('contactTitle', v)} placeholder="HR Director" />
@@ -163,13 +163,13 @@ export default function EmployerRegister() {
             <Field label="Work Email *" type="email" value={form.email} onChange={v => update('email', v)} placeholder="jane@yourfirm.com" required />
             <Field label="Phone Number" type="tel" value={form.phone} onChange={v => update('phone', v)} placeholder="+1 (555) 000-0000" />
 
-            <h2 className="text-lg font-bold text-[#0B1F3A] pt-2 pb-3 border-b border-[#E2E8F0]">Create Password</h2>
+            <h2 className="text-lg font-bold text-[#1A3A8F] pt-2 pb-3 border-b border-[#E2E8F0]">Create Password</h2>
             <div>
-              <label className="block text-sm font-semibold text-[#0B1F3A] mb-1.5">Password *</label>
+              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Password *</label>
               <div className="relative">
                 <input type={showPass ? 'text' : 'password'} value={form.password} onChange={e => update('password', e.target.value)} required
                   placeholder="At least 6 characters"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#E91E8C]" />
+                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#D4AF37]" />
                 <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4A5568]">
                   {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -181,20 +181,20 @@ export default function EmployerRegister() {
 
             <div className="pt-2">
               <button type="submit" disabled={loading}
-                className="w-full bg-[#E91E8C] text-white font-bold py-4 rounded-lg hover:bg-[#C0176E] transition-colors disabled:opacity-70 text-base">
+                className="w-full bg-[#D4AF37] text-white font-bold py-4 rounded-lg hover:bg-[#B8960C] transition-colors disabled:opacity-70 text-base">
                 {loading ? 'Creating Account...' : 'Create Employer Account →'}
               </button>
             </div>
             <p className="text-xs text-[#4A5568] text-center">
               By registering, you agree to our{' '}
-              <Link href="/terms-of-service" className="text-[#E91E8C] hover:underline">Terms</Link> and{' '}
-              <Link href="/privacy-policy" className="text-[#E91E8C] hover:underline">Privacy Policy</Link>.
+              <Link href="/terms-of-service" className="text-[#D4AF37] hover:underline">Terms</Link> and{' '}
+              <Link href="/privacy-policy" className="text-[#D4AF37] hover:underline">Privacy Policy</Link>.
             </p>
           </form>
         </div>
         <p className="text-center text-sm text-[#4A5568] mt-6">
           Looking for a job?{' '}
-          <Link href="/register/candidate" className="text-[#E91E8C] font-semibold hover:underline">Register as a Candidate →</Link>
+          <Link href="/register/candidate" className="text-[#D4AF37] font-semibold hover:underline">Register as a Candidate →</Link>
         </p>
       </div>
     </div>
@@ -206,9 +206,9 @@ function Field({ label, value, onChange, placeholder, type = 'text', required }:
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-[#0B1F3A] mb-1.5">{label}</label>
+      <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">{label}</label>
       <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required}
-        className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#E91E8C] focus:ring-1 focus:ring-[#E91E8C] transition-colors" />
+        className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors" />
     </div>
   );
 }

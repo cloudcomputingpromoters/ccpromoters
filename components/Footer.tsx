@@ -45,23 +45,23 @@ const legalLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0B1F3A] text-white">
+    <footer className="bg-[#1A3A8F] text-white">
       {/* Pink accent line */}
-      <div className="h-1 bg-[#E91E8C]" />
+      <div className="h-1 bg-[#D4AF37]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Row 1: Brand + social */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/10">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-[#E91E8C] rounded flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#D4AF37] rounded flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
                   <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                   <path d="M4 19h16v2H4v-2zm5-9h3v9H9V10zm5-3h3v12h-3V7z" />
                 </svg>
               </div>
               <span className="text-white font-bold text-xl" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                CC<span className="text-[#E91E8C]">Promoters</span>
+                CC<span className="text-[#D4AF37]">Promoters</span>
               </span>
             </Link>
             <p className="text-white/60 text-sm max-w-xs">
@@ -82,7 +82,7 @@ export default function Footer() {
               { label: 'ig', href: 'https://instagram.com' },
             ].map(s => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#E91E8C] flex items-center justify-center transition-colors text-xs font-bold text-white">
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#D4AF37] flex items-center justify-center transition-colors text-xs font-bold text-white">
                 {s.label}
               </a>
             ))}
@@ -96,7 +96,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {quickLinks.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 hover:text-[#E91E8C] text-sm transition-colors">{l.name}</Link>
+                  <Link href={l.href} className="text-white/60 hover:text-[#D4AF37] text-sm transition-colors">{l.name}</Link>
                 </li>
               ))}
             </ul>
@@ -106,7 +106,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {employerLinks.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 hover:text-[#E91E8C] text-sm transition-colors">{l.name}</Link>
+                  <Link href={l.href} className="text-white/60 hover:text-[#D4AF37] text-sm transition-colors">{l.name}</Link>
                 </li>
               ))}
             </ul>
@@ -116,7 +116,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {candidateLinks.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 hover:text-[#E91E8C] text-sm transition-colors">{l.name}</Link>
+                  <Link href={l.href} className="text-white/60 hover:text-[#D4AF37] text-sm transition-colors">{l.name}</Link>
                 </li>
               ))}
             </ul>
@@ -126,11 +126,11 @@ export default function Footer() {
             <ul className="space-y-2">
               {disciplineLinks.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 hover:text-[#E91E8C] text-sm transition-colors">{l.name}</Link>
+                  <Link href={l.href} className="text-white/60 hover:text-[#D4AF37] text-sm transition-colors">{l.name}</Link>
                 </li>
               ))}
               <li>
-                <Link href="/disciplines" className="text-[#E91E8C] text-sm hover:underline">View All →</Link>
+                <Link href="/disciplines" className="text-[#D4AF37] text-sm hover:underline">View All →</Link>
               </li>
             </ul>
           </div>
@@ -139,7 +139,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {legalLinks.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 hover:text-[#E91E8C] text-sm transition-colors">{l.name}</Link>
+                  <Link href={l.href} className="text-white/60 hover:text-[#D4AF37] text-sm transition-colors">{l.name}</Link>
                 </li>
               ))}
             </ul>

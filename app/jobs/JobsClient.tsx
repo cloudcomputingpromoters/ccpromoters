@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MapPin, DollarSign, Clock, Award, Search, X } from 'lucide-react';
+import { MapPin, DollarSign, Award, Search, X } from 'lucide-react';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -48,7 +48,6 @@ type Job = {
   license_required: string | null;
   experience_level: string | null;
   is_featured: boolean;
-  posted_at: string;
 };
 
 function formatSalary(job: Job) {
@@ -65,9 +64,9 @@ function JobCard({ job }: { job: Job }) {
   const colorClass = disciplineColors[job.discipline_slug] || 'bg-gray-100 text-gray-700';
   return (
     <Link href={`/jobs/${job.slug}`}
-      className={`group bg-white rounded-xl border border-[#E2E8F0] p-6 hover:shadow-lg hover:border-[#E91E8C] transition-all duration-300 hover:-translate-y-0.5 flex flex-col gap-4 border-l-4 ${job.is_featured ? 'border-l-[#E91E8C]' : 'border-l-transparent hover:border-l-[#E91E8C]'}`}>
+      className={`group bg-white rounded-xl border border-[#E2E8F0] p-6 hover:shadow-lg hover:border-[#D4AF37] transition-all duration-300 hover:-translate-y-0.5 flex flex-col gap-4 border-l-4 ${job.is_featured ? 'border-l-[#D4AF37]' : 'border-l-transparent hover:border-l-[#D4AF37]'}`}>
       {job.is_featured && (
-        <div className="text-xs text-[#E91E8C] font-semibold uppercase tracking-wider">⭐ Featured</div>
+        <div className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider">⭐ Featured</div>
       )}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-wrap gap-2">
@@ -80,31 +79,27 @@ function JobCard({ job }: { job: Job }) {
           <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full shrink-0">Remote</span>
         )}
       </div>
-      <h3 className="font-bold text-[#0B1F3A] text-lg group-hover:text-[#E91E8C] transition-colors leading-snug">
+      <h3 className="font-bold text-[#1A3A8F] text-lg group-hover:text-[#D4AF37] transition-colors leading-snug">
         {job.title}
       </h3>
       <div className="flex flex-wrap gap-4 text-sm text-[#4A5568]">
         <span className="flex items-center gap-1.5">
-          <MapPin size={14} className="text-[#E91E8C]" />
+          <MapPin size={14} className="text-[#D4AF37]" />
           {job.is_remote ? 'Remote (US)' : [job.location_city, job.location_state].filter(Boolean).join(', ')}
         </span>
         <span className="flex items-center gap-1.5">
-          <DollarSign size={14} className="text-[#E91E8C]" />
+          <DollarSign size={14} className="text-[#D4AF37]" />
           {formatSalary(job)}
         </span>
         {job.license_required && (
           <span className="flex items-center gap-1.5">
-            <Award size={14} className="text-[#E91E8C]" />
+            <Award size={14} className="text-[#D4AF37]" />
             {job.license_required}
           </span>
         )}
       </div>
-      <div className="flex items-center justify-between pt-2 border-t border-[#E2E8F0] mt-auto">
-        <span className="flex items-center gap-1 text-xs text-[#4A5568]">
-          <Clock size={12} />
-          {new Date(job.posted_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-        </span>
-        <span className="text-[#E91E8C] text-sm font-semibold">View Role →</span>
+      <div className="flex items-center justify-end pt-2 border-t border-[#E2E8F0] mt-auto">
+        <span className="text-[#D4AF37] text-sm font-semibold">View Role →</span>
       </div>
     </Link>
   );
@@ -155,7 +150,7 @@ export default function JobsClient({
   return (
     <div className="min-h-screen bg-[#F7F9FC]">
       {/* Search Hero */}
-      <div className="bg-gradient-to-r from-[#0B1F3A] to-[#112850] py-14 px-4">
+      <div className="bg-gradient-to-r from-[#1A3A8F] to-[#163298] py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
             Find Your Next Civil Engineering Role
@@ -163,31 +158,31 @@ export default function JobsClient({
           <p className="text-white/60 text-center mb-8">{total} active roles across all disciplines</p>
           <div className="bg-white rounded-xl shadow-xl p-2 flex flex-col md:flex-row gap-2">
             <div className="flex items-center gap-2 flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-[#E2E8F0]">
-              <Search size={18} className="text-[#E91E8C] shrink-0" />
+              <Search size={18} className="text-[#D4AF37] shrink-0" />
               <input
                 type="text"
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && applyFilters()}
                 placeholder="Job title, discipline, skills..."
-                className="flex-1 outline-none text-[#0B1F3A] text-sm"
+                className="flex-1 outline-none text-[#1A3A8F] text-sm"
               />
               {keyword && <button onClick={() => setKeyword('')}><X size={14} className="text-[#4A5568]" /></button>}
             </div>
             <div className="flex items-center gap-2 flex-1 px-4 py-2">
-              <MapPin size={18} className="text-[#E91E8C] shrink-0" />
+              <MapPin size={18} className="text-[#D4AF37] shrink-0" />
               <input
                 type="text"
                 value={location}
                 onChange={e => setLocation(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && applyFilters()}
                 placeholder="City or state..."
-                className="flex-1 outline-none text-[#0B1F3A] text-sm"
+                className="flex-1 outline-none text-[#1A3A8F] text-sm"
               />
             </div>
             <button
               onClick={() => applyFilters()}
-              className="bg-[#E91E8C] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#C0176E] transition-colors whitespace-nowrap">
+              className="bg-[#D4AF37] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#B8960C] transition-colors whitespace-nowrap">
               Search Jobs
             </button>
           </div>
@@ -197,7 +192,7 @@ export default function JobsClient({
             {disciplineChips.map(chip => (
               <button key={chip.value} onClick={() => setDiscipline(chip.value)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${activeDiscipline === chip.value
-                  ? 'bg-[#E91E8C] text-white'
+                  ? 'bg-[#D4AF37] text-white'
                   : 'bg-white/20 text-white hover:bg-white/30'}`}>
                 {chip.label}
               </button>
@@ -212,17 +207,17 @@ export default function JobsClient({
           <aside className="lg:w-64 shrink-0">
             <div className="bg-white rounded-xl border border-[#E2E8F0] p-6 sticky top-24">
               <div className="flex items-center justify-between mb-5">
-                <h3 className="font-bold text-[#0B1F3A]">Filter Results</h3>
-                <button onClick={() => router.push('/jobs')} className="text-xs text-[#E91E8C] hover:underline">Clear All</button>
+                <h3 className="font-bold text-[#1A3A8F]">Filter Results</h3>
+                <button onClick={() => router.push('/jobs')} className="text-xs text-[#D4AF37] hover:underline">Clear All</button>
               </div>
 
               {/* Employment type */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold text-[#0B1F3A] mb-3">Employment Type</label>
+                <label className="block text-sm font-semibold text-[#1A3A8F] mb-3">Employment Type</label>
                 {[{ label: 'All Types', value: '' }, { label: 'Permanent', value: 'permanent' }, { label: 'Contract', value: 'contract' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
                     <input type="radio" name="type" checked={typeFilter === opt.value} onChange={() => { setTypeFilter(opt.value); applyFilters({ type: opt.value }); }}
-                      className="accent-[#E91E8C]" />
+                      className="accent-[#D4AF37]" />
                     <span className="text-sm text-[#4A5568]">{opt.label}</span>
                   </label>
                 ))}
@@ -230,11 +225,11 @@ export default function JobsClient({
 
               {/* Work style */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold text-[#0B1F3A] mb-3">Work Style</label>
+                <label className="block text-sm font-semibold text-[#1A3A8F] mb-3">Work Style</label>
                 {[{ label: 'All', value: '' }, { label: 'Remote Only', value: 'true' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
                     <input type="radio" name="remote" checked={remoteFilter === opt.value} onChange={() => { setRemoteFilter(opt.value); applyFilters({ remote: opt.value }); }}
-                      className="accent-[#E91E8C]" />
+                      className="accent-[#D4AF37]" />
                     <span className="text-sm text-[#4A5568]">{opt.label}</span>
                   </label>
                 ))}
@@ -242,11 +237,11 @@ export default function JobsClient({
 
               {/* License */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold text-[#0B1F3A] mb-3">License Required</label>
+                <label className="block text-sm font-semibold text-[#1A3A8F] mb-3">License Required</label>
                 {[{ label: 'Any', value: '' }, { label: 'PE Licensed', value: 'PE' }, { label: 'EIT / Engineer-in-Training', value: 'EIT' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
                     <input type="radio" name="license" checked={licenseFilter === opt.value} onChange={() => { setLicenseFilter(opt.value); applyFilters({ license: opt.value }); }}
-                      className="accent-[#E91E8C]" />
+                      className="accent-[#D4AF37]" />
                     <span className="text-sm text-[#4A5568]">{opt.label}</span>
                   </label>
                 ))}
@@ -254,7 +249,7 @@ export default function JobsClient({
 
               <div className="pt-4 border-t border-[#E2E8F0]">
                 <Link href="/register/candidate"
-                  className="block text-center bg-[#0B1F3A] text-white text-sm font-semibold py-3 rounded-lg hover:bg-[#112850] transition-colors">
+                  className="block text-center bg-[#1A3A8F] text-white text-sm font-semibold py-3 rounded-lg hover:bg-[#163298] transition-colors">
                   Submit Resume for Hidden Roles
                 </Link>
               </div>
@@ -272,7 +267,7 @@ export default function JobsClient({
             {initialJobs.length === 0 ? (
               <div className="bg-white rounded-xl border border-[#E2E8F0] p-16 text-center">
                 <div className="text-5xl mb-4">🔍</div>
-                <h3 className="font-bold text-[#0B1F3A] text-xl mb-2">No jobs found</h3>
+                <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">No jobs found</h3>
                 <p className="text-[#4A5568] mb-6">Try adjusting your filters or browse all disciplines.</p>
                 <Link href="/jobs" className="btn-pink">Clear Filters</Link>
               </div>
@@ -287,19 +282,19 @@ export default function JobsClient({
               <div className="flex items-center justify-center gap-2 mt-10">
                 {page > 1 && (
                   <Link href={`/jobs?${new URLSearchParams({ ...searchParams, page: String(page - 1) })}`}
-                    className="px-4 py-2 border border-[#E2E8F0] rounded-lg text-sm hover:border-[#E91E8C] text-[#4A5568]">
+                    className="px-4 py-2 border border-[#E2E8F0] rounded-lg text-sm hover:border-[#D4AF37] text-[#4A5568]">
                     ← Previous
                   </Link>
                 )}
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
                   <Link key={p} href={`/jobs?${new URLSearchParams({ ...searchParams, page: String(p) })}`}
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${p === page ? 'bg-[#E91E8C] text-white' : 'border border-[#E2E8F0] text-[#4A5568] hover:border-[#E91E8C]'}`}>
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${p === page ? 'bg-[#D4AF37] text-white' : 'border border-[#E2E8F0] text-[#4A5568] hover:border-[#D4AF37]'}`}>
                     {p}
                   </Link>
                 ))}
                 {page < totalPages && (
                   <Link href={`/jobs?${new URLSearchParams({ ...searchParams, page: String(page + 1) })}`}
-                    className="px-4 py-2 border border-[#E2E8F0] rounded-lg text-sm hover:border-[#E91E8C] text-[#4A5568]">
+                    className="px-4 py-2 border border-[#E2E8F0] rounded-lg text-sm hover:border-[#D4AF37] text-[#4A5568]">
                     Next →
                   </Link>
                 )}

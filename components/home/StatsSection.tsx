@@ -41,18 +41,18 @@ function CountUp({ target, suffix, duration = 2000 }: { target: number; suffix: 
 
 export default function StatsSection() {
   return (
-    <section className="bg-[#0B1F3A] py-20">
+    <section className="bg-[#1A3A8F] py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>
-            The Numbers Behind Our <span className="text-[#E91E8C]">Track Record</span>
+            The Numbers Behind Our <span className="text-[#D4AF37]">Track Record</span>
           </h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map(stat => (
             <div key={stat.label} className="text-center">
               <div className="text-4xl mb-4">{stat.icon}</div>
-              <div className="text-4xl md:text-5xl font-bold text-[#E91E8C] mb-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              <div className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
                 <CountUp target={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-white font-semibold mb-1">{stat.label}</div>
