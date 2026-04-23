@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { User, Phone, Mail, Briefcase, MapPin, FileText } from 'lucide-react';
@@ -52,7 +52,7 @@ function ApplyFormContent() {
       if (response.ok) setSubmitted(true);
       else alert("Submission failed, please try again.");
       
-    } catch (err) {
+    } catch {
       alert("Connection error.");
     } finally {
       setSubmitting(false);
