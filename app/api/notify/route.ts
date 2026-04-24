@@ -4,13 +4,15 @@ import nodemailer from 'nodemailer';
 const HR_EMAIL = 'hr@ccpromoters.com';
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  host: process.env.SMTP_HOST || 'smtp.zoho.com',
   port: parseInt(process.env.SMTP_PORT || '587'),
   secure: false,
+  requireTLS: true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: { rejectUnauthorized: true },
 });
 
 const templates = {
@@ -131,9 +133,8 @@ const templates = {
 
 export async function POST(req: NextRequest) {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    // SMTP not configured — log and return success so UI isn't broken
-    console.warn('[notify] SMTP not configured, skipping email');
-    return NextResponse.json({ ok: true, skipped: true });
+    console.error('[notify] SMTP_USER and SMTP_PASS env vars are not set — email skipped');
+    return NextResponse.json({ ok: false, error: 'SMTP not configured' }, { status: 503 });
   }
 
   try {
