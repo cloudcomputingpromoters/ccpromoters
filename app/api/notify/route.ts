@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 const HR_EMAIL = 'hr@ccpromoters.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://cizr93dz.insforge.site';
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.zoho.com',
@@ -34,7 +35,7 @@ const templates = {
             <tr><td style="padding:8px 0;color:#718096"><strong>Job Type</strong></td><td style="color:#1A3A8F">${data.jobType || '—'}</td></tr>
           </table>
           <div style="margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0">
-            <a href="https://ccpromoters.com/dashboard/admin/candidates" style="background:#D4AF37;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold">
+            <a href="${SITE_URL}/dashboard/admin/candidates" style="background:#D4AF37;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold">
               View in Admin Panel →
             </a>
           </div>
@@ -59,7 +60,7 @@ const templates = {
           </table>
           ${data.fileUrl ? `<div style="margin-top:16px"><a href="${data.fileUrl}" style="background:#D4AF37;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold">Download Resume →</a></div>` : ''}
           <div style="margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0">
-            <a href="https://ccpromoters.com/dashboard/admin/candidates" style="color:#1A3A8F;font-size:14px">View in Admin Panel →</a>
+            <a href="${SITE_URL}/dashboard/admin/candidates" style="color:#1A3A8F;font-size:14px">View in Admin Panel →</a>
           </div>
         </div>
       </div>
@@ -90,7 +91,7 @@ const templates = {
             <a href="mailto:${data.email}" style="background:#D4AF37;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;display:inline-block">
               Reply to ${data.name} →
             </a>
-            <a href="https://ccpromoters.com/dashboard/admin/contacts" style="margin-left:12px;color:#1A3A8F;font-size:14px;text-decoration:none">
+            <a href="${SITE_URL}/dashboard/admin/contacts" style="margin-left:12px;color:#1A3A8F;font-size:14px;text-decoration:none">
               View in Admin →
             </a>
           </div>
@@ -123,7 +124,7 @@ const templates = {
             ${data.resumeUrl ? `<a href="${data.resumeUrl}" style="background:#1A3A8F;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;display:inline-block">Download Resume →</a>` : ''}
           </div>
           <div style="margin-top:16px">
-            <a href="https://ccpromoters.com/dashboard/admin/applications" style="color:#1A3A8F;font-size:13px;text-decoration:none">View in Admin Panel →</a>
+            <a href="${SITE_URL}/dashboard/admin/applications" style="color:#1A3A8F;font-size:13px;text-decoration:none">View in Admin Panel →</a>
           </div>
         </div>
       </div>

@@ -30,7 +30,8 @@ export default function EmployerLayout({ children }: { children: React.ReactNode
       if (!data?.user) { router.replace('/login'); return; }
 
       const u = data.user;
-      const role = (u.metadata as Record<string, unknown>)?.role;
+      const role = (u.metadata as Record<string, unknown>)?.role
+               ?? (u.profile as Record<string, unknown>)?.role;
       if (role === 'admin') { router.replace('/dashboard/admin'); return; }
 
       // Verify employer profile exists

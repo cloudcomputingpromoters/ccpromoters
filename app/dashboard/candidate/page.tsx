@@ -88,17 +88,23 @@ export default function CandidateDashboard() {
         candidate = newCandidate;
       }
 
-      // applications.candidate_id = auth user.id (consistent with ApplyButton and applications sub-page)
+      // Both applications and saved_jobs use candidates.id as FK (not auth user.id)
+      if (!candidate) {
+        setApplications([]);
+        setSavedJobs([]);
+        setLoading(false);
+        return;
+      }
       const [appsRes, savedRes] = await Promise.all([
         insforge.database
           .from('applications')
           .select('*, jobs(title, slug, discipline, location_city, location_state, is_remote, salary_min, salary_max, employment_type)')
-          .eq('candidate_id', userData.user.id)
+          .eq('candidate_id', candidate.id)
           .order('applied_at', { ascending: false }),
         insforge.database
           .from('saved_jobs')
           .select('*, jobs(id, title, slug, discipline, location_city, location_state, is_remote, salary_min, salary_max, employment_type, posted_at)')
-          .eq('candidate_id', candidate?.id || userData.user.id)
+          .eq('candidate_id', candidate.id)
           .order('saved_at', { ascending: false }),
       ]);
       setApplications(appsRes.data || []);

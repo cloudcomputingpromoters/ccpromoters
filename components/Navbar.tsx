@@ -77,8 +77,10 @@ export default function Navbar() {
         const user = data.user;
         setAuthUser(user);
 
-        // Admin: check metadata.role (set when admin user was created)
-        if ((user.metadata as Record<string, unknown>)?.role === 'admin') {
+        // Admin: check metadata.role or profile.role
+        const metaRole = (user.metadata as Record<string, unknown>)?.role
+                      ?? (user.profile as Record<string, unknown>)?.role;
+        if (metaRole === 'admin') {
           setUserRole('admin');
           setAuthLoading(false);
           return;

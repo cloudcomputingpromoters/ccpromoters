@@ -29,8 +29,10 @@ export default function LoginPage() {
 
     if (data?.user) {
       const u = data.user;
-      // Admin check via metadata.role
-      if ((u.metadata as Record<string, unknown>)?.role === 'admin') {
+      // Admin check via metadata.role or profile.role
+      const role = (u.metadata as Record<string, unknown>)?.role
+                ?? (u.profile as Record<string, unknown>)?.role;
+      if (role === 'admin') {
         router.push('/dashboard/admin');
         return;
       }

@@ -3,8 +3,9 @@ export const dynamic = 'force-dynamic';
 import { insforge } from '@/lib/insforge';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, DollarSign, Award, Briefcase, ArrowLeft, Share2, Bookmark, CheckCircle } from 'lucide-react';
+import { MapPin, DollarSign, Award, Briefcase, ArrowLeft, Share2, CheckCircle } from 'lucide-react';
 import ApplyButton from './ApplyButton';
+import SaveJobButton from './SaveJobButton';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -239,9 +240,7 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                     location={job.is_remote ? 'Remote (US)' : `${job.location_city}, ${job.location_state}`}
                   />
                   <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
-                      <Bookmark size={15} /> Save Job
-                    </button>
+                    <SaveJobButton jobId={job.id} />
                     <button className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
                       <Share2 size={15} /> Share
                     </button>

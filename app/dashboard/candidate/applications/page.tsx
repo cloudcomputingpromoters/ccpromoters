@@ -40,10 +40,20 @@ export default function CandidateApplicationsPage() {
     async function load() {
       const { data: userData } = await insforge.auth.getCurrentUser();
       if (!userData?.user) { window.location.href = '/login'; return; }
+
+      // applications.candidate_id is a FK to candidates.id (not auth user id)
+      const { data: candidate } = await insforge.database
+        .from('candidates')
+        .select('id')
+        .eq('user_id', userData.user.id)
+        .maybeSingle();
+
+      if (!candidate) { setLoading(false); return; }
+
       const { data } = await insforge.database
         .from('applications')
         .select('id, status, applied_at, job_id, jobs(title, slug, discipline, location_city, location_state, is_remote, employment_type, salary_min, salary_max)')
-        .eq('candidate_id', userData.user.id)
+        .eq('candidate_id', candidate.id)
         .order('applied_at', { ascending: false });
       setApplications(data || []);
       setLoading(false);

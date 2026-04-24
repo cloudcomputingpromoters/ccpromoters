@@ -30,7 +30,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     insforge.auth.getCurrentUser().then(({ data }) => {
       const u = data?.user;
-      const isAdmin = (u?.metadata as Record<string, unknown>)?.role === 'admin';
+      const roleVal = (u?.metadata as Record<string, unknown>)?.role
+                   ?? (u?.profile as Record<string, unknown>)?.role;
+      const isAdmin = roleVal === 'admin';
       if (!u || !isAdmin) {
         window.location.href = '/login';
         return;

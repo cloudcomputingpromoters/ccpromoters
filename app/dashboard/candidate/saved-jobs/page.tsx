@@ -15,10 +15,20 @@ export default function SavedJobsPage() {
     async function load() {
       const { data: userData } = await insforge.auth.getCurrentUser();
       if (!userData?.user) { window.location.href = '/login'; return; }
+
+      // saved_jobs.candidate_id is a FK to candidates.id (not auth user id)
+      const { data: candidate } = await insforge.database
+        .from('candidates')
+        .select('id')
+        .eq('user_id', userData.user.id)
+        .maybeSingle();
+
+      if (!candidate) { setLoading(false); return; }
+
       const { data } = await insforge.database
         .from('saved_jobs')
         .select('*, jobs(id, title, slug, discipline, location_city, location_state, is_remote, salary_min, salary_max, employment_type, status)')
-        .eq('candidate_id', userData.user.id)
+        .eq('candidate_id', candidate.id)
         .order('saved_at', { ascending: false });
       setSavedJobs(data || []); setLoading(false);
     }
