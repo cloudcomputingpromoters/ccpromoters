@@ -124,13 +124,13 @@ export default function Navbar() {
   return (
     <>
       {/* Announcement bar */}
-      <div className="bg-[#D4AF37] text-white text-center text-sm py-2 font-medium z-50 relative">
+      <div className="bg-[#CC1016] text-white text-center text-sm py-2 font-medium z-50 relative">
         Now Hiring: 200+ Active Civil Engineering Roles Across the US —{' '}
         <Link href="/jobs" className="underline font-bold hover:text-white/80">Browse Openings</Link>
       </div>
 
       {/* Main navbar */}
-      <nav className={`sticky top-0 z-40 bg-[#1A3A8F] transition-shadow duration-300 ${scrolled ? 'shadow-xl' : 'shadow-md'}`}>
+      <nav className={`sticky top-0 z-40 bg-[#0D0D0D] transition-shadow duration-300 ${scrolled ? 'shadow-xl' : 'shadow-md'}`}>
         <div className="h-0.5 bg-gradient-to-r from-[#D4AF37] via-[#D4AF37]/60 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +138,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <div className="w-8 h-8 bg-[#D4AF37] rounded flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#CC1016] rounded flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
                   <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                   <rect x="9" y="12" width="6" height="8" fill="white"/>
@@ -147,7 +147,7 @@ export default function Navbar() {
                 </svg>
               </div>
               <span className="font-extrabold text-xl tracking-tight" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <span className="text-white">CC</span><span className="text-[#D4AF37]">Promoters</span>
+                <span className="text-white">CC</span><span className="text-[#CC1016]">Promoters</span>
               </span>
             </Link>
 
@@ -171,28 +171,28 @@ export default function Navbar() {
                   <div className="absolute top-full left-0 mt-1 w-[480px] bg-white rounded-xl shadow-2xl py-4 z-50 border border-gray-100">
                     <div className="grid grid-cols-2 gap-0 divide-x divide-gray-100">
                       <div className="px-4">
-                        <p className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-2 px-0">For Employers</p>
+                        <p className="text-xs font-bold text-[#CC1016] uppercase tracking-wider mb-2 px-0">For Employers</p>
                         {employerServices.map(s => (
                           <Link key={s.slug} href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#1A3A8F] hover:bg-[#F7F9FC] hover:text-[#D4AF37] rounded-lg transition-colors">
-                            <span className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full shrink-0" />
+                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] rounded-lg transition-colors">
+                            <span className="w-1.5 h-1.5 bg-[#CC1016] rounded-full shrink-0" />
                             {s.name}
                           </Link>
                         ))}
                       </div>
                       <div className="px-4">
-                        <p className="text-xs font-bold text-[#1A3A8F] uppercase tracking-wider mb-2 px-0">For Candidates</p>
+                        <p className="text-xs font-bold text-[#0D0D0D] uppercase tracking-wider mb-2 px-0">For Candidates</p>
                         {candidateServices.map(s => (
                           <Link key={s.slug} href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#1A3A8F] hover:bg-[#F7F9FC] hover:text-[#D4AF37] rounded-lg transition-colors">
-                            <span className="w-1.5 h-1.5 bg-[#1A3A8F] rounded-full shrink-0" />
+                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] rounded-lg transition-colors">
+                            <span className="w-1.5 h-1.5 bg-[#0D0D0D] rounded-full shrink-0" />
                             {s.name}
                           </Link>
                         ))}
                       </div>
                     </div>
                     <div className="mt-3 mx-4 pt-3 border-t border-gray-100">
-                      <Link href="/services" className="block text-center text-sm font-semibold text-[#D4AF37] hover:text-[#B8960C] transition-colors">
+                      <Link href="/services" className="block text-center text-sm font-semibold text-[#CC1016] hover:text-[#B8960C] transition-colors">
                         View All Services →
                       </Link>
                     </div>
@@ -209,8 +209,8 @@ export default function Navbar() {
                   <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100">
                     {disciplines.map(d => (
                       <Link key={d.slug} href={`/disciplines/${d.slug}`}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#1A3A8F] hover:bg-[#F7F9FC] hover:text-[#D4AF37] transition-colors">
-                        <span className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full shrink-0" />
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] transition-colors">
+                        <span className="w-1.5 h-1.5 bg-[#CC1016] rounded-full shrink-0" />
                         {d.name}
                       </Link>
                     ))}
@@ -246,7 +246,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-2">
                   {/* Avatar + name */}
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-[#D4AF37] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-8 h-8 bg-[#CC1016] rounded-full flex items-center justify-center text-white text-xs font-bold">
                       {getInitials(authUser.email)}
                     </div>
                     <span className="text-white/80 text-sm hidden xl:block max-w-[120px] truncate">
@@ -258,13 +258,13 @@ export default function Navbar() {
                   {userRole === 'admin' ? (
                     <Link href="/dashboard/admin"
                       className="flex items-center gap-1.5 text-white/85 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-all">
-                      <Shield size={14} className="text-[#D4AF37]" />
+                      <Shield size={14} className="text-[#CC1016]" />
                       Admin Panel
                     </Link>
                   ) : (
                     <Link href={dashboardHref}
                       className="flex items-center gap-1.5 text-white/85 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-all">
-                      <LayoutDashboard size={14} className="text-[#D4AF37]" />
+                      <LayoutDashboard size={14} className="text-[#CC1016]" />
                       My Dashboard
                     </Link>
                   )}
@@ -284,11 +284,11 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link href="/register/employer"
-                    className="bg-[#D4AF37] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#B8960C] transition-colors shadow-sm">
+                    className="bg-[#CC1016] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#B8960C] transition-colors shadow-sm">
                     Post a Job
                   </Link>
                   <Link href="/register/candidate"
-                    className="bg-white text-[#1A3A8F] text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors shadow-sm">
+                    className="bg-white text-[#0D0D0D] text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors shadow-sm">
                     Submit Resume
                   </Link>
                 </>
@@ -325,7 +325,7 @@ export default function Navbar() {
               {authUser ? (
                 <>
                   <Link href={dashboardHref}
-                    className="block text-center bg-[#D4AF37] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
+                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
                     onClick={() => setMobileOpen(false)}>
                     {userRole === 'admin' ? 'Admin Panel' : 'My Dashboard'}
                   </Link>
@@ -342,12 +342,12 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link href="/register/employer"
-                    className="block text-center bg-[#D4AF37] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
+                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
                     onClick={() => setMobileOpen(false)}>
                     Post a Job
                   </Link>
                   <Link href="/register/candidate"
-                    className="block text-center bg-white text-[#1A3A8F] font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="block text-center bg-white text-[#0D0D0D] font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
                     onClick={() => setMobileOpen(false)}>
                     Submit Resume
                   </Link>
@@ -360,10 +360,10 @@ export default function Navbar() {
 
       {/* Search overlay */}
       {searchOpen && (
-        <div className="fixed inset-0 bg-[#1A3A8F]/95 z-50 flex items-start justify-center pt-24 px-4">
+        <div className="fixed inset-0 bg-[#0D0D0D]/95 z-50 flex items-start justify-center pt-24 px-4">
           <div className="w-full max-w-2xl">
             <div className="flex items-center gap-3 bg-white rounded-xl px-5 py-4 shadow-2xl">
-              <Search size={22} className="text-[#D4AF37] shrink-0" />
+              <Search size={22} className="text-[#CC1016] shrink-0" />
               <input
                 autoFocus
                 type="text"
@@ -376,9 +376,9 @@ export default function Navbar() {
                   }
                   if (e.key === 'Escape') setSearchOpen(false);
                 }}
-                className="flex-1 outline-none text-[#1A3A8F] text-lg placeholder:text-gray-400"
+                className="flex-1 outline-none text-[#0D0D0D] text-lg placeholder:text-gray-400"
               />
-              <button onClick={() => setSearchOpen(false)} className="text-gray-400 hover:text-[#1A3A8F] transition-colors">
+              <button onClick={() => setSearchOpen(false)} className="text-gray-400 hover:text-[#0D0D0D] transition-colors">
                 <X size={20} />
               </button>
             </div>

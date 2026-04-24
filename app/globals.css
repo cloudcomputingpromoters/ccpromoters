@@ -4,133 +4,257 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+   Black / White / Red  +  Gold borders only
+───────────────────────────────────────────── */
 :root {
-  --royal-blue: #1A3A8F;
-  --royal-blue-dark: #163298;
-  --gold: #D4AF37;
-  --gold-dark: #B8960C;
+  --black:      #0D0D0D;
+  --black-soft: #1A1A1A;
+  --red:        #CC1016;
+  --red-dark:   #A80D12;
+  --white:      #FFFFFF;
+  --gold:       #C9A84C;   /* borders & premium accents only */
+  --gold-dark:  #A8853A;
+  --gray-light: #F5F5F5;
+  --gray-mid:   #E5E5E5;
+  --text-muted: #6B6B6B;
 }
 
+/* ─────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────── */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #1A3A8F;
-  background: #ffffff;
+  color: var(--black);
+  background: var(--white);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Manrope', sans-serif;
-  color: #1A3A8F;
+  color: var(--black);
 }
 
+/* ─────────────────────────────────────────────
+   SCROLL PROGRESS BAR
+───────────────────────────────────────────── */
 #scroll-progress {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #D4AF37, #1A3A8F);
+  background: linear-gradient(90deg, var(--gold), var(--red));
   z-index: 9999;
   transition: width 0.1s;
   width: 0%;
 }
 
+/* ─────────────────────────────────────────────
+   COMPONENT LIBRARY
+───────────────────────────────────────────── */
 @layer components {
-  .btn-pink {
-    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
-    background-color: #1A3A8F;
-    color: #ffffff;
-    border: 2px solid #D4AF37;
-  }
-  .btn-pink:hover {
-    background-color: #163298;
-    box-shadow: 0 4px 20px rgba(212,175,55,0.35);
-  }
-  .btn-outline-white {
-    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
-    border: 2px solid #D4AF37;
-    color: #ffffff;
-  }
-  .btn-outline-white:hover {
-    background-color: #D4AF37;
-    color: #ffffff;
-  }
-  .btn-outline-navy {
-    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
-    border: 2px solid #1A3A8F;
-    color: #1A3A8F;
-  }
-  .btn-outline-navy:hover {
-    background-color: #1A3A8F;
-    color: #ffffff;
-    box-shadow: 0 4px 20px rgba(26,58,143,0.3);
-  }
-  .btn-navy {
-    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-all duration-200;
-    background-color: #1A3A8F;
-    color: #ffffff;
-    border: 2px solid #D4AF37;
-  }
-  .btn-navy:hover { background-color: #163298; }
 
+  /* ── BUTTONS ── */
+
+  /* Primary: Red fill + Gold border  →  "Apply Now", main CTAs */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5;
+    background-color: var(--red);
+    color: var(--white);
+    border: 2px solid var(--gold);
+  }
+  .btn-primary:hover {
+    background-color: var(--red-dark);
+    box-shadow: 0 6px 24px rgba(204, 16, 22, 0.40);
+  }
+
+  /* Secondary: Black fill + Gold border  →  "Post a Job", secondary CTAs */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5;
+    background-color: var(--black);
+    color: var(--white);
+    border: 2px solid var(--gold);
+  }
+  .btn-secondary:hover {
+    background-color: var(--black-soft);
+    box-shadow: 0 6px 24px rgba(201, 168, 76, 0.35);
+  }
+
+  /* Ghost: Transparent + Gold border  →  on dark sections */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--gold);
+  }
+  .btn-ghost:hover {
+    background-color: var(--gold);
+    color: var(--black);
+  }
+
+  /* Outline Red: Transparent + Red border  →  alternative CTA */
+  .btn-outline-red {
+    @apply inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    background: transparent;
+    color: var(--red);
+    border: 2px solid var(--red);
+  }
+  .btn-outline-red:hover {
+    background-color: var(--red);
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(204, 16, 22, 0.35);
+  }
+
+  /* ── BACKWARD-COMPAT ALIASES ── */
+  .btn-pink        { @apply btn-primary; }
+  .btn-navy        { @apply btn-secondary; }
+  .btn-outline-navy  { @apply btn-outline-red; }
+  .btn-outline-white { @apply btn-ghost; }
+
+  /* ── SECTION UTILITIES ── */
+
+  /* Dark section — black bg, white text */
+  .section-dark {
+    background-color: var(--black);
+    color: var(--white);
+  }
+  .section-dark h1,
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark h4,
+  .section-dark h5,
+  .section-dark h6 { color: var(--white); }
+
+  /* Light section — white bg, black text */
+  .section-light {
+    background-color: var(--white);
+    color: var(--black);
+  }
+
+  /* Gray section — subtle off-white bg */
+  .section-gray {
+    background-color: var(--gray-light);
+    color: var(--black);
+  }
+
+  /* Red accent section */
+  .section-red {
+    background-color: var(--red);
+    color: var(--white);
+  }
+  .section-red h1,
+  .section-red h2,
+  .section-red h3 { color: var(--white); }
+
+  /* ── CARDS ── */
+
+  /* Gold-border card — premium containers */
+  .card-gold {
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    @apply transition-all duration-300;
+  }
+  .card-gold:hover {
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.30);
+    transform: translateY(-4px);
+  }
+
+  /* Standard hover card */
   .card-hover {
     @apply transition-all duration-300;
   }
   .card-hover:hover {
-    box-shadow: 0 8px 30px rgba(212,175,55,0.25);
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.22);
     transform: translateY(-4px);
   }
 
+  /* ── TYPOGRAPHY ── */
+
   .section-heading {
     @apply font-bold text-3xl md:text-4xl;
-    color: #1A3A8F;
+    color: var(--black);
+  }
+  .section-heading-light {
+    @apply font-bold text-3xl md:text-4xl;
+    color: var(--white);
+  }
+  .section-heading-red {
+    @apply font-bold text-3xl md:text-4xl;
+    color: var(--red);
   }
 
+  /* ── TAGS / BADGES ── */
+
   .discipline-tag {
-    background-color: #ffffff;
-    color: #D4AF37;
-    border: 1.5px solid #D4AF37;
+    background-color: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider inline-block;
+  }
+  .tag-red {
+    background-color: transparent;
+    color: var(--red);
+    border: 1.5px solid var(--red);
     @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider inline-block;
   }
 }
 
-/* Gold hover glow on cards */
-.hover\:border-\[\#D4AF37\]:hover {
-  box-shadow: 0 6px 28px rgba(212,175,55,0.22);
-}
+/* ─────────────────────────────────────────────
+   GLOBAL INTERACTION STATES
+───────────────────────────────────────────── */
 
-/* Input/select/textarea focus → gold ring */
+/* Input / textarea / select focus → gold ring */
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: #D4AF37 !important;
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.15) !important;
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18) !important;
 }
 
-/* Navbar "Post a Job" button → royal blue bg + gold border */
+/* Gold-border hover glow */
+.hover\:border-\[\#C9A84C\]:hover {
+  box-shadow: 0 6px 28px rgba(201, 168, 76, 0.25);
+}
+
+/* ─────────────────────────────────────────────
+   NAVBAR BUTTONS (DOM-selector overrides)
+───────────────────────────────────────────── */
+
+/* "Post a Job" → Black bg + Gold border */
 nav a[href="/register/employer"] {
-  background-color: #1A3A8F !important;
-  border: 2px solid #D4AF37 !important;
-  color: #ffffff !important;
+  background-color: var(--black) !important;
+  border: 2px solid var(--gold) !important;
+  color: var(--white) !important;
 }
 nav a[href="/register/employer"]:hover {
-  background-color: #163298 !important;
-  box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+  background-color: var(--black-soft) !important;
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.30);
 }
 
-/* "Submit Resume" button → white bg + royal blue text + gold border */
+/* "Submit Resume" → White bg + Red text + Gold border */
 nav a[href="/register/candidate"] {
-  background-color: #ffffff !important;
-  border: 2px solid #D4AF37 !important;
-  color: #1A3A8F !important;
+  background-color: var(--white) !important;
+  border: 2px solid var(--gold) !important;
+  color: var(--red) !important;
 }
 nav a[href="/register/candidate"]:hover {
-  background-color: #faf8f0 !important;
+  background-color: var(--gray-light) !important;
 }
 
-/* Featured badge */
-span.absolute:has(+ *) {
-  /* Handled by inline classes */
-}
+/* ─────────────────────────────────────────────
+   SAMPLE ALTERNATING SECTIONS PATTERN
+   Usage: add .section-dark or .section-light
+   to your <section> elements to get the
+   automatic black↔white contrast.
+
+   Example JSX:
+   <section className="section-dark py-20 px-4">
+     <h2 className="section-heading-light">...</h2>
+   </section>
+   <section className="section-light py-20 px-4">
+     <h2 className="section-heading">...</h2>
+   </section>
+───────────────────────────────────────────── */
