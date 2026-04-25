@@ -49,7 +49,7 @@ export default function HeroIllustration() {
           <rect x={b.x} y={280-b.h} width={b.w} height={b.h} fill="#0A1530" fillOpacity="0.85"/>
           {[0.3,0.5,0.68,0.8].map((fy,wi)=>(
             <rect key={wi} x={b.x+6+(wi%2)*12} y={280-b.h+b.h*fy} width={5} height={3} rx="0.5"
-              fill="#D4AF37" fillOpacity={(i+wi)%3===0?0.35:0}/>
+              fill="#CC1016" fillOpacity={(i+wi)%3===0?0.35:0}/>
           ))}
         </g>
       ))}
@@ -83,17 +83,17 @@ export default function HeroIllustration() {
       <rect x="179" y="62" width="12" height="218" fill="url(#h-tower)"/>
       <rect x="165" y="116" width="40" height="7" rx="2" fill="#6A8AAA"/>
       <rect x="170" y="178" width="30" height="5" rx="2" fill="#5A7A9A"/>
-      <circle cx="185" cy="64" r="16" fill="#D4AF37" fillOpacity="0.1" filter="url(#h-glow-lg)"/>
-      <circle cx="185" cy="64" r="5"  fill="#D4AF37" fillOpacity="0.8" filter="url(#h-glow-sm)"/>
-      <rect x="183" y="56" width="4" height="14" rx="1" fill="#D4AF37" fillOpacity="0.9"/>
+      <circle cx="185" cy="64" r="16" fill="#CC1016" fillOpacity="0.1" filter="url(#h-glow-lg)"/>
+      <circle cx="185" cy="64" r="5"  fill="#CC1016" fillOpacity="0.8" filter="url(#h-glow-sm)"/>
+      <rect x="183" y="56" width="4" height="14" rx="1" fill="#CC1016" fillOpacity="0.9"/>
 
       {/* RIGHT TOWER */}
       <rect x="369" y="62" width="12" height="218" fill="url(#h-tower)"/>
       <rect x="355" y="116" width="40" height="7" rx="2" fill="#6A8AAA"/>
       <rect x="360" y="178" width="30" height="5" rx="2" fill="#5A7A9A"/>
-      <circle cx="375" cy="64" r="16" fill="#D4AF37" fillOpacity="0.1" filter="url(#h-glow-lg)"/>
-      <circle cx="375" cy="64" r="5"  fill="#D4AF37" fillOpacity="0.8" filter="url(#h-glow-sm)"/>
-      <rect x="373" y="56" width="4" height="14" rx="1" fill="#D4AF37" fillOpacity="0.9"/>
+      <circle cx="375" cy="64" r="16" fill="#CC1016" fillOpacity="0.1" filter="url(#h-glow-lg)"/>
+      <circle cx="375" cy="64" r="5"  fill="#CC1016" fillOpacity="0.8" filter="url(#h-glow-sm)"/>
+      <rect x="373" y="56" width="4" height="14" rx="1" fill="#CC1016" fillOpacity="0.9"/>
 
       {/* Cable stays */}
       {leftCables.map((ax,i)=>(
@@ -105,7 +105,7 @@ export default function HeroIllustration() {
 
       {/* Anchor glints */}
       {[55,290,522].map((x,i)=>(
-        <circle key={i} cx={x} cy="282" r="2.5" fill="#D4AF37" fillOpacity="0.5" filter="url(#h-glow-xs)"/>
+        <circle key={i} cx={x} cy="282" r="2.5" fill="#CC1016" fillOpacity="0.5" filter="url(#h-glow-xs)"/>
       ))}
 
       {/* CONSTRUCTION CRANE */}
@@ -119,7 +119,7 @@ export default function HeroIllustration() {
       <rect x="141" y="115" width="7" height="5" rx="1" fill="#6AAAD0" fillOpacity="0.6"/>
       {/* Counter boom */}
       <rect x="100" y="118" width="44" height="5" rx="2" fill="#2A4060"/>
-      <rect x="96"  y="116" width="10" height="4" rx="1" fill="#D4AF37" fillOpacity="0.4"/>
+      <rect x="96"  y="116" width="10" height="4" rx="1" fill="#CC1016" fillOpacity="0.4"/>
       {/* Main boom */}
       <line x1="152" y1="120" x2="244" y2="108" stroke="#2A4060" strokeWidth="6" strokeLinecap="round"/>
       {/* Hook cable */}
@@ -132,14 +132,14 @@ export default function HeroIllustration() {
       {[{x:228,s:1},{x:266,s:1},{x:304,s:0.88}].map(({x,s},i)=>(
         <g key={i} transform={`translate(${x},272) scale(${s})`}>
           {/* Hard hat */}
-          <path d="M-9 0 Q-9-6 0-8 Q9-6 9 0 Z" fill="#D4AF37" fillOpacity="0.9"/>
-          <rect x="-10" y="0" width="20" height="3" rx="1" fill="#D4AF37" fillOpacity="0.75"/>
+          <path d="M-9 0 Q-9-6 0-8 Q9-6 9 0 Z" fill="#CC1016" fillOpacity="0.9"/>
+          <rect x="-10" y="0" width="20" height="3" rx="1" fill="#CC1016" fillOpacity="0.75"/>
           {/* Head */}
           <ellipse cx="0" cy="8" rx="6" ry="7" fill="#243040"/>
           {/* Body */}
           <rect x="-7" y="15" width="14" height="22" rx="2" fill="#1A2A3A"/>
           {/* Hi-vis stripe */}
-          <rect x="-7" y="19" width="14" height="4" fill="#D4AF37" fillOpacity="0.45"/>
+          <rect x="-7" y="19" width="14" height="4" fill="#CC1016" fillOpacity="0.45"/>
           {/* Arms */}
           <rect x="-12" y="15" width="5" height="15" rx="2" fill="#1A2A3A"/>
           <rect x="7"   y="15" width="5" height="15" rx="2" fill="#1A2A3A"/>
@@ -148,9 +148,9 @@ export default function HeroIllustration() {
 
       {/* Safety barrier rail */}
       {[0,36,72,108,144,180,216,252,288,324,360,396,432,468,504,540].map(x=>(
-        <rect key={x} x={x} y="276" width="3" height="8" rx="0.8" fill="#D4AF37" fillOpacity="0.35"/>
+        <rect key={x} x={x} y="276" width="3" height="8" rx="0.8" fill="#CC1016" fillOpacity="0.35"/>
       ))}
-      <line x1="0" y1="279" x2="560" y2="279" stroke="#D4AF37" strokeOpacity="0.28" strokeWidth="0.8"/>
+      <line x1="0" y1="279" x2="560" y2="279" stroke="#CC1016" strokeOpacity="0.28" strokeWidth="0.8"/>
 
       {/* BLUEPRINT OVERLAY — right portion */}
       <rect x="338" y="0" width="222" height="278" fill="url(#h-bp-fade)"/>
@@ -165,16 +165,16 @@ export default function HeroIllustration() {
       <line x1="355" y1="98" x2="390" y2="98" stroke="#6AAAD0" strokeWidth="0.5" strokeOpacity="0.35"/>
       <text x="395" y="101" fill="#6AAAD0" fontSize="7" fontFamily="monospace" fillOpacity="0.5">+38.5m</text>
       {/* Span dimension */}
-      <line x1="348" y1="168" x2="542" y2="168" stroke="#D4AF37" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4 3"/>
-      <text x="350" y="175" fill="#D4AF37" fontSize="7" fontFamily="monospace" fillOpacity="0.38">MAIN SPAN: 190m</text>
+      <line x1="348" y1="168" x2="542" y2="168" stroke="#CC1016" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4 3"/>
+      <text x="350" y="175" fill="#CC1016" fontSize="7" fontFamily="monospace" fillOpacity="0.38">MAIN SPAN: 190m</text>
       {/* Title block */}
       <rect x="346" y="228" width="202" height="42" rx="3" fill="none" stroke="#4A8ACA" strokeWidth="0.5" strokeOpacity="0.28"/>
       <text x="356" y="243" fill="#6AAAD0" fontSize="7" fontFamily="monospace" fillOpacity="0.45">CCPromoters Infrastructure</text>
       <text x="356" y="256" fill="#4A8ACA" fontSize="6" fontFamily="monospace" fillOpacity="0.35">DWG: BRIDGE-001  REV B</text>
 
       {/* Ambient glow under towers from lights */}
-      <ellipse cx="185" cy="308" rx="28" ry="7" fill="#D4AF37" fillOpacity="0.04"/>
-      <ellipse cx="375" cy="308" rx="28" ry="7" fill="#D4AF37" fillOpacity="0.04"/>
+      <ellipse cx="185" cy="308" rx="28" ry="7" fill="#CC1016" fillOpacity="0.04"/>
+      <ellipse cx="375" cy="308" rx="28" ry="7" fill="#CC1016" fillOpacity="0.04"/>
     </svg>
   );
 }

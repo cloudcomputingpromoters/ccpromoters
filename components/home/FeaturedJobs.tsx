@@ -40,12 +40,12 @@ export default async function FeaturedJobs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A3A8F]" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              Latest Civil Engineering <span className="text-[#D4AF37]">Opportunities</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0D0D0D]" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              Latest Civil Engineering <span className="text-[#CC1016]">Opportunities</span>
             </h2>
-            <p className="text-[#4A5568] mt-2">Hand-picked roles across every discipline, updated daily.</p>
+            <p className="text-[#6B6B6B] mt-2">Hand-picked roles across every discipline, updated daily.</p>
           </div>
-          <Link href="/jobs" className="text-[#D4AF37] font-semibold hover:underline shrink-0">
+          <Link href="/jobs" className="text-[#CC1016] font-semibold hover:underline shrink-0">
             View All 200+ Roles →
           </Link>
         </div>
@@ -53,13 +53,13 @@ export default async function FeaturedJobs() {
         <div className="grid md:grid-cols-2 gap-5">
           {jobs.map(job => (
             <Link key={job.id} href={`/jobs/${job.slug}`}
-              className="group border border-[#E2E8F0] rounded-xl p-6 hover:shadow-lg hover:border-[#D4AF37] transition-all duration-300 hover:-translate-y-0.5 border-l-4 border-l-transparent hover:border-l-[#D4AF37] flex flex-col gap-4 bg-white">
+              className="group border border-[#E5E5E5] rounded-xl p-6 hover:shadow-lg hover:border-[#CC1016] transition-all duration-300 hover:-translate-y-0.5 border-l-4 border-l-transparent hover:border-l-[#CC1016] flex flex-col gap-4 bg-white">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-wrap gap-2">
                   <span className={`discipline-tag ${disciplineColors[job.discipline_slug] || 'bg-gray-100 text-gray-700'}`}>
                     {job.discipline}
                   </span>
-                  <span className={`discipline-tag ${job.employment_type === 'contract' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>
+                  <span className={`discipline-tag ${job.employment_type === 'contract' ? 'bg-orange-100 text-orange-700' : 'bg-[#F5F5F5] text-[#0D0D0D]'}`}>
                     {job.employment_type === 'contract' ? 'Contract' : 'Permanent'}
                   </span>
                 </div>
@@ -70,33 +70,33 @@ export default async function FeaturedJobs() {
                 )}
               </div>
 
-              <h3 className="font-bold text-[#1A3A8F] text-lg group-hover:text-[#D4AF37] transition-colors leading-snug">
+              <h3 className="font-bold text-[#0D0D0D] text-lg group-hover:text-[#CC1016] transition-colors leading-snug">
                 {job.title}
               </h3>
 
-              <div className="flex flex-wrap gap-4 text-sm text-[#4A5568]">
+              <div className="flex flex-wrap gap-4 text-sm text-[#6B6B6B]">
                 <span className="flex items-center gap-1.5">
-                  <MapPin size={14} className="text-[#D4AF37]" />
+                  <MapPin size={14} className="text-[#CC1016]" />
                   {job.is_remote ? 'Remote (US)' : `${job.location_city}, ${job.location_state}`}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <DollarSign size={14} className="text-[#D4AF37]" />
+                  <DollarSign size={14} className="text-[#CC1016]" />
                   {formatSalary(job.salary_min, job.salary_max, job.rate_min, job.rate_max, job.employment_type)}
                 </span>
                 {job.license_required && (
                   <span className="flex items-center gap-1.5">
-                    <Award size={14} className="text-[#D4AF37]" />
+                    <Award size={14} className="text-[#CC1016]" />
                     {job.license_required}
                   </span>
                 )}
               </div>
 
-              <div className="flex items-center justify-between mt-auto pt-2 border-t border-[#E2E8F0]">
-                <span className="flex items-center gap-1 text-xs text-[#4A5568]">
+              <div className="flex items-center justify-between mt-auto pt-2 border-t border-[#E5E5E5]">
+                <span className="flex items-center gap-1 text-xs text-[#6B6B6B]">
                   <Clock size={12} />
                   {new Date(job.posted_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </span>
-                <span className="text-[#D4AF37] text-sm font-semibold">View Role →</span>
+                <span className="text-[#CC1016] text-sm font-semibold">View Role →</span>
               </div>
             </Link>
           ))}
@@ -104,7 +104,7 @@ export default async function FeaturedJobs() {
 
         <div className="text-center mt-10">
           <Link href="/jobs"
-            className="inline-block bg-[#D4AF37] text-white font-semibold px-8 py-4 rounded-lg hover:bg-[#B8960C] transition-all hover:shadow-lg hover:-translate-y-0.5">
+            className="inline-block bg-[#CC1016] text-white font-semibold px-8 py-4 rounded-lg hover:bg-[#A80D12] transition-all hover:shadow-lg hover:-translate-y-0.5">
             View All 200+ Civil Engineering Roles →
           </Link>
         </div>

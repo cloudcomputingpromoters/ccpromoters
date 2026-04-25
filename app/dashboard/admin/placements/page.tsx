@@ -59,8 +59,8 @@ export default function AdminPlacementsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <Link href="/dashboard/admin" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Admin</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Placements</h1>
@@ -70,14 +70,14 @@ export default function AdminPlacementsPage() {
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
         <div className="flex justify-end">
           <button onClick={() => setAdding(!adding)}
-            className="flex items-center gap-2 bg-[#D4AF37] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#B8960C] transition-colors">
+            className="flex items-center gap-2 bg-[#CC1016] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#A80D12] transition-colors">
             <Plus size={15} /> Log Placement
           </button>
         </div>
 
         {adding && (
-          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">New Placement</h3>
+          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">New Placement</h3>
             <div className="grid sm:grid-cols-3 gap-4">
               {[
                 {key:'candidate_name',label:'Candidate Name *'},
@@ -88,34 +88,34 @@ export default function AdminPlacementsPage() {
                 {key:'salary',label:'Salary ($)', type:'number'},
               ].map(({ key, label, type='text' }) => (
                 <div key={key}>
-                  <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">{label}</label>
+                  <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">{label}</label>
                   <input type={type} value={form[key as keyof typeof form]}
                     onChange={e => setForm({...form, [key]: e.target.value})}
                     required={label.includes('*')}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016] transition-colors" />
                 </div>
               ))}
               <div>
-                <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">Discipline</label>
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">Discipline</label>
                 <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37] bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016] bg-white">
                   <option value="">Select</option>
                   {DISCIPLINES.map(d => <option key={d} value={d}>{d.replace(/-/g,' ')}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">Placement Date</label>
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">Placement Date</label>
                 <input type="date" value={form.placement_date} onChange={e => setForm({...form, placement_date: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016] transition-colors" />
               </div>
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
-                className="bg-[#D4AF37] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+                className="bg-[#CC1016] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#A80D12] transition-colors disabled:opacity-60">
                 {saving ? 'Saving...' : 'Save'}
               </button>
               <button type="button" onClick={() => setAdding(false)}
-                className="px-5 py-2 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] hover:border-[#1A3A8F] transition-colors">
+                className="px-5 py-2 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] hover:border-[#0D0D0D] transition-colors">
                 Cancel
               </button>
             </div>
@@ -123,11 +123,11 @@ export default function AdminPlacementsPage() {
         )}
 
         {loading ? (
-          <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-14 bg-white rounded-lg border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-14 bg-white rounded-lg border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-[#1A3A8F] text-white">
+              <thead className="bg-[#0D0D0D] text-white">
                 <tr>
                   <th className="text-left px-5 py-3 font-semibold">Candidate</th>
                   <th className="text-left px-4 py-3 font-semibold">Role</th>
@@ -140,22 +140,22 @@ export default function AdminPlacementsPage() {
               </thead>
               <tbody>
                 {placements.map((p, i) => (
-                  <tr key={p.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F7F9FC]'}>
-                    <td className="px-5 py-3 font-semibold text-[#1A3A8F]">{p.candidate_name}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{p.role_title}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{p.company || '—'}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{[p.location_city, p.location_state].filter(Boolean).join(', ') || '—'}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{p.placement_date ? new Date(p.placement_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—'}</td>
-                    <td className="px-4 py-3 text-right text-[#D4AF37] font-semibold">{p.salary ? `$${p.salary.toLocaleString()}` : '—'}</td>
+                  <tr key={p.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F5F5F5]'}>
+                    <td className="px-5 py-3 font-semibold text-[#0D0D0D]">{p.candidate_name}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{p.role_title}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{p.company || '—'}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{[p.location_city, p.location_state].filter(Boolean).join(', ') || '—'}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{p.placement_date ? new Date(p.placement_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—'}</td>
+                    <td className="px-4 py-3 text-right text-[#CC1016] font-semibold">{p.salary ? `$${p.salary.toLocaleString()}` : '—'}</td>
                     <td className="px-4 py-3 text-right">
-                      <button onClick={() => handleDelete(p.id)} className="text-[#4A5568] hover:text-red-600 transition-colors">
+                      <button onClick={() => handleDelete(p.id)} className="text-[#6B6B6B] hover:text-red-600 transition-colors">
                         <Trash2 size={14} />
                       </button>
                     </td>
                   </tr>
                 ))}
                 {placements.length === 0 && (
-                  <tr><td colSpan={7} className="px-5 py-10 text-center text-[#4A5568]">No placements logged yet.</td></tr>
+                  <tr><td colSpan={7} className="px-5 py-10 text-center text-[#6B6B6B]">No placements logged yet.</td></tr>
                 )}
               </tbody>
             </table>

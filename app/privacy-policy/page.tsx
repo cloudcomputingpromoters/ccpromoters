@@ -3,12 +3,12 @@ export const metadata = { title: 'Privacy Policy | CCPromoters', description: 'C
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <section className="bg-[#1A3A8F] py-16 px-4 text-center">
+      <section className="bg-[#0D0D0D] py-16 px-4 text-center">
         <h1 className="text-4xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Privacy Policy</h1>
         <p className="text-white/60 mt-2">Last updated: January 1, 2026</p>
       </section>
       <section className="py-16 px-4">
-        <div className="max-w-3xl mx-auto prose prose-slate prose-headings:text-[#1A3A8F] prose-headings:font-bold prose-p:text-[#4A5568] prose-li:text-[#4A5568]">
+        <div className="max-w-3xl mx-auto prose prose-slate prose-headings:text-[#0D0D0D] prose-headings:font-bold prose-p:text-[#6B6B6B] prose-li:text-[#6B6B6B]">
           <h2>1. Information We Collect</h2>
           <p>CCPromoters collects personal information that you provide directly to us when registering, submitting a resume, posting a job, or contacting us. This includes: name, email address, phone number, employment history, professional credentials (including PE license status), and resume documents.</p>
           <p>We also automatically collect certain technical information when you visit our website, including IP address, browser type, pages visited, and time spent on each page, through standard web analytics tools.</p>

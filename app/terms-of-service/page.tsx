@@ -3,12 +3,12 @@ export const metadata = { title: 'Terms of Service | CCPromoters', description: 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <section className="bg-[#1A3A8F] py-16 px-4 text-center">
+      <section className="bg-[#0D0D0D] py-16 px-4 text-center">
         <h1 className="text-4xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Terms of Service</h1>
         <p className="text-white/60 mt-2">Last updated: January 1, 2026</p>
       </section>
       <section className="py-16 px-4">
-        <div className="max-w-3xl mx-auto prose prose-slate prose-headings:text-[#1A3A8F] prose-headings:font-bold prose-p:text-[#4A5568] prose-li:text-[#4A5568]">
+        <div className="max-w-3xl mx-auto prose prose-slate prose-headings:text-[#0D0D0D] prose-headings:font-bold prose-p:text-[#6B6B6B] prose-li:text-[#6B6B6B]">
           <h2>1. Acceptance of Terms</h2>
           <p>By accessing and using the CCPromoters website and platform, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
           <h2>2. Services Provided</h2>

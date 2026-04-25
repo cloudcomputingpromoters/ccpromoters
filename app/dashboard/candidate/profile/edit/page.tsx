@@ -75,14 +75,14 @@ export default function EditProfilePage() {
   }
 
   if (loading) return (
-    <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center">
-      <div className="animate-pulse text-[#4A5568]">Loading...</div>
+    <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center">
+      <div className="animate-pulse text-[#6B6B6B]">Loading...</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-3xl mx-auto">
           <Link href="/dashboard/candidate/profile" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← My Profile</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Edit Profile</h1>
@@ -93,54 +93,54 @@ export default function EditProfilePage() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 text-sm">{error}</div>}
           {saved && <div className="bg-green-50 border border-green-200 text-green-700 rounded-lg p-4 text-sm">Profile saved successfully.</div>}
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F] mb-1">Personal Info</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D] mb-1">Personal Info</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {(['first_name','last_name'] as const).map(key => (
                 <div key={key}>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">{key === 'first_name' ? 'First Name' : 'Last Name'}</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">{key === 'first_name' ? 'First Name' : 'Last Name'}</label>
                   <input type="text" value={form[key]} onChange={e => setForm({...form, [key]: e.target.value})}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
                 </div>
               ))}
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Phone</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Phone</label>
               <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Current Job Title</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Current Job Title</label>
               <input type="text" value={form.current_title} onChange={e => setForm({...form, current_title: e.target.value})}
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Bio / Summary</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Bio / Summary</label>
               <textarea value={form.bio} onChange={e => setForm({...form, bio: e.target.value})} rows={4}
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm resize-none" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm resize-none" />
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F] mb-1">Career Preferences</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D] mb-1">Career Preferences</h3>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Discipline</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Discipline</label>
               <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})}
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm bg-white">
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm bg-white">
                 <option value="">Select discipline</option>
                 {DISCIPLINES.map(d => <option key={d} value={d}>{d.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
               </select>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Years of Experience</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Years of Experience</label>
                 <input type="number" value={form.years_experience} onChange={e => setForm({...form, years_experience: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Preferred Employment Type</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Preferred Employment Type</label>
                 <select value={form.employment_type_preference} onChange={e => setForm({...form, employment_type_preference: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm bg-white">
                   <option value="">Select type</option>
                   {EMP_TYPES.map(t => <option key={t} value={t}>{t.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
                 </select>
@@ -148,52 +148,52 @@ export default function EditProfilePage() {
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Min Salary ($)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Min Salary ($)</label>
                 <input type="number" value={form.salary_expectation_min} onChange={e => setForm({...form, salary_expectation_min: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Max Salary ($)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Max Salary ($)</label>
                 <input type="number" value={form.salary_expectation_max} onChange={e => setForm({...form, salary_expectation_max: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F] mb-1">Location</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D] mb-1">Location</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">City</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">City</label>
                 <input type="text" value={form.location_city} onChange={e => setForm({...form, location_city: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">State</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">State</label>
                 <input type="text" value={form.location_state} onChange={e => setForm({...form, location_state: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
               </div>
             </div>
             <label className="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" checked={form.open_to_remote} onChange={e => setForm({...form, open_to_remote: e.target.checked})} className="w-4 h-4 accent-[#D4AF37]" />
-              <span className="text-sm text-[#1A3A8F] font-medium">Open to remote opportunities</span>
+              <input type="checkbox" checked={form.open_to_remote} onChange={e => setForm({...form, open_to_remote: e.target.checked})} className="w-4 h-4 accent-[#CC1016]" />
+              <span className="text-sm text-[#0D0D0D] font-medium">Open to remote opportunities</span>
             </label>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6">
-            <h3 className="font-bold text-[#1A3A8F] mb-3">Skills</h3>
-            <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Skills (comma-separated)</label>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6">
+            <h3 className="font-bold text-[#0D0D0D] mb-3">Skills</h3>
+            <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Skills (comma-separated)</label>
             <input type="text" value={form.skills} onChange={e => setForm({...form, skills: e.target.value})}
               placeholder="Excel, QuickBooks, Financial Modeling, GAAP"
-              className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors text-sm" />
+              className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors text-sm" />
           </div>
 
           <div className="flex gap-3">
             <button type="submit" disabled={saving}
-              className="flex-1 bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+              className="flex-1 bg-[#CC1016] text-white font-bold py-3 rounded-lg hover:bg-[#A80D12] transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : 'Save Profile'}
             </button>
-            <Link href="/dashboard/candidate/profile" className="px-6 py-3 border border-[#E2E8F0] rounded-lg text-[#1A3A8F] font-semibold hover:border-[#1A3A8F] transition-colors text-sm flex items-center">Cancel</Link>
+            <Link href="/dashboard/candidate/profile" className="px-6 py-3 border border-[#E5E5E5] rounded-lg text-[#0D0D0D] font-semibold hover:border-[#0D0D0D] transition-colors text-sm flex items-center">Cancel</Link>
           </div>
         </form>
       </div>

@@ -92,8 +92,8 @@ export default function CandidateResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-3xl mx-auto">
           <Link href="/dashboard/candidate" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Dashboard</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>My Resume</h1>
@@ -102,54 +102,54 @@ export default function CandidateResumePage() {
       <div className="max-w-3xl mx-auto px-4 py-10">
         {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 text-sm mb-6">{error}</div>}
         {loading ? (
-          <div className="h-40 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />
+          <div className="h-40 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />
         ) : resume ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center shrink-0">
-                <FileText size={24} className="text-[#D4AF37]" />
+              <div className="w-14 h-14 bg-[#CC1016]/10 rounded-xl flex items-center justify-center shrink-0">
+                <FileText size={24} className="text-[#CC1016]" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-[#1A3A8F] truncate">{resume.file_name}</p>
-                <p className="text-sm text-[#4A5568]">{formatSize(resume.file_size)} · Uploaded {new Date(resume.uploaded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                <p className="font-bold text-[#0D0D0D] truncate">{resume.file_name}</p>
+                <p className="text-sm text-[#6B6B6B]">{formatSize(resume.file_size)} · Uploaded {new Date(resume.uploaded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
               </div>
               <div className="flex gap-2 shrink-0">
                 <a href={resume.file_url} target="_blank" rel="noreferrer"
-                  className="p-2 rounded-lg border border-[#E2E8F0] text-[#1A3A8F] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
+                  className="p-2 rounded-lg border border-[#E5E5E5] text-[#0D0D0D] hover:border-[#CC1016] hover:text-[#CC1016] transition-colors">
                   <Download size={16} />
                 </a>
-                <button onClick={handleDelete} className="p-2 rounded-lg border border-[#E2E8F0] text-[#4A5568] hover:border-red-300 hover:text-red-600 transition-colors">
+                <button onClick={handleDelete} className="p-2 rounded-lg border border-[#E5E5E5] text-[#6B6B6B] hover:border-red-300 hover:text-red-600 transition-colors">
                   <Trash2 size={16} />
                 </button>
               </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-[#E2E8F0]">
-              <p className="text-sm text-[#4A5568] mb-3">Want to update your resume? Upload a new version below.</p>
-              <label className="cursor-pointer inline-flex items-center gap-2 text-sm font-semibold text-[#D4AF37] hover:underline">
+            <div className="mt-6 pt-4 border-t border-[#E5E5E5]">
+              <p className="text-sm text-[#6B6B6B] mb-3">Want to update your resume? Upload a new version below.</p>
+              <label className="cursor-pointer inline-flex items-center gap-2 text-sm font-semibold text-[#CC1016] hover:underline">
                 <Upload size={14} /> Upload New Version
                 <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleUpload} disabled={uploading} />
               </label>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center">
-            <FileText size={48} className="text-[#D4AF37]/30 mx-auto mb-4" />
-            <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">No Resume Uploaded</h3>
-            <p className="text-[#4A5568] mb-8 text-sm">Upload your resume (PDF or Word, max 5MB) so recruiters can review your background.</p>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-12 text-center">
+            <FileText size={48} className="text-[#CC1016]/30 mx-auto mb-4" />
+            <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">No Resume Uploaded</h3>
+            <p className="text-[#6B6B6B] mb-8 text-sm">Upload your resume (PDF or Word, max 5MB) so recruiters can review your background.</p>
             <label className={`btn-pink cursor-pointer inline-flex items-center gap-2 ${uploading ? 'opacity-60 pointer-events-none' : ''}`}>
               <Upload size={16} /> {uploading ? 'Uploading...' : 'Upload Resume'}
               <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleUpload} disabled={uploading} />
             </label>
           </div>
         )}
-        <div className="mt-8 bg-white rounded-2xl border border-[#E2E8F0] p-6">
-          <h3 className="font-bold text-[#1A3A8F] mb-3">Tips for a Strong Resume</h3>
-          <ul className="space-y-2 text-sm text-[#4A5568]">
-            <li className="flex gap-2"><span className="text-[#D4AF37] font-bold">·</span> Use a clean, single-column format for ATS compatibility</li>
-            <li className="flex gap-2"><span className="text-[#D4AF37] font-bold">·</span> Quantify achievements with numbers and percentages</li>
-            <li className="flex gap-2"><span className="text-[#D4AF37] font-bold">·</span> Tailor keywords to the job descriptions you are targeting</li>
-            <li className="flex gap-2"><span className="text-[#D4AF37] font-bold">·</span> Keep it to 1–2 pages unless you have 10+ years of experience</li>
-            <li className="flex gap-2"><span className="text-[#D4AF37] font-bold">·</span> <Link href="/services/resume-optimization" className="text-[#D4AF37] hover:underline">Get a professional resume review from our team →</Link></li>
+        <div className="mt-8 bg-white rounded-2xl border border-[#E5E5E5] p-6">
+          <h3 className="font-bold text-[#0D0D0D] mb-3">Tips for a Strong Resume</h3>
+          <ul className="space-y-2 text-sm text-[#6B6B6B]">
+            <li className="flex gap-2"><span className="text-[#CC1016] font-bold">·</span> Use a clean, single-column format for ATS compatibility</li>
+            <li className="flex gap-2"><span className="text-[#CC1016] font-bold">·</span> Quantify achievements with numbers and percentages</li>
+            <li className="flex gap-2"><span className="text-[#CC1016] font-bold">·</span> Tailor keywords to the job descriptions you are targeting</li>
+            <li className="flex gap-2"><span className="text-[#CC1016] font-bold">·</span> Keep it to 1–2 pages unless you have 10+ years of experience</li>
+            <li className="flex gap-2"><span className="text-[#CC1016] font-bold">·</span> <Link href="/services/resume-optimization" className="text-[#CC1016] hover:underline">Get a professional resume review from our team →</Link></li>
           </ul>
         </div>
       </div>

@@ -15,8 +15,8 @@ export default function InsightsIllustration() {
           <stop offset="0%" stopColor="#0A2450"/><stop offset="100%" stopColor="#061530"/>
         </linearGradient>
         <linearGradient id="ii-trend" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.2"/>
-          <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.7"/>
+          <stop offset="0%" stopColor="#CC1016" stopOpacity="0.2"/>
+          <stop offset="100%" stopColor="#CC1016" stopOpacity="0.7"/>
         </linearGradient>
       </defs>
 
@@ -36,20 +36,20 @@ export default function InsightsIllustration() {
       <line x1="24" y1="33" x2="456" y2="33" stroke="#1E3A8A" strokeOpacity="0.4" strokeWidth="0.5"/>
 
       {/* ── CARD 1: Bridge Engineering (left) ── */}
-      <rect x="22" y="44" width="138" height="200" rx="7" fill="url(#ii-card-a)" stroke="#D4AF37" strokeWidth="0.7" strokeOpacity="0.5"/>
+      <rect x="22" y="44" width="138" height="200" rx="7" fill="url(#ii-card-a)" stroke="#CC1016" strokeWidth="0.7" strokeOpacity="0.5"/>
       {/* Tag */}
-      <rect x="30" y="52" width="80" height="13" rx="6" fill="#D4AF37" fillOpacity="0.12"/>
-      <text x="70" y="62" textAnchor="middle" fill="#D4AF37" fontSize="7" fontFamily="monospace" fontWeight="700" letterSpacing="0.5">BRIDGES</text>
+      <rect x="30" y="52" width="80" height="13" rx="6" fill="#CC1016" fillOpacity="0.12"/>
+      <text x="70" y="62" textAnchor="middle" fill="#CC1016" fontSize="7" fontFamily="monospace" fontWeight="700" letterSpacing="0.5">BRIDGES</text>
       {/* Mini bridge elevation sketch */}
       <line x1="34"  y1="142" x2="148" y2="142" stroke="#6AAAD0" strokeWidth="0.9" strokeOpacity="0.6"/>
-      <rect x="64"  y="100" width="6"  height="42" rx="0.5" fill="none" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.7"/>
-      <rect x="111" y="100" width="6"  height="42" rx="0.5" fill="none" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.7"/>
-      <circle cx="67"  cy="101" r="3" fill="#D4AF37" fillOpacity="0.7" filter="url(#ii-glow-xs)"/>
-      <circle cx="114" cy="101" r="3" fill="#D4AF37" fillOpacity="0.7" filter="url(#ii-glow-xs)"/>
-      {[36,48,58].map(x=>(<line key={x} x1="67"  y1="103" x2={x} y2="142" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.45"/>))}
-      {[76,86,96].map(x=>(<line key={x} x1="67"  y1="103" x2={x} y2="142" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.45"/>))}
-      {[104,114,125].map(x=>(<line key={x} x1="114" y1="103" x2={x} y2="142" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.45"/>))}
-      {[136,146,148].map(x=>(<line key={x} x1="114" y1="103" x2={x} y2="142" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.45"/>))}
+      <rect x="64"  y="100" width="6"  height="42" rx="0.5" fill="none" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.7"/>
+      <rect x="111" y="100" width="6"  height="42" rx="0.5" fill="none" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.7"/>
+      <circle cx="67"  cy="101" r="3" fill="#CC1016" fillOpacity="0.7" filter="url(#ii-glow-xs)"/>
+      <circle cx="114" cy="101" r="3" fill="#CC1016" fillOpacity="0.7" filter="url(#ii-glow-xs)"/>
+      {[36,48,58].map(x=>(<line key={x} x1="67"  y1="103" x2={x} y2="142" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.45"/>))}
+      {[76,86,96].map(x=>(<line key={x} x1="67"  y1="103" x2={x} y2="142" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.45"/>))}
+      {[104,114,125].map(x=>(<line key={x} x1="114" y1="103" x2={x} y2="142" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.45"/>))}
+      {[136,146,148].map(x=>(<line key={x} x1="114" y1="103" x2={x} y2="142" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.45"/>))}
       {/* Under-deck */}
       {[34,50,66,82,98,114,130].map((x,i)=>(
         <path key={i} d={`M${x} 142 L${x+8} 152 L${x+16} 142`} stroke="#1A3055" strokeWidth="0.7"/>
@@ -61,7 +61,7 @@ export default function InsightsIllustration() {
       <rect x="30" y="170" width="108" height="5" rx="2" fill="white" fillOpacity="0.2"/>
       <rect x="30" y="180" width="125" height="4" rx="2" fill="white" fillOpacity="0.12"/>
       <rect x="30" y="189" width="90"  height="4" rx="2" fill="white" fillOpacity="0.1"/>
-      <text x="30" y="216" fill="#D4AF37" fontSize="7" fontFamily="monospace" fillOpacity="0.7">Read Article →</text>
+      <text x="30" y="216" fill="#CC1016" fontSize="7" fontFamily="monospace" fillOpacity="0.7">Read Article →</text>
       <text x="30" y="234" fill="white" fillOpacity="0.2" fontSize="6" fontFamily="monospace">DWG: BRG-INS-01</text>
 
       {/* ── CARD 2: Structural / Blueprints (center, slightly taller) ── */}
@@ -93,7 +93,7 @@ export default function InsightsIllustration() {
       ))}
       <line x1="182" y1="186" x2="252" y2="186" stroke="#4A8ACA" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="3 2"/>
       {/* Labels */}
-      <text x="258" y="73" fill="#D4AF37" fontSize="5.5" fontFamily="monospace" fillOpacity="0.5">+10m</text>
+      <text x="258" y="73" fill="#CC1016" fontSize="5.5" fontFamily="monospace" fillOpacity="0.5">+10m</text>
       <text x="258" y="110" fill="#4A8ACA" fontSize="5.5" fontFamily="monospace" fillOpacity="0.4">+6m</text>
       <text x="258" y="142" fill="#4A8ACA" fontSize="5.5" fontFamily="monospace" fillOpacity="0.4">+3m</text>
       {/* Text lines */}
@@ -104,9 +104,9 @@ export default function InsightsIllustration() {
       <text x="180" y="245" fill="white" fillOpacity="0.2" fontSize="6" fontFamily="monospace">DWG: STR-INS-02</text>
 
       {/* ── CARD 3: Site / Urban Planning (right) ── */}
-      <rect x="322" y="44" width="138" height="200" rx="7" fill="url(#ii-card-a)" stroke="#D4AF37" strokeWidth="0.7" strokeOpacity="0.4"/>
-      <rect x="330" y="52" width="80" height="13" rx="6" fill="#D4AF37" fillOpacity="0.1"/>
-      <text x="370" y="62" textAnchor="middle" fill="#D4AF37" fontSize="7" fontFamily="monospace" fontWeight="700" letterSpacing="0.5">URBAN PLAN</text>
+      <rect x="322" y="44" width="138" height="200" rx="7" fill="url(#ii-card-a)" stroke="#CC1016" strokeWidth="0.7" strokeOpacity="0.4"/>
+      <rect x="330" y="52" width="80" height="13" rx="6" fill="#CC1016" fillOpacity="0.1"/>
+      <text x="370" y="62" textAnchor="middle" fill="#CC1016" fontSize="7" fontFamily="monospace" fontWeight="700" letterSpacing="0.5">URBAN PLAN</text>
       {/* Site plan sketch */}
       {/* Contour lines */}
       <ellipse cx="390" cy="118" rx="44" ry="32" fill="none" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.25"/>
@@ -122,15 +122,15 @@ export default function InsightsIllustration() {
       {/* North indicator */}
       <g transform="translate(444,60)">
         <circle cx="0" cy="0" r="8" fill="none" stroke="#4A8ACA" strokeWidth="0.6" strokeOpacity="0.4"/>
-        <polygon points="0,-6 3,-1 0,0 -3,-1" fill="#D4AF37" fillOpacity="0.7"/>
+        <polygon points="0,-6 3,-1 0,0 -3,-1" fill="#CC1016" fillOpacity="0.7"/>
         <polygon points="0,0 3,-1 0,7 -3,-1" fill="#1E3A5A"/>
-        <text x="0" y="-10" textAnchor="middle" fill="#D4AF37" fontSize="6.5" fontFamily="monospace" fillOpacity="0.6">N</text>
+        <text x="0" y="-10" textAnchor="middle" fill="#CC1016" fontSize="6.5" fontFamily="monospace" fillOpacity="0.6">N</text>
       </g>
       {/* Text lines */}
       <rect x="330" y="156" width="110" height="5" rx="2" fill="white" fillOpacity="0.2"/>
       <rect x="330" y="166" width="124" height="4" rx="2" fill="white" fillOpacity="0.12"/>
       <rect x="330" y="175" width="92"  height="4" rx="2" fill="white" fillOpacity="0.1"/>
-      <text x="330" y="200" fill="#D4AF37" fontSize="7" fontFamily="monospace" fillOpacity="0.7">Read Article →</text>
+      <text x="330" y="200" fill="#CC1016" fontSize="7" fontFamily="monospace" fillOpacity="0.7">Read Article →</text>
       <text x="330" y="218" fill="white" fillOpacity="0.2" fontSize="6" fontFamily="monospace">DWG: URB-INS-03</text>
 
       {/* ── Bottom analytics trend strip ── */}
@@ -140,14 +140,14 @@ export default function InsightsIllustration() {
       <path d="M100 288 L132 278 L164 282 L196 268 L228 272 L260 258 L292 264 L324 252 L356 256 L388 244 L420 248 L444 238"
         stroke="url(#ii-trend)" strokeWidth="1.5" fill="none"/>
       {/* Peak dot */}
-      <circle cx="444" cy="238" r="4" fill="#D4AF37" fillOpacity="0.9" filter="url(#ii-glow-xs)"/>
-      <rect x="426" y="228" width="36" height="14" rx="4" fill="#0A1830" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.5"/>
-      <text x="444" y="238" textAnchor="middle" fill="#D4AF37" fontSize="7.5" fontFamily="monospace">↑24%</text>
+      <circle cx="444" cy="238" r="4" fill="#CC1016" fillOpacity="0.9" filter="url(#ii-glow-xs)"/>
+      <rect x="426" y="228" width="36" height="14" rx="4" fill="#0A1830" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.5"/>
+      <text x="444" y="238" textAnchor="middle" fill="#CC1016" fontSize="7.5" fontFamily="monospace">↑24%</text>
 
       {/* Tags strip */}
       {['Salary','Bridges','Geotech','Structural','Urban','Coastal'].map((tag,i)=>(
         <g key={i}>
-          <circle cx={34+i*72} cy="305" r="3" fill={i%2===0?'#D4AF37':'#3B82F6'} fillOpacity="0.6"/>
+          <circle cx={34+i*72} cy="305" r="3" fill={i%2===0?'#CC1016':'#3B82F6'} fillOpacity="0.6"/>
           <text x={40+i*72} y="309" fill="white" fillOpacity="0.35" fontSize="7.5" fontFamily="monospace">{tag}</text>
         </g>
       ))}

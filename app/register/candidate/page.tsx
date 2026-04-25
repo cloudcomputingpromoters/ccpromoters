@@ -135,20 +135,20 @@ export default function CandidateRegister() {
 
   if (verifyStep) {
     return (
-      <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle size={32} className="text-[#D4AF37]" />
+      <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl border border-[#E5E5E5] p-8 max-w-md w-full text-center">
+          <div className="w-16 h-16 bg-[#CC1016]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle size={32} className="text-[#CC1016]" />
           </div>
-          <h2 className="text-2xl font-bold text-[#1A3A8F] mb-2">Check Your Email</h2>
-          <p className="text-[#4A5568] mb-6">We sent a 6-digit verification code to <strong>{form.email}</strong></p>
+          <h2 className="text-2xl font-bold text-[#0D0D0D] mb-2">Check Your Email</h2>
+          <p className="text-[#6B6B6B] mb-6">We sent a 6-digit verification code to <strong>{form.email}</strong></p>
           {error && <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">{error}</div>}
           <form onSubmit={handleVerify} className="space-y-4">
             <input type="text" value={otp} onChange={e => setOtp(e.target.value)} maxLength={6} required
               placeholder="Enter 6-digit code"
-              className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-center text-2xl font-bold tracking-widest outline-none focus:border-[#D4AF37]" />
+              className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-center text-2xl font-bold tracking-widest outline-none focus:border-[#CC1016]" />
             <button type="submit" disabled={loading}
-              className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B8960C] transition-colors">
+              className="w-full bg-[#CC1016] text-white font-bold py-3 rounded-lg hover:bg-[#A80D12] transition-colors">
               {loading ? 'Verifying...' : 'Verify Email & Continue'}
             </button>
           </form>
@@ -158,30 +158,30 @@ export default function CandidateRegister() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] py-12 px-4">
+    <div className="min-h-screen bg-[#F5F5F5] py-12 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#D4AF37] rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#CC1016] rounded flex items-center justify-center">
               <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
                 <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <span className="font-bold text-[#1A3A8F] text-lg">CC<span className="text-[#D4AF37]">Promoters</span></span>
+            <span className="font-bold text-[#0D0D0D] text-lg">CC<span className="text-[#CC1016]">Promoters</span></span>
           </Link>
-          <h1 className="text-2xl font-bold text-[#1A3A8F] mt-4">Create Your Candidate Profile</h1>
-          <p className="text-[#4A5568] mt-1">Join 326,000+ civil engineering professionals</p>
+          <h1 className="text-2xl font-bold text-[#0D0D0D] mt-4">Create Your Candidate Profile</h1>
+          <p className="text-[#6B6B6B] mt-1">Join 326,000+ civil engineering professionals</p>
         </div>
 
         {/* Progress stepper */}
         <div className="flex items-center justify-between mb-8 px-2">
           {steps.map((s, i) => (
             <div key={s} className="flex flex-col items-center gap-1 flex-1">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${i < step ? 'bg-[#059669] text-white' : i === step ? 'bg-[#D4AF37] text-white' : 'bg-[#E2E8F0] text-[#4A5568]'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${i < step ? 'bg-[#059669] text-white' : i === step ? 'bg-[#CC1016] text-white' : 'bg-[#E5E5E5] text-[#6B6B6B]'}`}>
                 {i < step ? '✓' : i + 1}
               </div>
-              <span className="text-xs text-[#4A5568] hidden sm:block text-center leading-tight">{s}</span>
+              <span className="text-xs text-[#6B6B6B] hidden sm:block text-center leading-tight">{s}</span>
               {i < steps.length - 1 && (
                 <div className={`absolute h-0.5 transition-all`} />
               )}
@@ -189,11 +189,11 @@ export default function CandidateRegister() {
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 shadow-sm">
+        <div className="bg-white rounded-2xl border border-[#E5E5E5] p-8 shadow-sm">
           {/* Step 1 */}
           {step === 0 && (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-[#1A3A8F] mb-6">Personal Information</h2>
+              <h2 className="text-xl font-bold text-[#0D0D0D] mb-6">Personal Information</h2>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="First Name" value={form.firstName} onChange={v => update('firstName', v)} placeholder="James" />
                 <Field label="Last Name" value={form.lastName} onChange={v => update('lastName', v)} placeholder="Wilson" />
@@ -211,21 +211,21 @@ export default function CandidateRegister() {
           {/* Step 2 */}
           {step === 1 && (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-[#1A3A8F] mb-6">Professional Background</h2>
+              <h2 className="text-xl font-bold text-[#0D0D0D] mb-6">Professional Background</h2>
               <Field label="Current Job Title" value={form.jobTitle} onChange={v => update('jobTitle', v)} placeholder="Senior Structural Engineer" />
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Years of Experience</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Years of Experience</label>
                   <select value={form.yearsExp} onChange={e => update('yearsExp', e.target.value)}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                     <option value="">Select...</option>
                     {['0-1', '2-3', '4-6', '7-10', '11-15', '15+'].map(y => <option key={y} value={y}>{y} years</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Highest Education</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Highest Education</label>
                   <select value={form.education} onChange={e => update('education', e.target.value)}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                     <option value="">Select...</option>
                     {['BS Civil Engineering', 'MS Civil Engineering', 'PhD', 'Other Engineering Degree'].map(e => <option key={e} value={e}>{e}</option>)}
                   </select>
@@ -233,18 +233,18 @@ export default function CandidateRegister() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">PE Licensed?</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">PE Licensed?</label>
                   <select value={form.isPE} onChange={e => update('isPE', e.target.value)}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                     <option value="">Select...</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">EIT / Engineer-in-Training?</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">EIT / Engineer-in-Training?</label>
                   <select value={form.isEIT} onChange={e => update('isEIT', e.target.value)}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                     <option value="">Select...</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -260,21 +260,21 @@ export default function CandidateRegister() {
           {/* Step 3 */}
           {step === 2 && (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-[#1A3A8F] mb-6">Discipline & Skills</h2>
+              <h2 className="text-xl font-bold text-[#0D0D0D] mb-6">Discipline & Skills</h2>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Primary Discipline</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Primary Discipline</label>
                 <select value={form.discipline} onChange={e => update('discipline', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                   <option value="">Select your discipline...</option>
                   {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-3">Key Skills & Software (select all that apply)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-3">Key Skills & Software (select all that apply)</label>
                 <div className="flex flex-wrap gap-2">
                   {skillOptions.map(skill => (
                     <button key={skill} type="button" onClick={() => toggleSkill(skill)}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${form.skills.includes(skill) ? 'bg-[#D4AF37] text-white border-[#D4AF37]' : 'border-[#E2E8F0] text-[#4A5568] hover:border-[#D4AF37]'}`}>
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${form.skills.includes(skill) ? 'bg-[#CC1016] text-white border-[#CC1016]' : 'border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
                       {skill}
                     </button>
                   ))}
@@ -286,11 +286,11 @@ export default function CandidateRegister() {
           {/* Step 4 */}
           {step === 3 && (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-[#1A3A8F] mb-6">Job Preferences</h2>
+              <h2 className="text-xl font-bold text-[#0D0D0D] mb-6">Job Preferences</h2>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Preferred Job Type</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Preferred Job Type</label>
                 <select value={form.jobType} onChange={e => update('jobType', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                   <option value="">Select...</option>
                   <option value="permanent">Permanent / Full-Time</option>
                   <option value="contract">Contract</option>
@@ -298,9 +298,9 @@ export default function CandidateRegister() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Salary Expectation (annual)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Salary Expectation (annual)</label>
                 <select value={form.salary} onChange={e => update('salary', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                   <option value="">Select range...</option>
                   {['60000', '75000', '90000', '105000', '120000', '140000', '160000', '180000'].map(s => (
                     <option key={s} value={s}>${parseInt(s).toLocaleString()}+</option>
@@ -308,9 +308,9 @@ export default function CandidateRegister() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Work Environment Preference</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Work Environment Preference</label>
                 <select value={form.workEnv} onChange={e => update('workEnv', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                   <option value="">Select...</option>
                   <option value="remote">Remote</option>
                   <option value="hybrid">Hybrid</option>
@@ -319,9 +319,9 @@ export default function CandidateRegister() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Availability</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Availability</label>
                 <select value={form.availability} onChange={e => update('availability', e.target.value)}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]">
                   <option value="">Select...</option>
                   <option value="immediate">Immediately Available</option>
                   <option value="2weeks">2 Weeks Notice</option>
@@ -335,60 +335,60 @@ export default function CandidateRegister() {
           {/* Step 5 */}
           {step === 4 && (
             <div className="space-y-5">
-              <h2 className="text-xl font-bold text-[#1A3A8F] mb-6">Create Your Account</h2>
+              <h2 className="text-xl font-bold text-[#0D0D0D] mb-6">Create Your Account</h2>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Password</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Password</label>
                 <div className="relative">
                   <input type={showPass ? 'text' : 'password'} value={form.password} onChange={e => update('password', e.target.value)}
                     placeholder="At least 6 characters"
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#D4AF37]" />
-                  <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4A5568]">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#CC1016]" />
+                  <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6B6B]">
                     {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Confirm Password</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Confirm Password</label>
                 <input type="password" value={form.confirmPassword} onChange={e => update('confirmPassword', e.target.value)}
                   placeholder="Repeat password"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37]" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016]" />
               </div>
               {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">{error}</div>}
-              <div className="bg-[#F7F9FC] rounded-lg p-4 text-sm text-[#4A5568]">
+              <div className="bg-[#F5F5F5] rounded-lg p-4 text-sm text-[#6B6B6B]">
                 <p>By registering, you agree to our{' '}
-                  <Link href="/terms-of-service" className="text-[#D4AF37] hover:underline">Terms of Service</Link> and{' '}
-                  <Link href="/privacy-policy" className="text-[#D4AF37] hover:underline">Privacy Policy</Link>.
+                  <Link href="/terms-of-service" className="text-[#CC1016] hover:underline">Terms of Service</Link> and{' '}
+                  <Link href="/privacy-policy" className="text-[#CC1016] hover:underline">Privacy Policy</Link>.
                 </p>
               </div>
             </div>
           )}
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#E2E8F0]">
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#E5E5E5]">
             {step > 0 ? (
-              <button onClick={() => setStep(s => s - 1)} className="text-[#4A5568] hover:text-[#1A3A8F] font-medium text-sm">
+              <button onClick={() => setStep(s => s - 1)} className="text-[#6B6B6B] hover:text-[#0D0D0D] font-medium text-sm">
                 ← Back
               </button>
             ) : (
-              <Link href="/login" className="text-[#4A5568] hover:text-[#1A3A8F] text-sm">Already have an account?</Link>
+              <Link href="/login" className="text-[#6B6B6B] hover:text-[#0D0D0D] text-sm">Already have an account?</Link>
             )}
             {step < steps.length - 1 ? (
               <button onClick={() => setStep(s => s + 1)} disabled={!canNext}
-                className="bg-[#D4AF37] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#B8960C] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                className="bg-[#CC1016] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#A80D12] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                 Continue →
               </button>
             ) : (
               <button onClick={handleSubmit} disabled={loading || !canNext}
-                className="bg-[#D4AF37] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#B8960C] transition-colors disabled:opacity-50">
+                className="bg-[#CC1016] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#A80D12] transition-colors disabled:opacity-50">
                 {loading ? 'Creating Account...' : 'Create Account →'}
               </button>
             )}
           </div>
         </div>
 
-        <p className="text-center text-sm text-[#4A5568] mt-6">
+        <p className="text-center text-sm text-[#6B6B6B] mt-6">
           Are you an employer?{' '}
-          <Link href="/register/employer" className="text-[#D4AF37] font-semibold hover:underline">Register as Employer →</Link>
+          <Link href="/register/employer" className="text-[#CC1016] font-semibold hover:underline">Register as Employer →</Link>
         </p>
       </div>
     </div>
@@ -400,9 +400,9 @@ function Field({ label, value, onChange, placeholder, type = 'text' }: {
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">{label}</label>
+      <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">{label}</label>
       <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-        className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors" />
+        className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016] focus:ring-1 focus:ring-[#CC1016] transition-colors" />
     </div>
   );
 }

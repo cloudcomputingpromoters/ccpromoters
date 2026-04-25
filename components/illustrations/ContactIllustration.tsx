@@ -33,7 +33,7 @@ export default function ContactIllustration() {
           <stop offset="0%" stopColor="#0D1B55"/><stop offset="100%" stopColor="#050E2B"/>
         </radialGradient>
         <radialGradient id="ci-dal-aura" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.35"/><stop offset="100%" stopColor="#D4AF37" stopOpacity="0"/>
+          <stop offset="0%" stopColor="#CC1016" stopOpacity="0.35"/><stop offset="100%" stopColor="#CC1016" stopOpacity="0"/>
         </radialGradient>
         <linearGradient id="ci-envelope-body" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#1A3060"/><stop offset="100%" stopColor="#0C1A38"/>
@@ -59,17 +59,17 @@ export default function ContactIllustration() {
         <g key={i}>
           {/* Highway body */}
           <line x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke={i%2===0?'#D4AF37':'#3B82F6'} strokeWidth="1.5" strokeOpacity="0.2"/>
+            stroke={i%2===0?'#CC1016':'#3B82F6'} strokeWidth="1.5" strokeOpacity="0.2"/>
           {/* Center line */}
           <line x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke={i%2===0?'#D4AF37':'#3B82F6'} strokeWidth="0.5" strokeOpacity="0.4" strokeDasharray="5 4"/>
+            stroke={i%2===0?'#CC1016':'#3B82F6'} strokeWidth="0.5" strokeOpacity="0.4" strokeDasharray="5 4"/>
         </g>
       ))}
 
       {/* Dallas aura */}
       <circle cx="200" cy="158" r="28" fill="url(#ci-dal-aura)" filter="url(#ci-glow-lg)"/>
-      <circle cx="200" cy="158" r="16" fill="none" stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.4"/>
-      <circle cx="200" cy="158" r="22" fill="none" stroke="#D4AF37" strokeWidth="0.5" strokeOpacity="0.25" strokeDasharray="4 3"/>
+      <circle cx="200" cy="158" r="16" fill="none" stroke="#CC1016" strokeWidth="1.2" strokeOpacity="0.4"/>
+      <circle cx="200" cy="158" r="22" fill="none" stroke="#CC1016" strokeWidth="0.5" strokeOpacity="0.25" strokeDasharray="4 3"/>
 
       {/* City markers */}
       {cities.map(city=>(
@@ -79,20 +79,20 @@ export default function ContactIllustration() {
               {/* Bridge tower marker for Dallas */}
               {/* Tower base */}
               <rect x={city.x-4} y={city.y-18} width="8" height="22" rx="1"
-                fill="#D4AF37" fillOpacity="0.9" filter="url(#ci-glow-sm)"/>
+                fill="#CC1016" fillOpacity="0.9" filter="url(#ci-glow-sm)"/>
               {/* Cross brace */}
               <rect x={city.x-8} y={city.y-12} width="16" height="3" rx="1"
-                fill="#D4AF37" fillOpacity="0.8"/>
+                fill="#CC1016" fillOpacity="0.8"/>
               {/* Tower top beacon */}
-              <circle cx={city.x} cy={city.y-20} r="4" fill="#D4AF37" fillOpacity="0.9" filter="url(#ci-glow-sm)"/>
+              <circle cx={city.x} cy={city.y-20} r="4" fill="#CC1016" fillOpacity="0.9" filter="url(#ci-glow-sm)"/>
               {/* Cable stays */}
-              <line x1={city.x} y1={city.y-20} x2={city.x-14} y2={city.y+2} stroke="#D4AF37" strokeWidth="0.7" strokeOpacity="0.5"/>
-              <line x1={city.x} y1={city.y-20} x2={city.x+14} y2={city.y+2} stroke="#D4AF37" strokeWidth="0.7" strokeOpacity="0.5"/>
+              <line x1={city.x} y1={city.y-20} x2={city.x-14} y2={city.y+2} stroke="#CC1016" strokeWidth="0.7" strokeOpacity="0.5"/>
+              <line x1={city.x} y1={city.y-20} x2={city.x+14} y2={city.y+2} stroke="#CC1016" strokeWidth="0.7" strokeOpacity="0.5"/>
               {/* Deck */}
-              <line x1={city.x-16} y1={city.y+2} x2={city.x+16} y2={city.y+2} stroke="#D4AF37" strokeWidth="1" strokeOpacity="0.6"/>
+              <line x1={city.x-16} y1={city.y+2} x2={city.x+16} y2={city.y+2} stroke="#CC1016" strokeWidth="1" strokeOpacity="0.6"/>
               {/* Spike to ground */}
-              <line x1={city.x} y1={city.y+2} x2={city.x} y2={city.y+12} stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.7"/>
-              <text x={city.x+14} y={city.y+6} fill="#D4AF37" fontSize="9" fontFamily="sans-serif" fontWeight="700">{city.label}</text>
+              <line x1={city.x} y1={city.y+2} x2={city.x} y2={city.y+12} stroke="#CC1016" strokeWidth="1.2" strokeOpacity="0.7"/>
+              <text x={city.x+14} y={city.y+6} fill="#CC1016" fontSize="9" fontFamily="sans-serif" fontWeight="700">{city.label}</text>
             </>
           ) : (
             <>
@@ -114,25 +114,25 @@ export default function ContactIllustration() {
       {/* ── Hard hat icon (top-right, replacing envelope) ── */}
       <g transform="translate(295,30)">
         {/* Background circle */}
-        <circle cx="35" cy="30" r="28" fill="#1A3060" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.4"/>
+        <circle cx="35" cy="30" r="28" fill="#1A3060" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.4"/>
         {/* Hard hat shape */}
-        <path d="M15 34 Q15 18 35 16 Q55 18 55 34 Z" fill="#D4AF37" fillOpacity="0.85"/>
-        <rect x="12" y="34" width="46" height="6" rx="3" fill="#D4AF37" fillOpacity="0.9"/>
+        <path d="M15 34 Q15 18 35 16 Q55 18 55 34 Z" fill="#CC1016" fillOpacity="0.85"/>
+        <rect x="12" y="34" width="46" height="6" rx="3" fill="#CC1016" fillOpacity="0.9"/>
         {/* Hat band */}
         <line x1="15" y1="32" x2="55" y2="32" stroke="white" strokeOpacity="0.3" strokeWidth="1"/>
         {/* Glow */}
-        <circle cx="35" cy="30" r="28" fill="none" stroke="#D4AF37" strokeWidth="3" strokeOpacity="0.08" filter="url(#ci-glow-sm)"/>
+        <circle cx="35" cy="30" r="28" fill="none" stroke="#CC1016" strokeWidth="3" strokeOpacity="0.08" filter="url(#ci-glow-sm)"/>
       </g>
       {/* Dashed signal line from hat to Dallas */}
-      <path d="M330 72 Q295 120 200 158" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="5 3" fill="none"/>
-      <circle cx="330" cy="72" r="3" fill="#D4AF37" fillOpacity="0.6"/>
+      <path d="M330 72 Q295 120 200 158" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="5 3" fill="none"/>
+      <circle cx="330" cy="72" r="3" fill="#CC1016" fillOpacity="0.6"/>
 
       {/* ── Status bar ── */}
       <rect x="24" y="264" width="352" height="36" rx="8" fill="#0D1843" stroke="#1E3A8A" strokeWidth="0.8"/>
       {/* Left: national coverage */}
       <g transform="translate(38,282)">
-        <rect x="-8" y="-8" width="16" height="16" rx="2" fill="#D4AF37" fillOpacity="0.15" stroke="#D4AF37" strokeWidth="0.7"/>
-        <text x="0" y="5" textAnchor="middle" fill="#D4AF37" fontSize="8" fontFamily="sans-serif" fontWeight="700">✓</text>
+        <rect x="-8" y="-8" width="16" height="16" rx="2" fill="#CC1016" fillOpacity="0.15" stroke="#CC1016" strokeWidth="0.7"/>
+        <text x="0" y="5" textAnchor="middle" fill="#CC1016" fontSize="8" fontFamily="sans-serif" fontWeight="700">✓</text>
       </g>
       <text x="55" y="286" fill="white" fillOpacity="0.7" fontSize="9" fontFamily="sans-serif">20+ States Covered</text>
       {/* Divider */}
@@ -146,7 +146,7 @@ export default function ContactIllustration() {
 
       {/* Corner particles */}
       {[{x:20,y:20},{x:380,y:20},{x:20,y:300},{x:380,y:300}].map((p,i)=>(
-        <circle key={i} cx={p.x} cy={p.y} r="2" fill={i%2===0?'#D4AF37':'#3B82F6'} fillOpacity="0.5"/>
+        <circle key={i} cx={p.x} cy={p.y} r="2" fill={i%2===0?'#CC1016':'#3B82F6'} fillOpacity="0.5"/>
       ))}
     </svg>
   );

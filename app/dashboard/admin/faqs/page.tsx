@@ -49,8 +49,8 @@ export default function AdminFAQsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-4xl mx-auto">
           <Link href="/dashboard/admin" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Admin</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>FAQs</h1>
@@ -60,37 +60,37 @@ export default function AdminFAQsPage() {
       <div className="max-w-4xl mx-auto px-4 py-10 space-y-6">
         <div className="flex justify-end">
           <button onClick={() => setAdding(!adding)}
-            className="flex items-center gap-2 bg-[#D4AF37] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#B8960C] transition-colors">
+            className="flex items-center gap-2 bg-[#CC1016] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#A80D12] transition-colors">
             <Plus size={15} /> Add FAQ
           </button>
         </div>
 
         {adding && (
-          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">New FAQ</h3>
+          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">New FAQ</h3>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Question</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Question</label>
               <input type="text" value={form.question} onChange={e => setForm({...form, question: e.target.value})} required
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#CC1016] transition-colors" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Answer</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Answer</label>
               <textarea value={form.answer} onChange={e => setForm({...form, answer: e.target.value})} required rows={4}
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors resize-none" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#CC1016] transition-colors resize-none" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Category (optional)</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Category (optional)</label>
               <input type="text" value={form.category} onChange={e => setForm({...form, category: e.target.value})}
                 placeholder="e.g. Candidates, Employers, General"
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#CC1016] transition-colors" />
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
-                className="bg-[#D4AF37] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+                className="bg-[#CC1016] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#A80D12] transition-colors disabled:opacity-60">
                 {saving ? 'Saving...' : 'Save FAQ'}
               </button>
               <button type="button" onClick={() => setAdding(false)}
-                className="px-5 py-2 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] hover:border-[#1A3A8F] transition-colors">
+                className="px-5 py-2 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] hover:border-[#0D0D0D] transition-colors">
                 Cancel
               </button>
             </div>
@@ -98,28 +98,28 @@ export default function AdminFAQsPage() {
         )}
 
         {loading ? (
-          <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : faqs.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center text-[#4A5568]">No FAQs yet. Add one above.</div>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-12 text-center text-[#6B6B6B]">No FAQs yet. Add one above.</div>
         ) : (
           <div className="space-y-2">
             {faqs.map(faq => (
-              <div key={faq.id} className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden">
+              <div key={faq.id} className="bg-white rounded-xl border border-[#E5E5E5] overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 cursor-pointer" onClick={() => setExpanded(expanded === faq.id ? null : faq.id)}>
                   <div className="flex-1">
-                    <p className="font-semibold text-[#1A3A8F] text-sm">{faq.question}</p>
-                    {faq.category && <p className="text-xs text-[#4A5568] mt-0.5">{faq.category}</p>}
+                    <p className="font-semibold text-[#0D0D0D] text-sm">{faq.question}</p>
+                    {faq.category && <p className="text-xs text-[#6B6B6B] mt-0.5">{faq.category}</p>}
                   </div>
                   <div className="flex items-center gap-2 ml-4">
-                    <button onClick={e => { e.stopPropagation(); handleDelete(faq.id); }} className="p-1.5 text-[#4A5568] hover:text-red-600 transition-colors">
+                    <button onClick={e => { e.stopPropagation(); handleDelete(faq.id); }} className="p-1.5 text-[#6B6B6B] hover:text-red-600 transition-colors">
                       <Trash2 size={14} />
                     </button>
-                    {expanded === faq.id ? <ChevronUp size={16} className="text-[#4A5568]" /> : <ChevronDown size={16} className="text-[#4A5568]" />}
+                    {expanded === faq.id ? <ChevronUp size={16} className="text-[#6B6B6B]" /> : <ChevronDown size={16} className="text-[#6B6B6B]" />}
                   </div>
                 </div>
                 {expanded === faq.id && (
-                  <div className="px-5 pb-5 border-t border-[#E2E8F0] pt-4">
-                    <p className="text-sm text-[#4A5568] whitespace-pre-wrap">{faq.answer}</p>
+                  <div className="px-5 pb-5 border-t border-[#E5E5E5] pt-4">
+                    <p className="text-sm text-[#6B6B6B] whitespace-pre-wrap">{faq.answer}</p>
                   </div>
                 )}
               </div>

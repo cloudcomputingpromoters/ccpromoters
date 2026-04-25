@@ -65,13 +65,13 @@ export default function MissionIllustration() {
 
       {/* Dimension annotations */}
       {/* Span dimension */}
-      <line x1="140" y1="330" x2="310" y2="330" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.5" strokeDasharray="3 2"/>
-      <line x1="140" y1="326" x2="140" y2="334" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.5"/>
-      <line x1="310" y1="326" x2="310" y2="334" stroke="#D4AF37" strokeWidth="0.8" strokeOpacity="0.5"/>
-      <text x="225" y="326" textAnchor="middle" fill="#D4AF37" fontSize="6.5" fontFamily="monospace" fillOpacity="0.6">170.0m</text>
+      <line x1="140" y1="330" x2="310" y2="330" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.5" strokeDasharray="3 2"/>
+      <line x1="140" y1="326" x2="140" y2="334" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.5"/>
+      <line x1="310" y1="326" x2="310" y2="334" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.5"/>
+      <text x="225" y="326" textAnchor="middle" fill="#CC1016" fontSize="6.5" fontFamily="monospace" fillOpacity="0.6">170.0m</text>
       {/* Height annotation */}
-      <line x1="155" y1="258" x2="155" y2="310" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.4" strokeDasharray="3 2"/>
-      <text x="158" y="286" fill="#D4AF37" fontSize="6" fontFamily="monospace" fillOpacity="0.55">38m</text>
+      <line x1="155" y1="258" x2="155" y2="310" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.4" strokeDasharray="3 2"/>
+      <text x="158" y="286" fill="#CC1016" fontSize="6" fontFamily="monospace" fillOpacity="0.55">38m</text>
       {/* Elevation label */}
       <text x="70" y="307" fill="#6AAAD0" fontSize="7" fontFamily="monospace" fillOpacity="0.55">±0.000</text>
 
@@ -97,8 +97,8 @@ export default function MissionIllustration() {
         {/* Body — leaning forward */}
         <rect x="-9" y="19" width="18" height="32" rx="3" fill="#1A2A3A" transform="rotate(-8)"/>
         {/* Hi-vis vest */}
-        <rect x="-9" y="24" width="18" height="5" rx="1" fill="#D4AF37" fillOpacity="0.55" transform="rotate(-8)"/>
-        <rect x="-9" y="32" width="18" height="5" rx="1" fill="#D4AF37" fillOpacity="0.35" transform="rotate(-8)"/>
+        <rect x="-9" y="24" width="18" height="5" rx="1" fill="#CC1016" fillOpacity="0.55" transform="rotate(-8)"/>
+        <rect x="-9" y="32" width="18" height="5" rx="1" fill="#CC1016" fillOpacity="0.35" transform="rotate(-8)"/>
         {/* Arm reaching to blueprint */}
         <path d="M8 22 Q20 28 28 42" stroke="#1A2A3A" strokeWidth="10" strokeLinecap="round" fill="none"/>
         {/* Other arm */}
@@ -117,8 +117,8 @@ export default function MissionIllustration() {
         {/* Body */}
         <rect x="-10" y="19" width="20" height="36" rx="3" fill="#1A2A3A"/>
         {/* Hi-vis vest */}
-        <rect x="-10" y="25" width="20" height="5" rx="1" fill="#D4AF37" fillOpacity="0.6"/>
-        <rect x="-10" y="34" width="20" height="5" rx="1" fill="#D4AF37" fillOpacity="0.35"/>
+        <rect x="-10" y="25" width="20" height="5" rx="1" fill="#CC1016" fillOpacity="0.6"/>
+        <rect x="-10" y="34" width="20" height="5" rx="1" fill="#CC1016" fillOpacity="0.35"/>
         {/* Arm holding rolled drawing */}
         <rect x="-18" y="19" width="8" height="26" rx="3" fill="#1A2A3A"/>
         {/* Rolled drawing in hand */}
@@ -141,8 +141,8 @@ export default function MissionIllustration() {
         {/* Body */}
         <rect x="-9" y="19" width="18" height="34" rx="3" fill="#1A2A3A"/>
         {/* Hi-vis vest */}
-        <rect x="-9" y="24" width="18" height="5" rx="1" fill="#D4AF37" fillOpacity="0.5"/>
-        <rect x="-9" y="33" width="18" height="5" rx="1" fill="#D4AF37" fillOpacity="0.3"/>
+        <rect x="-9" y="24" width="18" height="5" rx="1" fill="#CC1016" fillOpacity="0.5"/>
+        <rect x="-9" y="33" width="18" height="5" rx="1" fill="#CC1016" fillOpacity="0.3"/>
         {/* Arms holding clipboard */}
         <rect x="-16" y="20" width="8" height="24" rx="3" fill="#1A2A3A"/>
         <rect x="9"   y="20" width="8" height="24" rx="3" fill="#1A2A3A"/>
@@ -170,7 +170,7 @@ export default function MissionIllustration() {
       ))}
 
       {/* Safety barrier tape across bottom */}
-      <line x1="0" y1="342" x2="450" y2="342" stroke="#D4AF37" strokeWidth="1.5" strokeOpacity="0.3" strokeDasharray="12 8"/>
+      <line x1="0" y1="342" x2="450" y2="342" stroke="#CC1016" strokeWidth="1.5" strokeOpacity="0.3" strokeDasharray="12 8"/>
 
       {/* Ambient glow at blueprint center */}
       <ellipse cx="225" cy="285" rx="80" ry="40" fill="#1E6AC0" fillOpacity="0.06" filter="url(#mi-glow-lg)"/>

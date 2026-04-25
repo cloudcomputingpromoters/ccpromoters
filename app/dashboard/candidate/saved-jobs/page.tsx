@@ -36,8 +36,8 @@ export default function SavedJobsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <Link href="/dashboard/candidate" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Dashboard</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Saved Jobs</h1>
@@ -45,12 +45,12 @@ export default function SavedJobsPage() {
       </div>
       <div className="max-w-5xl mx-auto px-4 py-10">
         {loading ? (
-          <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-20 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-20 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : savedJobs.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-16 text-center">
-            <Bookmark size={48} className="text-[#D4AF37]/30 mx-auto mb-4" />
-            <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">No Saved Jobs</h3>
-            <p className="text-[#4A5568] mb-6">Bookmark jobs you like and they will appear here.</p>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-16 text-center">
+            <Bookmark size={48} className="text-[#CC1016]/30 mx-auto mb-4" />
+            <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">No Saved Jobs</h3>
+            <p className="text-[#6B6B6B] mb-6">Bookmark jobs you like and they will appear here.</p>
             <Link href="/jobs" className="btn-pink">Browse Open Roles</Link>
           </div>
         ) : (
@@ -60,15 +60,15 @@ export default function SavedJobsPage() {
               if (!job) return null;
               return (
                 <Link key={saved.id} href={`/jobs/${job.slug}`}
-                  className="group bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-[#D4AF37] hover:shadow-md transition-all">
+                  className="group bg-white rounded-xl border border-[#E5E5E5] p-5 hover:border-[#CC1016] hover:shadow-md transition-all">
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="font-bold text-[#1A3A8F] group-hover:text-[#D4AF37] transition-colors">{job.title}</h3>
+                    <h3 className="font-bold text-[#0D0D0D] group-hover:text-[#CC1016] transition-colors">{job.title}</h3>
                     {job.status !== 'active' && <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full shrink-0">Closed</span>}
                   </div>
-                  <div className="flex flex-wrap gap-3 text-sm text-[#4A5568]">
-                    <span className="flex items-center gap-1"><MapPin size={12} className="text-[#D4AF37]" />{job.is_remote ? 'Remote' : `${job.location_city}, ${job.location_state}`}</span>
+                  <div className="flex flex-wrap gap-3 text-sm text-[#6B6B6B]">
+                    <span className="flex items-center gap-1"><MapPin size={12} className="text-[#CC1016]" />{job.is_remote ? 'Remote' : `${job.location_city}, ${job.location_state}`}</span>
                     {job.salary_min && job.salary_max && (
-                      <span className="flex items-center gap-1"><DollarSign size={12} className="text-[#D4AF37]" />${Math.round(job.salary_min/1000)}k–${Math.round(job.salary_max/1000)}k</span>
+                      <span className="flex items-center gap-1"><DollarSign size={12} className="text-[#CC1016]" />${Math.round(job.salary_min/1000)}k–${Math.round(job.salary_max/1000)}k</span>
                     )}
                   </div>
                 </Link>

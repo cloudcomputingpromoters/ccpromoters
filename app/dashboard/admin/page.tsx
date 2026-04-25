@@ -35,7 +35,7 @@ export default function AdminDashboardPage() {
   }, []);
 
   const statCards = [
-    { label: 'Active Jobs', value: stats.jobs, icon: Briefcase, color: 'text-blue-600 bg-blue-100' },
+    { label: 'Active Jobs', value: stats.jobs, icon: Briefcase, color: 'text-blue-600 bg-[#F5F5F5]' },
     { label: 'Candidates', value: stats.candidates, icon: Users, color: 'text-purple-600 bg-purple-100' },
     { label: 'Employers', value: stats.employers, icon: Star, color: 'text-yellow-600 bg-yellow-100' },
     { label: 'Applications', value: stats.applications, icon: FileText, color: 'text-green-600 bg-green-100' },
@@ -61,10 +61,10 @@ export default function AdminDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-6xl mx-auto">
-          <p className="text-[#D4AF37] font-semibold text-sm mb-1">Admin Panel</p>
+          <p className="text-[#CC1016] font-semibold text-sm mb-1">Admin Panel</p>
           <h1 className="text-3xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Dashboard Overview</h1>
         </div>
       </div>
@@ -73,28 +73,28 @@ export default function AdminDashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {statCards.map(({ label, value, icon: Icon, color }) => (
-            <div key={label} className="bg-white rounded-xl border border-[#E2E8F0] p-4 text-center">
+            <div key={label} className="bg-white rounded-xl border border-[#E5E5E5] p-4 text-center">
               <div className={`w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2 ${color}`}>
                 <Icon size={18} />
               </div>
-              <p className="text-2xl font-bold text-[#1A3A8F]">{value.toLocaleString()}</p>
-              <p className="text-xs text-[#4A5568] mt-0.5">{label}</p>
+              <p className="text-2xl font-bold text-[#0D0D0D]">{value.toLocaleString()}</p>
+              <p className="text-xs text-[#6B6B6B] mt-0.5">{label}</p>
             </div>
           ))}
         </div>
 
         {/* Nav grid */}
         <div>
-          <h2 className="text-lg font-bold text-[#1A3A8F] mb-4">Admin Sections</h2>
+          <h2 className="text-lg font-bold text-[#0D0D0D] mb-4">Admin Sections</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {navItems.map(({ href, label, desc, icon: Icon }) => (
               <Link key={href} href={href}
-                className="group bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-[#D4AF37] hover:shadow-md transition-all">
-                <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center mb-3">
-                  <Icon size={18} className="text-[#D4AF37]" />
+                className="group bg-white rounded-xl border border-[#E5E5E5] p-5 hover:border-[#CC1016] hover:shadow-md transition-all">
+                <div className="w-10 h-10 rounded-lg bg-[#CC1016]/10 flex items-center justify-center mb-3">
+                  <Icon size={18} className="text-[#CC1016]" />
                 </div>
-                <h3 className="font-bold text-[#1A3A8F] group-hover:text-[#D4AF37] transition-colors text-sm mb-1">{label}</h3>
-                <p className="text-xs text-[#4A5568]">{desc}</p>
+                <h3 className="font-bold text-[#0D0D0D] group-hover:text-[#CC1016] transition-colors text-sm mb-1">{label}</h3>
+                <p className="text-xs text-[#6B6B6B]">{desc}</p>
               </Link>
             ))}
           </div>

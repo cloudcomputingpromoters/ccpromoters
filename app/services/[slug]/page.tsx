@@ -313,10 +313,10 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className={`py-20 px-4 ${content.audience === 'employer' ? 'bg-gradient-to-r from-[#1A3A8F] to-[#163298]' : 'bg-gradient-to-r from-[#D4AF37] to-[#B8960C]'}`}>
+      <section className={`py-20 px-4 ${content.audience === 'employer' ? 'bg-[#0D0D0D]' : 'bg-gradient-to-r from-[#CC1016] to-[#A80D12]'}`}>
         <div className="max-w-4xl mx-auto">
           <Link href="/services" className="inline-flex items-center gap-1 text-white/70 hover:text-white text-sm mb-6 transition-colors">← All Services</Link>
-          <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${content.audience === 'employer' ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-white/20 text-white'}`}>
+          <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${content.audience === 'employer' ? 'bg-[#CC1016]/20 text-[#CC1016]' : 'bg-white/20 text-white'}`}>
             {content.audience === 'employer' ? 'For Employers' : 'For Candidates'}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>{svc.title}</h1>
@@ -329,40 +329,40 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
           {/* Main */}
           <div className="lg:col-span-2 space-y-12">
             <section>
-              <h2 className="text-2xl font-bold text-[#1A3A8F] mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>About This Service</h2>
-              <p className="text-[#4A5568] leading-relaxed text-lg">{content.intro}</p>
+              <h2 className="text-2xl font-bold text-[#0D0D0D] mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>About This Service</h2>
+              <p className="text-[#6B6B6B] leading-relaxed text-lg">{content.intro}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#1A3A8F] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>What&apos;s Included</h2>
+              <h2 className="text-2xl font-bold text-[#0D0D0D] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>What&apos;s Included</h2>
               <ul className="space-y-3">
                 {content.includes.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <CheckCircle size={20} className="text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span className="text-[#4A5568]">{item}</span>
+                    <CheckCircle size={20} className="text-[#CC1016] shrink-0 mt-0.5" />
+                    <span className="text-[#6B6B6B]">{item}</span>
                   </li>
                 ))}
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-[#1A3A8F] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>How It Works</h2>
+              <h2 className="text-2xl font-bold text-[#0D0D0D] mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>How It Works</h2>
               <div className="grid md:grid-cols-3 gap-5">
                 {content.steps.map((step, i) => (
-                  <div key={i} className="bg-[#F7F9FC] rounded-xl p-5 border border-[#E2E8F0]">
-                    <div className="w-8 h-8 bg-[#D4AF37] text-white rounded-full flex items-center justify-center font-bold text-sm mb-3">{i + 1}</div>
-                    <h3 className="font-bold text-[#1A3A8F] mb-2">{step.title}</h3>
-                    <p className="text-[#4A5568] text-sm">{step.desc}</p>
+                  <div key={i} className="bg-[#F5F5F5] rounded-xl p-5 border border-[#E5E5E5]">
+                    <div className="w-8 h-8 bg-[#CC1016] text-white rounded-full flex items-center justify-center font-bold text-sm mb-3">{i + 1}</div>
+                    <h3 className="font-bold text-[#0D0D0D] mb-2">{step.title}</h3>
+                    <p className="text-[#6B6B6B] text-sm">{step.desc}</p>
                   </div>
                 ))}
               </div>
             </section>
 
             {content.testimonial && (
-              <section className="bg-[#1A3A8F] rounded-2xl p-8">
+              <section className="bg-[#0D0D0D] rounded-2xl p-8">
                 <blockquote className="text-white text-lg leading-relaxed mb-4">&ldquo;{content.testimonial.quote}&rdquo;</blockquote>
                 <div>
-                  <p className="text-[#D4AF37] font-semibold">{content.testimonial.author}</p>
+                  <p className="text-[#CC1016] font-semibold">{content.testimonial.author}</p>
                   <p className="text-white/60 text-sm">{content.testimonial.title}</p>
                 </div>
               </section>
@@ -371,22 +371,22 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <div className="bg-[#D4AF37] rounded-xl p-6 text-white">
+            <div className="bg-[#CC1016] rounded-xl p-6 text-white">
               <h3 className="font-bold text-lg mb-3">Get Started Today</h3>
               <p className="text-white/85 text-sm mb-5">Speak to a specialist recruiter about your specific needs.</p>
-              <Link href={content.cta.href} className="block w-full text-center bg-white text-[#D4AF37] font-bold py-3 rounded-lg hover:bg-white/90 transition-colors mb-3">{content.cta.primary}</Link>
+              <Link href={content.cta.href} className="block w-full text-center bg-white text-[#CC1016] font-bold py-3 rounded-lg hover:bg-white/90 transition-colors mb-3">{content.cta.primary}</Link>
               <Link href={content.cta.href2} className="block w-full text-center border border-white/50 text-white font-semibold py-3 rounded-lg hover:bg-white/10 transition-colors">{content.cta.secondary}</Link>
             </div>
 
-            <div className="bg-[#F7F9FC] rounded-xl p-6 border border-[#E2E8F0]">
-              <h3 className="font-bold text-[#1A3A8F] mb-3">Related Services</h3>
+            <div className="bg-[#F5F5F5] rounded-xl p-6 border border-[#E5E5E5]">
+              <h3 className="font-bold text-[#0D0D0D] mb-3">Related Services</h3>
               <ul className="space-y-2">
                 {Object.entries(serviceContent)
                   .filter(([k, v]) => k !== slug && v.audience === content.audience)
                   .slice(0, 4)
                   .map(([k, v]) => (
                     <li key={k}>
-                      <Link href={`/services/${k}`} className="text-[#D4AF37] hover:underline text-sm font-medium">
+                      <Link href={`/services/${k}`} className="text-[#CC1016] hover:underline text-sm font-medium">
                         {(v as { tagline: string; audience: string; intro: string; includes: string[]; steps: { title: string; desc: string }[]; cta: { primary: string; href: string; secondary: string; href2: string }; testimonial?: { quote: string; author: string; title: string } }) && k.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} →
                       </Link>
                     </li>

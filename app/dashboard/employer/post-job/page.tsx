@@ -80,8 +80,8 @@ export default function PostJobPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-3xl mx-auto">
           <Link href="/dashboard/employer" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Dashboard</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Post a New Job</h1>
@@ -91,27 +91,27 @@ export default function PostJobPage() {
         {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 text-sm mb-6">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">Job Details</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">Job Details</h3>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Job Title <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Job Title <span className="text-red-500">*</span></label>
               <input type="text" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required
                 placeholder="e.g. Senior Financial Analyst"
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Discipline <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Discipline <span className="text-red-500">*</span></label>
                 <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})} required
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                   <option value="">Select discipline</option>
                   {DISCIPLINES.map(d => <option key={d} value={d}>{d.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Employment Type <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Employment Type <span className="text-red-500">*</span></label>
                 <select value={form.employment_type} onChange={e => setForm({...form, employment_type: e.target.value})} required
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                   <option value="">Select type</option>
                   {EMP_TYPES.map(t => <option key={t} value={t}>{t.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
                 </select>
@@ -119,19 +119,19 @@ export default function PostJobPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">Location & Compensation</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">Location & Compensation</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">City</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">City</label>
                 <input type="text" value={form.location_city} onChange={e => setForm({...form, location_city: e.target.value})}
                   placeholder="e.g. Dallas"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">State</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">State</label>
                 <select value={form.location_state} onChange={e => setForm({...form, location_state: e.target.value})}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                   <option value="">Select state</option>
                   {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
@@ -139,27 +139,27 @@ export default function PostJobPage() {
             </div>
             <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" checked={form.is_remote} onChange={e => setForm({...form, is_remote: e.target.checked})}
-                className="w-4 h-4 accent-[#D4AF37]" />
-              <span className="text-sm text-[#1A3A8F] font-medium">This is a remote position</span>
+                className="w-4 h-4 accent-[#CC1016]" />
+              <span className="text-sm text-[#0D0D0D] font-medium">This is a remote position</span>
             </label>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Min Salary ($)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Min Salary ($)</label>
                 <input type="number" value={form.salary_min} onChange={e => setForm({...form, salary_min: e.target.value})}
                   placeholder="60000"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Max Salary ($)</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Max Salary ($)</label>
                 <input type="number" value={form.salary_max} onChange={e => setForm({...form, salary_max: e.target.value})}
                   placeholder="90000"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">Job Description</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">Job Description</h3>
             {[
               { key: 'description', label: 'Description', placeholder: 'Overview of the role and responsibilities...' },
               { key: 'requirements', label: 'Requirements', placeholder: 'Required skills, education, and experience...' },
@@ -167,21 +167,21 @@ export default function PostJobPage() {
               { key: 'benefits', label: 'Benefits & Perks', placeholder: 'Health insurance, 401k, PTO...' },
             ].map(({ key, label, placeholder }) => (
               <div key={key}>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">{label}</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">{label}</label>
                 <textarea value={form[key as keyof typeof form] as string}
                   onChange={e => setForm({...form, [key]: e.target.value})}
                   rows={4} placeholder={placeholder}
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors resize-none" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors resize-none" />
               </div>
             ))}
           </div>
 
           <div className="flex gap-3">
             <button type="submit" disabled={saving}
-              className="flex-1 bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+              className="flex-1 bg-[#CC1016] text-white font-bold py-3 rounded-lg hover:bg-[#A80D12] transition-colors disabled:opacity-60">
               {saving ? 'Posting...' : 'Post Job'}
             </button>
-            <Link href="/dashboard/employer/listings" className="px-6 py-3 border border-[#E2E8F0] rounded-lg text-[#1A3A8F] font-semibold hover:border-[#1A3A8F] transition-colors text-sm flex items-center">Cancel</Link>
+            <Link href="/dashboard/employer/listings" className="px-6 py-3 border border-[#E5E5E5] rounded-lg text-[#0D0D0D] font-semibold hover:border-[#0D0D0D] transition-colors text-sm flex items-center">Cancel</Link>
           </div>
         </form>
       </div>

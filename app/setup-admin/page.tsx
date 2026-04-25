@@ -50,15 +50,15 @@ export default function SetupAdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-[#E2E8F0] p-8">
+    <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-[#E5E5E5] p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-[#1A3A8F] rounded-lg flex items-center justify-center">
-            <Shield size={20} className="text-[#D4AF37]" />
+          <div className="w-10 h-10 bg-[#0D0D0D] rounded-lg flex items-center justify-center">
+            <Shield size={20} className="text-[#CC1016]" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-[#1A3A8F]">Admin Setup</h1>
-            <p className="text-xs text-[#4A5568]">One-time admin role activation</p>
+            <h1 className="text-xl font-bold text-[#0D0D0D]">Admin Setup</h1>
+            <p className="text-xs text-[#6B6B6B]">One-time admin role activation</p>
           </div>
         </div>
 
@@ -67,24 +67,24 @@ export default function SetupAdminPage() {
             <p className="font-semibold mb-1">Done!</p>
             <p>{message}</p>
             <button onClick={() => insforge.auth.signOut().then(() => router.push('/login'))}
-              className="mt-4 w-full bg-[#1A3A8F] text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-[#152d6e] transition-colors">
+              className="mt-4 w-full bg-[#0D0D0D] text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-[#152d6e] transition-colors">
               Sign Out &amp; Sign Back In →
             </button>
           </div>
         ) : (
           <form onSubmit={handleSetup} className="space-y-4">
-            <p className="text-sm text-[#4A5568]">
-              Enter the <code className="bg-[#F7F9FC] px-1.5 py-0.5 rounded text-[#1A3A8F] border border-[#E2E8F0] text-xs">ADMIN_SETUP_SECRET</code> from your environment to grant admin access to your current account.
+            <p className="text-sm text-[#6B6B6B]">
+              Enter the <code className="bg-[#F5F5F5] px-1.5 py-0.5 rounded text-[#0D0D0D] border border-[#E5E5E5] text-xs">ADMIN_SETUP_SECRET</code> from your environment to grant admin access to your current account.
             </p>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Setup Secret</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Setup Secret</label>
               <input
                 type="password"
                 value={secret}
                 onChange={e => setSecret(e.target.value)}
                 placeholder="Enter secret token"
                 required
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016] transition-colors"
               />
             </div>
             {status === 'error' && (
@@ -93,7 +93,7 @@ export default function SetupAdminPage() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full bg-[#D4AF37] text-white py-3 rounded-lg font-bold text-sm hover:bg-[#B8960C] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+              className="w-full bg-[#CC1016] text-white py-3 rounded-lg font-bold text-sm hover:bg-[#A80D12] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
             >
               <LogIn size={16} />
               {status === 'loading' ? 'Granting...' : 'Grant Admin Role'}

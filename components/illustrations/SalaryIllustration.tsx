@@ -1,7 +1,7 @@
 export default function SalaryIllustration() {
   const bars = [
-    { label: 'Structural (PE)', min: 95,  max: 185, pct: 0.90, color: '#D4AF37' },
-    { label: 'Const. Mgmt',    min: 90,  max: 155, pct: 0.80, color: '#B8960C' },
+    { label: 'Structural (PE)', min: 95,  max: 185, pct: 0.90, color: '#CC1016' },
+    { label: 'Const. Mgmt',    min: 90,  max: 155, pct: 0.80, color: '#A80D12' },
     { label: 'Geotechnical',   min: 80,  max: 140, pct: 0.68, color: '#3B82F6' },
     { label: 'Transportation', min: 75,  max: 130, pct: 0.58, color: '#60A5FA' },
     { label: 'Environmental',  min: 70,  max: 120, pct: 0.50, color: '#4A8ACA' },
@@ -97,37 +97,37 @@ export default function SalaryIllustration() {
 
       {/* Trend line overlay */}
       <path d={`M${startX+22} ${46+chartH-bars[0].pct*chartH} L${startX+barW+gap+22} ${46+chartH-bars[1].pct*chartH} L${startX+2*(barW+gap)+22} ${46+chartH-bars[2].pct*chartH} L${startX+3*(barW+gap)+22} ${46+chartH-bars[3].pct*chartH} L${startX+4*(barW+gap)+22} ${46+chartH-bars[4].pct*chartH}`}
-        stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.35" fill="none" strokeDasharray="5 3"/>
+        stroke="#CC1016" strokeWidth="1.2" strokeOpacity="0.35" fill="none" strokeDasharray="5 3"/>
 
       {/* ── PE STAMP SEAL (top-right) ── */}
       <g transform="translate(310,46)">
-        <circle cx="20" cy="20" r="22" fill="#0A1830" stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.6"/>
-        <circle cx="20" cy="20" r="17" fill="none" stroke="#D4AF37" strokeWidth="0.6" strokeOpacity="0.4" strokeDasharray="3 2"/>
+        <circle cx="20" cy="20" r="22" fill="#0A1830" stroke="#CC1016" strokeWidth="1.2" strokeOpacity="0.6"/>
+        <circle cx="20" cy="20" r="17" fill="none" stroke="#CC1016" strokeWidth="0.6" strokeOpacity="0.4" strokeDasharray="3 2"/>
         {/* PE text */}
-        <text x="20" y="17" textAnchor="middle" fill="#D4AF37" fontSize="11" fontFamily="monospace" fontWeight="700" fillOpacity="0.9">PE</text>
-        <text x="20" y="28" textAnchor="middle" fill="#D4AF37" fontSize="5.5" fontFamily="monospace" fillOpacity="0.6">LICENSED</text>
+        <text x="20" y="17" textAnchor="middle" fill="#CC1016" fontSize="11" fontFamily="monospace" fontWeight="700" fillOpacity="0.9">PE</text>
+        <text x="20" y="28" textAnchor="middle" fill="#CC1016" fontSize="5.5" fontFamily="monospace" fillOpacity="0.6">LICENSED</text>
         {/* Star marks */}
         {[0,60,120,180,240,300].map((deg,i)=>{
           const rad = (deg-90)*Math.PI/180;
           const sx = 20+20*Math.cos(rad), sy = 20+20*Math.sin(rad);
-          return <circle key={i} cx={sx} cy={sy} r="1.5" fill="#D4AF37" fillOpacity="0.5"/>;
+          return <circle key={i} cx={sx} cy={sy} r="1.5" fill="#CC1016" fillOpacity="0.5"/>;
         })}
-        <circle cx="20" cy="20" r="22" fill="none" stroke="#D4AF37" strokeWidth="4" strokeOpacity="0.05" filter="url(#sal-glow)"/>
+        <circle cx="20" cy="20" r="22" fill="none" stroke="#CC1016" strokeWidth="4" strokeOpacity="0.05" filter="url(#sal-glow)"/>
       </g>
 
       {/* ── Hard hat icon (top-left accent) ── */}
       <g transform="translate(16,36)">
-        <path d="M0 18 Q0 4 14 2 Q28 4 28 18 Z" fill="#D4AF37" fillOpacity="0.6"/>
-        <rect x="-2" y="18" width="32" height="5" rx="2.5" fill="#D4AF37" fillOpacity="0.7"/>
+        <path d="M0 18 Q0 4 14 2 Q28 4 28 18 Z" fill="#CC1016" fillOpacity="0.6"/>
+        <rect x="-2" y="18" width="32" height="5" rx="2.5" fill="#CC1016" fillOpacity="0.7"/>
       </g>
 
       {/* ── Legend bottom ── */}
       <rect x="44" y="258" width="292" height="20" rx="4" fill="#0D1843" stroke="#1E3A8A" strokeWidth="0.6"/>
-      <circle cx="58"  cy="268" r="4" fill="#D4AF37"/>
+      <circle cx="58"  cy="268" r="4" fill="#CC1016"/>
       <text x="67"  y="272" fill="white" fillOpacity="0.5" fontSize="7.5" fontFamily="monospace">Max (PE-licensed)</text>
       <circle cx="175" cy="268" r="4" fill="#4A8ACA"/>
       <text x="184" y="272" fill="white" fillOpacity="0.5" fontSize="7.5" fontFamily="monospace">Entry level</text>
-      <text x="256" y="272" fill="#D4AF37" fillOpacity="0.4" fontSize="7" fontFamily="monospace">PE +30%</text>
+      <text x="256" y="272" fill="#CC1016" fillOpacity="0.4" fontSize="7" fontFamily="monospace">PE +30%</text>
 
       {/* Title block corner */}
       <text x="16" y="287" fill="#1E3A8A" fontSize="6" fontFamily="monospace" fillOpacity="0.5">CCPromoters · DWG: SAL-2026</text>

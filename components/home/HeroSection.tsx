@@ -30,7 +30,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#1A3A8F] flex items-center overflow-hidden">
+    <section className="relative min-h-screen bg-[#0D0D0D] flex items-center overflow-hidden">
       {/* Full-bleed photo background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -41,22 +41,22 @@ export default function HeroSection() {
         />
       </div>
       {/* Gradient overlay — stronger on left for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1A3A8F] via-[#1A3A8F]/85 to-[#1A3A8F]/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0D0D0D] via-[#0D0D0D]/85 to-[#0D0D0D]/20" />
 
       {/* Pink accent line bottom-left */}
-      <div className="absolute bottom-0 left-0 w-1/3 h-1 bg-gradient-to-r from-[#D4AF37] to-transparent" />
+      <div className="absolute bottom-0 left-0 w-1/3 h-1 bg-gradient-to-r from-[#CC1016] to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
         {/* Left: copy */}
         <div>
-          <div className="inline-flex items-center gap-2 bg-[#D4AF37]/20 border border-[#D4AF37]/30 rounded-full px-4 py-1.5 mb-6">
-            <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
-            <span className="text-[#D4AF37] text-sm font-semibold">200+ Active Civil Engineering Roles</span>
+          <div className="inline-flex items-center gap-2 bg-[#CC1016]/20 border border-[#CC1016]/30 rounded-full px-4 py-1.5 mb-6">
+            <div className="w-2 h-2 bg-[#CC1016] rounded-full animate-pulse" />
+            <span className="text-[#CC1016] text-sm font-semibold">200+ Active Civil Engineering Roles</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>
             The Civil Engineering Talent Partner That{' '}
-            <span className="text-[#D4AF37]">Speaks Your Language</span>
+            <span className="text-[#CC1016]">Speaks Your Language</span>
           </h1>
 
           <p className="text-white/70 text-lg mb-8 max-w-xl">
@@ -67,7 +67,7 @@ export default function HeroSection() {
           <div className="flex items-center gap-3 mb-10">
             <span className="text-white/50 text-sm">Now placing:</span>
             <span
-              className="text-[#D4AF37] font-bold text-lg transition-opacity duration-400"
+              className="text-[#CC1016] font-bold text-lg transition-opacity duration-400"
               style={{ opacity: visible ? 1 : 0 }}
             >
               {disciplines[index]}
@@ -77,11 +77,11 @@ export default function HeroSection() {
           {/* CTA buttons */}
           <div className="flex flex-wrap gap-4">
             <Link href="/jobs"
-              className="inline-flex items-center gap-2 bg-[#D4AF37] text-white font-semibold px-7 py-4 rounded-lg hover:bg-[#B8960C] transition-all hover:shadow-lg hover:-translate-y-0.5 text-base">
+              className="inline-flex items-center gap-2 bg-[#CC1016] text-white font-semibold px-7 py-4 rounded-lg hover:bg-[#A80D12] transition-all hover:shadow-lg hover:-translate-y-0.5 text-base">
               Explore Open Roles <ArrowRight size={18} />
             </Link>
             <Link href="/register/employer"
-              className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-7 py-4 rounded-lg hover:bg-white hover:text-[#1A3A8F] transition-all text-base">
+              className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-7 py-4 rounded-lg hover:bg-white hover:text-[#0D0D0D] transition-all text-base">
               Request Engineering Talent
             </Link>
           </div>
@@ -99,9 +99,9 @@ export default function HeroSection() {
               className="w-full h-full object-cover object-center"
             />
             {/* Gradient fade on bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#1A3A8F]/90 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0D0D0D]/90 to-transparent" />
             {/* Subtle gold tint overlay */}
-            <div className="absolute inset-0 bg-[#1A3A8F]/20" />
+            <div className="absolute inset-0 bg-[#0D0D0D]/20" />
           </div>
           {/* Floating stat chips */}
           <div className="grid grid-cols-2 gap-3">
@@ -112,7 +112,7 @@ export default function HeroSection() {
               { value: '10',    label: 'Civil Disciplines'     },
             ].map(stat => (
               <div key={stat.label} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
-                <div className="text-[#D4AF37] font-bold text-lg">{stat.value}</div>
+                <div className="text-[#CC1016] font-bold text-lg">{stat.value}</div>
                 <div className="text-white/55 text-xs mt-0.5">{stat.label}</div>
               </div>
             ))}

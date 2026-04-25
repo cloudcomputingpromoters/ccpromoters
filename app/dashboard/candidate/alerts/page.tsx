@@ -66,43 +66,43 @@ export default function JobAlertsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div>
             <Link href="/dashboard/candidate" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Dashboard</Link>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Job Alerts</h1>
           </div>
           <button onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 bg-[#D4AF37] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#B8960C] transition-colors">
+            className="flex items-center gap-2 bg-[#CC1016] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#A80D12] transition-colors">
             <Plus size={16} /> New Alert
           </button>
         </div>
       </div>
       <div className="max-w-3xl mx-auto px-4 py-10">
         {showForm && (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 mb-6">
-            <h3 className="font-bold text-[#1A3A8F] mb-4">Create Job Alert</h3>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 mb-6">
+            <h3 className="font-bold text-[#0D0D0D] mb-4">Create Job Alert</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Keywords</label>
+                <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Keywords</label>
                 <input type="text" value={form.keywords} onChange={e => setForm({...form, keywords: e.target.value})}
                   placeholder="e.g. Senior Accountant, CPA"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Discipline</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Discipline</label>
                   <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                     <option value="">Any</option>
                     {DISCIPLINES.map(d => <option key={d} value={d}>{d.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Employment Type</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Employment Type</label>
                   <select value={form.employment_type} onChange={e => setForm({...form, employment_type: e.target.value})}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                     <option value="">Any</option>
                     {EMP_TYPES.map(t => <option key={t} value={t}>{t.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
                   </select>
@@ -110,15 +110,15 @@ export default function JobAlertsPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Location</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Location</label>
                   <input type="text" value={form.location} onChange={e => setForm({...form, location: e.target.value})}
                     placeholder="e.g. Dallas, TX"
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Frequency</label>
+                  <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Frequency</label>
                   <select value={form.frequency} onChange={e => setForm({...form, frequency: e.target.value})}
-                    className="w-full border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                     <option value="instant">Instant</option>
                     <option value="daily">Daily Digest</option>
                     <option value="weekly">Weekly Digest</option>
@@ -128,41 +128,41 @@ export default function JobAlertsPage() {
             </div>
             <div className="flex gap-3 mt-5">
               <button onClick={createAlert} disabled={saving}
-                className="bg-[#D4AF37] text-white font-bold px-6 py-2.5 rounded-lg text-sm hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+                className="bg-[#CC1016] text-white font-bold px-6 py-2.5 rounded-lg text-sm hover:bg-[#A80D12] transition-colors disabled:opacity-60">
                 {saving ? 'Saving...' : 'Create Alert'}
               </button>
-              <button onClick={() => setShowForm(false)} className="px-6 py-2.5 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] hover:border-[#1A3A8F] transition-colors">Cancel</button>
+              <button onClick={() => setShowForm(false)} className="px-6 py-2.5 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] hover:border-[#0D0D0D] transition-colors">Cancel</button>
             </div>
           </div>
         )}
         {loading ? (
-          <div className="space-y-3">{[1,2].map(i => <div key={i} className="h-20 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-3">{[1,2].map(i => <div key={i} className="h-20 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : alerts.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-16 text-center">
-            <Bell size={48} className="text-[#D4AF37]/30 mx-auto mb-4" />
-            <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">No Job Alerts</h3>
-            <p className="text-[#4A5568] mb-6 text-sm">Create an alert to get notified when new matching jobs are posted.</p>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-16 text-center">
+            <Bell size={48} className="text-[#CC1016]/30 mx-auto mb-4" />
+            <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">No Job Alerts</h3>
+            <p className="text-[#6B6B6B] mb-6 text-sm">Create an alert to get notified when new matching jobs are posted.</p>
             <button onClick={() => setShowForm(true)} className="btn-pink">Create Your First Alert</button>
           </div>
         ) : (
           <div className="space-y-3">
             {alerts.map((alert: { id: string; keywords?: string; discipline?: string; employment_type?: string; location?: string; frequency: string; is_active: boolean }) => (
-              <div key={alert.id} className="bg-white rounded-xl border border-[#E2E8F0] p-4 flex items-center justify-between gap-4">
+              <div key={alert.id} className="bg-white rounded-xl border border-[#E5E5E5] p-4 flex items-center justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    {alert.keywords && <span className="font-semibold text-[#1A3A8F] text-sm">{alert.keywords}</span>}
-                    {alert.discipline && <span className="text-xs bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded-full text-[#4A5568]">{alert.discipline.replace(/-/g,' ')}</span>}
-                    {alert.employment_type && <span className="text-xs bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded-full text-[#4A5568] capitalize">{alert.employment_type}</span>}
-                    {alert.location && <span className="text-xs bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded-full text-[#4A5568]">{alert.location}</span>}
+                    {alert.keywords && <span className="font-semibold text-[#0D0D0D] text-sm">{alert.keywords}</span>}
+                    {alert.discipline && <span className="text-xs bg-[#F5F5F5] border border-[#E5E5E5] px-2 py-0.5 rounded-full text-[#6B6B6B]">{alert.discipline.replace(/-/g,' ')}</span>}
+                    {alert.employment_type && <span className="text-xs bg-[#F5F5F5] border border-[#E5E5E5] px-2 py-0.5 rounded-full text-[#6B6B6B] capitalize">{alert.employment_type}</span>}
+                    {alert.location && <span className="text-xs bg-[#F5F5F5] border border-[#E5E5E5] px-2 py-0.5 rounded-full text-[#6B6B6B]">{alert.location}</span>}
                   </div>
-                  <p className="text-xs text-[#4A5568] mt-1 capitalize">{alert.frequency} · {alert.is_active ? 'Active' : 'Paused'}</p>
+                  <p className="text-xs text-[#6B6B6B] mt-1 capitalize">{alert.frequency} · {alert.is_active ? 'Active' : 'Paused'}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <button onClick={() => toggleAlert(alert.id, alert.is_active)}
-                    className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-colors ${alert.is_active ? 'border-green-200 text-green-700 bg-green-50' : 'border-[#E2E8F0] text-[#4A5568]'}`}>
+                    className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-colors ${alert.is_active ? 'border-green-200 text-green-700 bg-green-50' : 'border-[#E5E5E5] text-[#6B6B6B]'}`}>
                     {alert.is_active ? 'Active' : 'Paused'}
                   </button>
-                  <button onClick={() => deleteAlert(alert.id)} className="p-1.5 text-[#4A5568] hover:text-red-600 transition-colors">
+                  <button onClick={() => deleteAlert(alert.id)} className="p-1.5 text-[#6B6B6B] hover:text-red-600 transition-colors">
                     <Trash2 size={15} />
                   </button>
                 </div>

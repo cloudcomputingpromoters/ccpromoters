@@ -37,12 +37,12 @@ export default function AdminJobsPage() {
     active: 'bg-green-100 text-green-700',
     paused: 'bg-yellow-100 text-yellow-700',
     closed: 'bg-gray-100 text-gray-500',
-    filled: 'bg-blue-100 text-blue-700',
+    filled: 'bg-[#F5F5F5] text-[#0D0D0D]',
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <Link href="/dashboard/admin" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Admin</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Manage Jobs</h1>
@@ -51,41 +51,41 @@ export default function AdminJobsPage() {
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex gap-3 mb-6 flex-wrap">
           <div className="relative flex-1 min-w-48">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4A5568]" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6B6B]" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search jobs..."
-              className="w-full pl-9 pr-4 py-2.5 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+              className="w-full pl-9 pr-4 py-2.5 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
           </div>
           <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
-            className="border border-[#E2E8F0] rounded-lg px-4 py-2.5 text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white">
+            className="border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
             <option value="">All Statuses</option>
             <option value="active">Active</option>
             <option value="paused">Paused</option>
             <option value="closed">Closed</option>
             <option value="filled">Filled</option>
           </select>
-          <Link href="/dashboard/employer/post-job" className="bg-[#D4AF37] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#B8960C] transition-colors">+ Post Job</Link>
+          <Link href="/dashboard/employer/post-job" className="bg-[#CC1016] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#A80D12] transition-colors">+ Post Job</Link>
         </div>
 
         {loading ? (
-          <div className="space-y-3">{[1,2,3,4,5].map(i => <div key={i} className="h-16 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-3">{[1,2,3,4,5].map(i => <div key={i} className="h-16 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-[#F7F9FC] border-b border-[#E2E8F0]">
+              <thead className="bg-[#F5F5F5] border-b border-[#E5E5E5]">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-[#1A3A8F]">Job Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-[#1A3A8F] hidden md:table-cell">Discipline</th>
-                  <th className="text-left px-4 py-3 font-semibold text-[#1A3A8F] hidden lg:table-cell">Apps</th>
-                  <th className="text-left px-4 py-3 font-semibold text-[#1A3A8F]">Status</th>
-                  <th className="text-left px-4 py-3 font-semibold text-[#1A3A8F]">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-[#0D0D0D]">Job Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-[#0D0D0D] hidden md:table-cell">Discipline</th>
+                  <th className="text-left px-4 py-3 font-semibold text-[#0D0D0D] hidden lg:table-cell">Apps</th>
+                  <th className="text-left px-4 py-3 font-semibold text-[#0D0D0D]">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-[#0D0D0D]">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E2E8F0]">
+              <tbody className="divide-y divide-[#E5E5E5]">
                 {filtered.map((job: { id: string; title: string; slug: string; discipline?: string; status: string; applications?: { count: number }[] }) => (
-                  <tr key={job.id} className="hover:bg-[#F7F9FC] transition-colors">
-                    <td className="px-4 py-3 font-medium text-[#1A3A8F]">{job.title}</td>
-                    <td className="px-4 py-3 text-[#4A5568] hidden md:table-cell capitalize">{job.discipline?.replace(/-/g,' ')}</td>
-                    <td className="px-4 py-3 text-[#4A5568] hidden lg:table-cell">{job.applications?.[0]?.count ?? 0}</td>
+                  <tr key={job.id} className="hover:bg-[#F5F5F5] transition-colors">
+                    <td className="px-4 py-3 font-medium text-[#0D0D0D]">{job.title}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B] hidden md:table-cell capitalize">{job.discipline?.replace(/-/g,' ')}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B] hidden lg:table-cell">{job.applications?.[0]?.count ?? 0}</td>
                     <td className="px-4 py-3">
                       <select value={job.status} onChange={e => updateStatus(job.id, e.target.value)}
                         className={`text-xs font-semibold px-2 py-1 rounded-full border-0 focus:outline-none cursor-pointer ${statusColor[job.status] || 'bg-gray-100 text-gray-500'}`}>
@@ -97,8 +97,8 @@ export default function AdminJobsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <a href={`/jobs/${job.slug}`} target="_blank" rel="noreferrer" className="p-1.5 text-[#4A5568] hover:text-[#D4AF37] transition-colors"><Eye size={15} /></a>
-                        <Link href={`/dashboard/employer/listings/${job.id}/edit`} className="p-1.5 text-[#4A5568] hover:text-[#D4AF37] transition-colors"><Edit3 size={15} /></Link>
+                        <a href={`/jobs/${job.slug}`} target="_blank" rel="noreferrer" className="p-1.5 text-[#6B6B6B] hover:text-[#CC1016] transition-colors"><Eye size={15} /></a>
+                        <Link href={`/dashboard/employer/listings/${job.id}/edit`} className="p-1.5 text-[#6B6B6B] hover:text-[#CC1016] transition-colors"><Edit3 size={15} /></Link>
                       </div>
                     </td>
                   </tr>
@@ -106,7 +106,7 @@ export default function AdminJobsPage() {
               </tbody>
             </table>
             {filtered.length === 0 && (
-              <div className="py-12 text-center text-[#4A5568] text-sm">No jobs found.</div>
+              <div className="py-12 text-center text-[#6B6B6B] text-sm">No jobs found.</div>
             )}
           </div>
         )}

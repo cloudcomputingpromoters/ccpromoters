@@ -108,7 +108,7 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
 
   if (authState === 'loading') {
     return (
-      <div className="block bg-[#D4AF37]/30 text-white font-bold text-center py-4 rounded-xl text-lg mb-3 animate-pulse">
+      <div className="block bg-[#CC1016]/30 text-white font-bold text-center py-4 rounded-xl text-lg mb-3 animate-pulse">
         Loading...
       </div>
     );
@@ -126,11 +126,11 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
     return (
       <div className="space-y-2 mb-3">
         <a href={`/apply?job=${encodeURIComponent(jobTitle)}&loc=${encodeURIComponent(jobSlug)}`}
-          className="block bg-[#D4AF37] text-white font-bold text-center py-4 rounded-xl hover:bg-[#B8960C] transition-colors text-lg">
+          className="block bg-[#CC1016] text-white font-bold text-center py-4 rounded-xl hover:bg-[#A80D12] transition-colors text-lg">
           Apply Now →
         </a>
         <a href={`/register/candidate?job=${jobSlug}`}
-          className="block border-2 border-[#1A3A8F] text-[#1A3A8F] font-semibold text-center py-3 rounded-xl hover:bg-[#1A3A8F] hover:text-white transition-colors text-sm">
+          className="block border-2 border-[#0D0D0D] text-[#0D0D0D] font-semibold text-center py-3 rounded-xl hover:bg-[#0D0D0D] hover:text-white transition-colors text-sm">
           Create Account &amp; Apply
         </a>
       </div>
@@ -143,14 +143,14 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
       <button
         onClick={handleApply}
         disabled={authState === 'applying'}
-        className="w-full flex items-center justify-center gap-2 bg-[#D4AF37] text-white font-bold text-center py-4 rounded-xl hover:bg-[#B8960C] transition-colors text-lg disabled:opacity-60"
+        className="w-full flex items-center justify-center gap-2 bg-[#CC1016] text-white font-bold text-center py-4 rounded-xl hover:bg-[#A80D12] transition-colors text-lg disabled:opacity-60"
       >
         {authState === 'applying'
           ? <><Loader2 size={18} className="animate-spin" /> Submitting…</>
           : 'Apply Now →'}
       </button>
-      <p className="text-xs text-center text-[#4A5568] mt-2">
-        Applying as <span className="font-semibold text-[#1A3A8F]">{userData?.email}</span>
+      <p className="text-xs text-center text-[#6B6B6B] mt-2">
+        Applying as <span className="font-semibold text-[#0D0D0D]">{userData?.email}</span>
       </p>
     </div>
   );

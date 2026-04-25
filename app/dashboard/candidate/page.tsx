@@ -12,8 +12,8 @@ import {
 
 const statusColors: Record<string, string> = {
   applied: 'bg-gray-100 text-gray-700',
-  under_review: 'bg-blue-100 text-blue-700',
-  interview_scheduled: 'bg-[#FFF0F7] text-[#D4AF37]',
+  under_review: 'bg-[#F5F5F5] text-[#0D0D0D]',
+  interview_scheduled: 'bg-[#F5F5F5] text-[#CC1016]',
   offer_made: 'bg-green-100 text-green-700',
   not_progressing: 'bg-red-100 text-red-700',
   withdrawn: 'bg-gray-100 text-gray-500',
@@ -122,10 +122,10 @@ export default function CandidateDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-[#4A5568]">Loading your dashboard...</p>
+          <div className="w-12 h-12 border-4 border-[#CC1016] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-[#6B6B6B]">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -134,13 +134,13 @@ export default function CandidateDashboard() {
   const displayName = user?.profile?.name || user?.email?.split('@')[0] || 'Engineer';
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
+    <div className="min-h-screen bg-[#F5F5F5]">
       {/* Header */}
-      <div className="bg-[#1A3A8F] text-white py-6 px-4">
+      <div className="bg-[#0D0D0D] text-white py-6 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              Welcome back, <span className="text-[#D4AF37]">{displayName}</span>
+              Welcome back, <span className="text-[#CC1016]">{displayName}</span>
             </h1>
             <p className="text-white/60 text-sm mt-0.5">{user?.email}</p>
           </div>
@@ -158,15 +158,15 @@ export default function CandidateDashboard() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <aside className="lg:w-56 shrink-0">
-            <div className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden">
+            <div className="bg-white rounded-xl border border-[#E5E5E5] overflow-hidden">
               {sidebarItems.map(item => {
                 const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
                 return (
                   <Link key={item.href} href={item.href}
                     className={`w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-[#FFF8E7] text-[#D4AF37] border-r-2 border-[#D4AF37]'
-                        : 'text-[#4A5568] hover:bg-[#F7F9FC]'
+                        ? 'bg-[#FFF8E7] text-[#CC1016] border-r-2 border-[#CC1016]'
+                        : 'text-[#6B6B6B] hover:bg-[#F5F5F5]'
                     }`}>
                     <item.icon size={16} />
                     <span className="flex-1">{item.label}</span>
@@ -174,7 +174,7 @@ export default function CandidateDashboard() {
                   </Link>
                 );
               })}
-              <div className="border-t border-[#E2E8F0]">
+              <div className="border-t border-[#E5E5E5]">
                 <button onClick={handleSignOut}
                   className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium text-red-500 hover:bg-red-50 transition-colors">
                   <LogOut size={16} /> Sign Out
@@ -188,18 +188,18 @@ export default function CandidateDashboard() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: 'Applications', value: applications.length, icon: Briefcase, color: '#D4AF37' },
+                { label: 'Applications', value: applications.length, icon: Briefcase, color: '#CC1016' },
                 { label: 'Saved Jobs', value: savedJobs.length, icon: BookmarkCheck, color: '#7C3AED' },
                 { label: 'Interviews', value: applications.filter(a => a.status === 'interview_scheduled').length, icon: MessageSquare, color: '#059669' },
                 { label: 'Offers', value: applications.filter(a => a.status === 'offer_made').length, icon: Award, color: '#D97706' },
               ].map(stat => (
-                <div key={stat.label} className="bg-white rounded-xl border border-[#E2E8F0] p-5 flex items-center gap-4">
+                <div key={stat.label} className="bg-white rounded-xl border border-[#E5E5E5] p-5 flex items-center gap-4">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: stat.color + '20' }}>
                     <stat.icon size={20} style={{ color: stat.color }} />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#1A3A8F]">{stat.value}</div>
-                    <div className="text-xs text-[#4A5568]">{stat.label}</div>
+                    <div className="text-2xl font-bold text-[#0D0D0D]">{stat.value}</div>
+                    <div className="text-xs text-[#6B6B6B]">{stat.label}</div>
                   </div>
                 </div>
               ))}
@@ -207,21 +207,21 @@ export default function CandidateDashboard() {
 
             {/* Recent Applications */}
             {applications.length > 0 ? (
-              <div className="bg-white rounded-xl border border-[#E2E8F0] p-6">
+              <div className="bg-white rounded-xl border border-[#E5E5E5] p-6">
                 <div className="flex items-center justify-between mb-5">
-                  <h3 className="font-bold text-[#1A3A8F]">Recent Applications</h3>
-                  <Link href="/dashboard/candidate/applications" className="text-[#D4AF37] text-sm font-semibold hover:underline">
+                  <h3 className="font-bold text-[#0D0D0D]">Recent Applications</h3>
+                  <Link href="/dashboard/candidate/applications" className="text-[#CC1016] text-sm font-semibold hover:underline">
                     View All →
                   </Link>
                 </div>
                 <div className="space-y-3">
                   {applications.slice(0, 5).map(app => (
-                    <div key={app.id} className="flex items-center justify-between py-3 border-b border-[#E2E8F0] last:border-0">
+                    <div key={app.id} className="flex items-center justify-between py-3 border-b border-[#E5E5E5] last:border-0">
                       <div>
-                        <Link href={`/jobs/${app.jobs?.slug}`} className="font-semibold text-[#1A3A8F] hover:text-[#D4AF37] transition-colors text-sm">
+                        <Link href={`/jobs/${app.jobs?.slug}`} className="font-semibold text-[#0D0D0D] hover:text-[#CC1016] transition-colors text-sm">
                           {app.jobs?.title}
                         </Link>
-                        <p className="text-xs text-[#4A5568] mt-0.5 flex items-center gap-2">
+                        <p className="text-xs text-[#6B6B6B] mt-0.5 flex items-center gap-2">
                           <MapPin size={10} />
                           {app.jobs?.is_remote ? 'Remote' : `${app.jobs?.location_city}, ${app.jobs?.location_state}`}
                           <span className="flex items-center gap-1 ml-1"><Clock size={10} />
@@ -237,11 +237,11 @@ export default function CandidateDashboard() {
                 </div>
               </div>
             ) : (
-              <div className="bg-white rounded-xl border border-[#E2E8F0] p-10 text-center">
-                <Briefcase size={40} className="text-[#E2E8F0] mx-auto mb-3" />
-                <h4 className="font-bold text-[#1A3A8F] mb-1">No applications yet</h4>
-                <p className="text-[#4A5568] text-sm mb-5">Browse and apply to civil engineering roles that match your skills.</p>
-                <Link href="/jobs" className="bg-[#D4AF37] text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-[#B8960C] transition-colors text-sm inline-block">
+              <div className="bg-white rounded-xl border border-[#E5E5E5] p-10 text-center">
+                <Briefcase size={40} className="text-[#E5E5E5] mx-auto mb-3" />
+                <h4 className="font-bold text-[#0D0D0D] mb-1">No applications yet</h4>
+                <p className="text-[#6B6B6B] text-sm mb-5">Browse and apply to civil engineering roles that match your skills.</p>
+                <Link href="/jobs" className="bg-[#CC1016] text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-[#A80D12] transition-colors text-sm inline-block">
                   Browse Jobs
                 </Link>
               </div>
@@ -249,20 +249,20 @@ export default function CandidateDashboard() {
 
             {/* Quick Actions */}
             <div className="grid md:grid-cols-3 gap-4">
-              <Link href="/jobs" className="bg-[#1A3A8F] text-white rounded-xl p-5 hover:bg-[#163298] transition-colors">
-                <Briefcase size={20} className="mb-2 text-[#D4AF37]" />
+              <Link href="/jobs" className="bg-[#0D0D0D] text-white rounded-xl p-5 hover:bg-[#111111] transition-colors">
+                <Briefcase size={20} className="mb-2 text-[#CC1016]" />
                 <h4 className="font-bold text-sm">Browse Jobs</h4>
                 <p className="text-white/60 text-xs mt-1">200+ active roles</p>
               </Link>
-              <Link href="/dashboard/candidate/profile" className="bg-white border border-[#E2E8F0] rounded-xl p-5 hover:border-[#D4AF37] transition-colors">
-                <User size={20} className="mb-2 text-[#D4AF37]" />
-                <h4 className="font-bold text-[#1A3A8F] text-sm">My Profile</h4>
-                <p className="text-[#4A5568] text-xs mt-1">Update your details</p>
+              <Link href="/dashboard/candidate/profile" className="bg-white border border-[#E5E5E5] rounded-xl p-5 hover:border-[#CC1016] transition-colors">
+                <User size={20} className="mb-2 text-[#CC1016]" />
+                <h4 className="font-bold text-[#0D0D0D] text-sm">My Profile</h4>
+                <p className="text-[#6B6B6B] text-xs mt-1">Update your details</p>
               </Link>
-              <Link href="/salary-guide" className="bg-white border border-[#E2E8F0] rounded-xl p-5 hover:border-[#D4AF37] transition-colors">
-                <DollarSign size={20} className="mb-2 text-[#D4AF37]" />
-                <h4 className="font-bold text-[#1A3A8F] text-sm">Salary Guide</h4>
-                <p className="text-[#4A5568] text-xs mt-1">Check your market rate</p>
+              <Link href="/salary-guide" className="bg-white border border-[#E5E5E5] rounded-xl p-5 hover:border-[#CC1016] transition-colors">
+                <DollarSign size={20} className="mb-2 text-[#CC1016]" />
+                <h4 className="font-bold text-[#0D0D0D] text-sm">Salary Guide</h4>
+                <p className="text-[#6B6B6B] text-xs mt-1">Check your market rate</p>
               </Link>
             </div>
           </div>

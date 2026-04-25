@@ -13,7 +13,7 @@ const sections = [
 export default function SitemapPage() {
   return (
     <div className="min-h-screen bg-white">
-      <section className="bg-[#1A3A8F] py-16 px-4 text-center">
+      <section className="bg-[#0D0D0D] py-16 px-4 text-center">
         <h1 className="text-4xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Sitemap</h1>
         <p className="text-white/60 mt-2">All pages on the CCPromoters platform</p>
       </section>
@@ -21,11 +21,11 @@ export default function SitemapPage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {sections.map(section => (
             <div key={section.title}>
-              <h2 className="font-bold text-[#1A3A8F] text-lg mb-4 pb-2 border-b border-[#E2E8F0]">{section.title}</h2>
+              <h2 className="font-bold text-[#0D0D0D] text-lg mb-4 pb-2 border-b border-[#E5E5E5]">{section.title}</h2>
               <ul className="space-y-2">
                 {section.links.map(link => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-[#4A5568] hover:text-[#D4AF37] transition-colors text-sm">{link.label}</Link>
+                    <Link href={link.href} className="text-[#6B6B6B] hover:text-[#CC1016] transition-colors text-sm">{link.label}</Link>
                   </li>
                 ))}
               </ul>

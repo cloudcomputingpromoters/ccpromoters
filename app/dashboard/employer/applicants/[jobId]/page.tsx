@@ -10,7 +10,7 @@ import { Clock, ChevronDown, Users } from 'lucide-react';
 const STATUS_OPTIONS = ['applied','under_review','shortlisted','interview_scheduled','offer_made','hired','not_progressing','withdrawn'];
 
 const statusStyles: Record<string, { label: string; color: string }> = {
-  applied:             { label: 'Applied',           color: 'bg-blue-100 text-blue-700' },
+  applied:             { label: 'Applied',           color: 'bg-[#F5F5F5] text-[#0D0D0D]' },
   under_review:        { label: 'Under Review',      color: 'bg-yellow-100 text-yellow-700' },
   shortlisted:         { label: 'Shortlisted',       color: 'bg-purple-100 text-purple-700' },
   interview_scheduled: { label: 'Interview',         color: 'bg-indigo-100 text-indigo-700' },
@@ -90,9 +90,9 @@ export default function JobApplicantsPage() {
 
   if (unauthorized) {
     return (
-      <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center">
-        <p className="text-[#4A5568]">This job listing was not found or does not belong to your account.</p>
-        <Link href="/dashboard/employer/listings" className="text-[#D4AF37] font-semibold hover:underline mt-4 inline-block">
+      <div className="bg-white rounded-2xl border border-[#E5E5E5] p-12 text-center">
+        <p className="text-[#6B6B6B]">This job listing was not found or does not belong to your account.</p>
+        <Link href="/dashboard/employer/listings" className="text-[#CC1016] font-semibold hover:underline mt-4 inline-block">
           ← Back to My Listings
         </Link>
       </div>
@@ -103,33 +103,33 @@ export default function JobApplicantsPage() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <Link href="/dashboard/employer/applicants" className="text-[#4A5568] hover:text-[#1A3A8F] text-sm mb-2 inline-block">
+        <Link href="/dashboard/employer/applicants" className="text-[#6B6B6B] hover:text-[#0D0D0D] text-sm mb-2 inline-block">
           ← All Applicants
         </Link>
         <div className="flex items-start justify-between gap-4">
-          <h1 className="text-2xl font-bold text-[#1A3A8F]" style={{ fontFamily: 'Manrope, sans-serif' }}>
+          <h1 className="text-2xl font-bold text-[#0D0D0D]" style={{ fontFamily: 'Manrope, sans-serif' }}>
             {job?.title || 'Applicants'}
           </h1>
           {job?.slug && (
             <a href={`/jobs/${job.slug}`} target="_blank" rel="noreferrer"
-              className="text-sm text-[#D4AF37] font-semibold hover:underline shrink-0">
+              className="text-sm text-[#CC1016] font-semibold hover:underline shrink-0">
               View Job →
             </a>
           )}
         </div>
-        <p className="text-[#4A5568] text-sm mt-1">{applications.length} total applicant{applications.length !== 1 ? 's' : ''}</p>
+        <p className="text-[#6B6B6B] text-sm mt-1">{applications.length} total applicant{applications.length !== 1 ? 's' : ''}</p>
       </div>
 
       {/* Status filters */}
       {applications.length > 0 && (
         <div className="flex gap-2 flex-wrap mb-6">
           <button onClick={() => setFilterStatus('')}
-            className={`text-sm px-4 py-1.5 rounded-full border font-semibold transition-colors ${!filterStatus ? 'bg-[#1A3A8F] text-white border-[#1A3A8F]' : 'border-[#E2E8F0] text-[#4A5568] hover:border-[#1A3A8F]'}`}>
+            className={`text-sm px-4 py-1.5 rounded-full border font-semibold transition-colors ${!filterStatus ? 'bg-[#0D0D0D] text-white border-[#0D0D0D]' : 'border-[#E5E5E5] text-[#6B6B6B] hover:border-[#0D0D0D]'}`}>
             All ({applications.length})
           </button>
           {STATUS_OPTIONS.filter(s => applications.some(a => a.status === s)).map(s => (
             <button key={s} onClick={() => setFilterStatus(s)}
-              className={`text-sm px-4 py-1.5 rounded-full border font-semibold transition-colors ${filterStatus === s ? 'bg-[#1A3A8F] text-white border-[#1A3A8F]' : 'border-[#E2E8F0] text-[#4A5568] hover:border-[#1A3A8F]'}`}>
+              className={`text-sm px-4 py-1.5 rounded-full border font-semibold transition-colors ${filterStatus === s ? 'bg-[#0D0D0D] text-white border-[#0D0D0D]' : 'border-[#E5E5E5] text-[#6B6B6B] hover:border-[#0D0D0D]'}`}>
               {statusStyles[s]?.label} ({applications.filter(a => a.status === s).length})
             </button>
           ))}
@@ -137,14 +137,14 @@ export default function JobApplicantsPage() {
       )}
 
       {loading ? (
-        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-24 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}</div>
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-24 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}</div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-[#E2E8F0] p-16 text-center">
-          <Users size={48} className="text-[#D4AF37]/30 mx-auto mb-4" />
-          <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">
+        <div className="bg-white rounded-2xl border border-[#E5E5E5] p-16 text-center">
+          <Users size={48} className="text-[#CC1016]/30 mx-auto mb-4" />
+          <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">
             {applications.length === 0 ? 'No Applications Yet' : 'No applicants for this filter'}
           </h3>
-          <p className="text-[#4A5568] text-sm">
+          <p className="text-[#6B6B6B] text-sm">
             {applications.length === 0
               ? 'Candidates who apply to this job will appear here.'
               : 'Try selecting a different status filter.'}
@@ -160,13 +160,13 @@ export default function JobApplicantsPage() {
             const name = p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : 'Unknown Candidate';
             const statusInfo = statusStyles[app.status] || { label: app.status, color: 'bg-gray-100 text-gray-600' };
             return (
-              <div key={app.id} className="bg-white rounded-xl border border-[#E2E8F0] p-5">
+              <div key={app.id} className="bg-white rounded-xl border border-[#E5E5E5] p-5">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-[#1A3A8F]">{name || 'Candidate'}</h3>
-                    <div className="flex flex-wrap gap-3 text-sm text-[#4A5568] mt-1">
+                    <h3 className="font-bold text-[#0D0D0D]">{name || 'Candidate'}</h3>
+                    <div className="flex flex-wrap gap-3 text-sm text-[#6B6B6B] mt-1">
                       {p?.current_title && <span>{p.current_title}</span>}
-                      {p?.discipline && <span className="text-[#1A3A8F]/70">· {p.discipline}</span>}
+                      {p?.discipline && <span className="text-[#0D0D0D]/70">· {p.discipline}</span>}
                       {(p?.location_city || p?.location_state) && (
                         <span>· {[p.location_city, p.location_state].filter(Boolean).join(', ')}</span>
                       )}
@@ -176,7 +176,7 @@ export default function JobApplicantsPage() {
                       </span>
                     </div>
                     {app.cover_letter && (
-                      <p className="text-sm text-[#4A5568] mt-2 line-clamp-2 max-w-lg italic">&ldquo;{app.cover_letter}&rdquo;</p>
+                      <p className="text-sm text-[#6B6B6B] mt-2 line-clamp-2 max-w-lg italic">&ldquo;{app.cover_letter}&rdquo;</p>
                     )}
                   </div>
 
@@ -188,12 +188,12 @@ export default function JobApplicantsPage() {
                       <select
                         value={app.status}
                         onChange={e => updateStatus(app.id, e.target.value)}
-                        className="appearance-none text-xs font-semibold border border-[#E2E8F0] rounded-lg px-3 py-1.5 pr-7 text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors bg-white cursor-pointer">
+                        className="appearance-none text-xs font-semibold border border-[#E5E5E5] rounded-lg px-3 py-1.5 pr-7 text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white cursor-pointer">
                         {STATUS_OPTIONS.map(s => (
                           <option key={s} value={s}>{statusStyles[s]?.label || s}</option>
                         ))}
                       </select>
-                      <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#4A5568] pointer-events-none" />
+                      <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#6B6B6B] pointer-events-none" />
                     </div>
                   </div>
                 </div>

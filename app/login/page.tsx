@@ -54,29 +54,29 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-8 h-8 bg-[#D4AF37] rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#CC1016] rounded flex items-center justify-center">
               <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
                 <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <span className="text-[#1A3A8F] font-bold text-xl" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              CC<span className="text-[#D4AF37]">Promoters</span>
+            <span className="text-[#0D0D0D] font-bold text-xl" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              CC<span className="text-[#CC1016]">Promoters</span>
             </span>
           </Link>
-          <h1 className="text-2xl font-bold text-[#1A3A8F]">Welcome Back</h1>
-          <p className="text-[#4A5568] mt-1">Sign in to your CCPromoters account</p>
+          <h1 className="text-2xl font-bold text-[#0D0D0D]">Welcome Back</h1>
+          <p className="text-[#6B6B6B] mt-1">Sign in to your CCPromoters account</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-[#E5E5E5] p-8">
           {/* OAuth buttons */}
           <div className="grid grid-cols-2 gap-3 mb-6">
             <button onClick={() => handleOAuth('google')}
-              className="flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-3 text-sm font-medium text-[#1A3A8F] hover:border-[#D4AF37] hover:bg-pink-50 transition-all">
+              className="flex items-center justify-center gap-2 border border-[#E5E5E5] rounded-lg py-3 text-sm font-medium text-[#0D0D0D] hover:border-[#CC1016] hover:bg-pink-50 transition-all">
               <svg viewBox="0 0 24 24" width="18" height="18">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -86,8 +86,8 @@ export default function LoginPage() {
               Continue with Google
             </button>
             <button onClick={() => handleOAuth('github')}
-              className="flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-3 text-sm font-medium text-[#1A3A8F] hover:border-[#D4AF37] hover:bg-pink-50 transition-all">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="#1A3A8F">
+              className="flex items-center justify-center gap-2 border border-[#E5E5E5] rounded-lg py-3 text-sm font-medium text-[#0D0D0D] hover:border-[#CC1016] hover:bg-pink-50 transition-all">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#0D0D0D">
                 <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
               </svg>
               Continue with GitHub
@@ -95,29 +95,29 @@ export default function LoginPage() {
           </div>
 
           <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#E2E8F0]" /></div>
-            <div className="relative flex justify-center text-xs text-[#4A5568] bg-white px-3">or sign in with email</div>
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#E5E5E5]" /></div>
+            <div className="relative flex justify-center text-xs text-[#6B6B6B] bg-white px-3">or sign in with email</div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Email Address</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Email Address</label>
               <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors" />
+                className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#CC1016] focus:ring-1 focus:ring-[#CC1016] transition-colors" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1A3A8F] mb-1.5">Password</label>
+              <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Password</label>
               <div className="relative">
                 <input type={showPass ? 'text' : 'password'} required value={password} onChange={e => setPassword(e.target.value)}
                   placeholder="Your password"
-                  className="w-full border border-[#E2E8F0] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors" />
-                <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4A5568]">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 pr-10 text-sm outline-none focus:border-[#CC1016] focus:ring-1 focus:ring-[#CC1016] transition-colors" />
+                <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6B6B]">
                   {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
               <div className="text-right mt-1">
-                <Link href="/forgot-password" className="text-xs text-[#D4AF37] hover:underline">Forgot Password?</Link>
+                <Link href="/forgot-password" className="text-xs text-[#CC1016] hover:underline">Forgot Password?</Link>
               </div>
             </div>
 
@@ -126,14 +126,14 @@ export default function LoginPage() {
             )}
 
             <button type="submit" disabled={loading}
-              className="w-full bg-[#D4AF37] text-white font-bold py-3.5 rounded-lg hover:bg-[#B8960C] transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
+              className="w-full bg-[#CC1016] text-white font-bold py-3.5 rounded-lg hover:bg-[#A80D12] transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
               {loading ? 'Signing In...' : <><LogIn size={18} /> Sign In</>}
             </button>
           </form>
 
-          <p className="text-center text-sm text-[#4A5568] mt-6">
+          <p className="text-center text-sm text-[#6B6B6B] mt-6">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-[#D4AF37] font-semibold hover:underline">Register Free →</Link>
+            <Link href="/register" className="text-[#CC1016] font-semibold hover:underline">Register Free →</Link>
           </p>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { insforge } from '@/lib/insforge';
 import { Briefcase, MapPin, Clock, ChevronRight } from 'lucide-react';
 
 const statusStyles: Record<string, { label: string; color: string; desc: string }> = {
-  applied:             { label: 'Applied',            color: 'bg-blue-100 text-blue-700',      desc: 'Your application has been received.' },
+  applied:             { label: 'Applied',            color: 'bg-[#F5F5F5] text-[#0D0D0D]',      desc: 'Your application has been received.' },
   under_review:        { label: 'Under Review',       color: 'bg-yellow-100 text-yellow-700',  desc: 'A recruiter is reviewing your profile.' },
   shortlisted:         { label: 'Shortlisted',        color: 'bg-purple-100 text-purple-700',  desc: 'You have been shortlisted for this role.' },
   interview_scheduled: { label: 'Interview Scheduled',color: 'bg-indigo-100 text-indigo-700',  desc: 'An interview has been arranged.' },
@@ -73,8 +73,8 @@ export default function CandidateApplicationsPage() {
   const filtered = filterApps();
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <Link href="/dashboard/candidate" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Dashboard</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>My Applications</h1>
@@ -98,8 +98,8 @@ export default function CandidateApplicationsPage() {
                 <button key={tab.key} onClick={() => setActiveFilter(tab.key)}
                   className={`text-sm px-4 py-1.5 rounded-full border font-semibold transition-colors ${
                     activeFilter === tab.key
-                      ? 'bg-[#1A3A8F] text-white border-[#1A3A8F]'
-                      : 'border-[#E2E8F0] text-[#4A5568] hover:border-[#1A3A8F]'
+                      ? 'bg-[#0D0D0D] text-white border-[#0D0D0D]'
+                      : 'border-[#E5E5E5] text-[#6B6B6B] hover:border-[#0D0D0D]'
                   }`}>
                   {tab.label} ({count})
                 </button>
@@ -110,23 +110,23 @@ export default function CandidateApplicationsPage() {
 
         {loading ? (
           <div className="space-y-3">
-            {[1,2,3].map(i => <div key={i} className="h-24 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />)}
+            {[1,2,3].map(i => <div key={i} className="h-24 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />)}
           </div>
         ) : applications.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-16 text-center">
-            <Briefcase size={48} className="text-[#D4AF37]/30 mx-auto mb-4" />
-            <h3 className="font-bold text-[#1A3A8F] text-xl mb-2">No Applications Yet</h3>
-            <p className="text-[#4A5568] mb-6 text-sm max-w-sm mx-auto">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-16 text-center">
+            <Briefcase size={48} className="text-[#CC1016]/30 mx-auto mb-4" />
+            <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">No Applications Yet</h3>
+            <p className="text-[#6B6B6B] mb-6 text-sm max-w-sm mx-auto">
               Browse available civil engineering roles and click &ldquo;Apply Now&rdquo; to track your applications here.
             </p>
             <Link href="/jobs"
-              className="bg-[#D4AF37] text-white font-bold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors inline-block">
+              className="bg-[#CC1016] text-white font-bold px-6 py-3 rounded-lg hover:bg-[#A80D12] transition-colors inline-block">
               Browse Open Roles →
             </Link>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center">
-            <p className="text-[#4A5568]">No applications match this filter.</p>
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] p-12 text-center">
+            <p className="text-[#6B6B6B]">No applications match this filter.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -141,19 +141,19 @@ export default function CandidateApplicationsPage() {
                 : null;
 
               return (
-                <div key={app.id} className="bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-[#D4AF37]/40 transition-colors">
+                <div key={app.id} className="bg-white rounded-xl border border-[#E5E5E5] p-5 hover:border-[#CC1016]/40 transition-colors">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
                       {job ? (
                         <Link href={`/jobs/${job.slug}`}
-                          className="font-bold text-[#1A3A8F] hover:text-[#D4AF37] transition-colors">
+                          className="font-bold text-[#0D0D0D] hover:text-[#CC1016] transition-colors">
                           {job.title}
                         </Link>
                       ) : (
-                        <span className="font-bold text-[#1A3A8F]">Job listing removed</span>
+                        <span className="font-bold text-[#0D0D0D]">Job listing removed</span>
                       )}
 
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-sm text-[#4A5568]">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-sm text-[#6B6B6B]">
                         {job?.discipline && <span>{job.discipline}</span>}
                         {job && (
                           <span className="flex items-center gap-1">
@@ -182,7 +182,7 @@ export default function CandidateApplicationsPage() {
                       </span>
                       {job && (
                         <Link href={`/jobs/${job.slug}`}
-                          className="flex items-center gap-1 text-xs text-[#D4AF37] font-semibold hover:underline">
+                          className="flex items-center gap-1 text-xs text-[#CC1016] font-semibold hover:underline">
                           View Role <ChevronRight size={12} />
                         </Link>
                       )}
@@ -196,13 +196,13 @@ export default function CandidateApplicationsPage() {
 
         {/* Status legend */}
         {!loading && applications.length > 0 && (
-          <div className="mt-10 bg-white rounded-xl border border-[#E2E8F0] p-6">
-            <h3 className="font-bold text-[#1A3A8F] mb-4 text-sm">Application Status Guide</h3>
+          <div className="mt-10 bg-white rounded-xl border border-[#E5E5E5] p-6">
+            <h3 className="font-bold text-[#0D0D0D] mb-4 text-sm">Application Status Guide</h3>
             <div className="grid sm:grid-cols-2 gap-2">
               {Object.entries(statusStyles).map(([key, s]) => (
                 <div key={key} className="flex items-center gap-3 text-sm">
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${s.color}`}>{s.label}</span>
-                  <span className="text-[#4A5568] text-xs">{s.desc}</span>
+                  <span className="text-[#6B6B6B] text-xs">{s.desc}</span>
                 </div>
               ))}
             </div>

@@ -131,7 +131,7 @@ export default function Navbar() {
 
       {/* Main navbar */}
       <nav className={`sticky top-0 z-40 bg-[#0D0D0D] transition-shadow duration-300 ${scrolled ? 'shadow-xl' : 'shadow-md'}`}>
-        <div className="h-0.5 bg-gradient-to-r from-[#D4AF37] via-[#D4AF37]/60 to-transparent" />
+        <div className="h-0.5 bg-gradient-to-r from-[#CC1016] via-[#CC1016]/60 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -168,13 +168,13 @@ export default function Navbar() {
                   Services <ChevronDown size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {servicesOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-[480px] bg-white rounded-xl shadow-2xl py-4 z-50 border border-gray-100">
+                  <div className="absolute top-full left-0 w-[480px] bg-white rounded-xl shadow-2xl py-4 z-50 border border-gray-100">
                     <div className="grid grid-cols-2 gap-0 divide-x divide-gray-100">
                       <div className="px-4">
                         <p className="text-xs font-bold text-[#CC1016] uppercase tracking-wider mb-2 px-0">For Employers</p>
                         {employerServices.map(s => (
                           <Link key={s.slug} href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] rounded-lg transition-colors">
+                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F5F5F5] hover:text-[#CC1016] rounded-lg transition-colors">
                             <span className="w-1.5 h-1.5 bg-[#CC1016] rounded-full shrink-0" />
                             {s.name}
                           </Link>
@@ -184,7 +184,7 @@ export default function Navbar() {
                         <p className="text-xs font-bold text-[#0D0D0D] uppercase tracking-wider mb-2 px-0">For Candidates</p>
                         {candidateServices.map(s => (
                           <Link key={s.slug} href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] rounded-lg transition-colors">
+                            className="flex items-center gap-2 px-2 py-2 text-sm text-[#0D0D0D] hover:bg-[#F5F5F5] hover:text-[#CC1016] rounded-lg transition-colors">
                             <span className="w-1.5 h-1.5 bg-[#0D0D0D] rounded-full shrink-0" />
                             {s.name}
                           </Link>
@@ -192,7 +192,7 @@ export default function Navbar() {
                       </div>
                     </div>
                     <div className="mt-3 mx-4 pt-3 border-t border-gray-100">
-                      <Link href="/services" className="block text-center text-sm font-semibold text-[#CC1016] hover:text-[#B8960C] transition-colors">
+                      <Link href="/services" className="block text-center text-sm font-semibold text-[#CC1016] hover:text-[#A80D12] transition-colors">
                         View All Services →
                       </Link>
                     </div>
@@ -206,10 +206,10 @@ export default function Navbar() {
                   Disciplines <ChevronDown size={14} className={`transition-transform ${disciplinesOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {disciplinesOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100">
+                  <div className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100">
                     {disciplines.map(d => (
                       <Link key={d.slug} href={`/disciplines/${d.slug}`}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#0D0D0D] hover:bg-[#F7F9FC] hover:text-[#CC1016] transition-colors">
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#0D0D0D] hover:bg-[#F5F5F5] hover:text-[#CC1016] transition-colors">
                         <span className="w-1.5 h-1.5 bg-[#CC1016] rounded-full shrink-0" />
                         {d.name}
                       </Link>
@@ -284,7 +284,7 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link href="/register/employer"
-                    className="bg-[#CC1016] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#B8960C] transition-colors shadow-sm">
+                    className="bg-[#CC1016] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#A80D12] transition-colors shadow-sm">
                     Post a Job
                   </Link>
                   <Link href="/register/candidate"
@@ -305,7 +305,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden bg-[#0D1F6B] border-t border-white/10 px-4 py-5 space-y-1">
+          <div className="lg:hidden bg-[#0D0D0D] border-t border-white/10 px-4 py-5 space-y-1">
             {[
               { label: 'Find a Job', href: '/jobs' },
               { label: 'Hire Talent', href: '/jobs?audience=employer' },
@@ -325,7 +325,7 @@ export default function Navbar() {
               {authUser ? (
                 <>
                   <Link href={dashboardHref}
-                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
+                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#A80D12] transition-colors"
                     onClick={() => setMobileOpen(false)}>
                     {userRole === 'admin' ? 'Admin Panel' : 'My Dashboard'}
                   </Link>
@@ -342,7 +342,7 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link href="/register/employer"
-                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8960C] transition-colors"
+                    className="block text-center bg-[#CC1016] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#A80D12] transition-colors"
                     onClick={() => setMobileOpen(false)}>
                     Post a Job
                   </Link>

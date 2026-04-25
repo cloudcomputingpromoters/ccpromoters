@@ -58,8 +58,8 @@ export default function AdminSalaryDataPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <Link href="/dashboard/admin" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Admin</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Salary Data</h1>
@@ -69,47 +69,47 @@ export default function AdminSalaryDataPage() {
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
         <div className="flex justify-end">
           <button onClick={() => setAdding(!adding)}
-            className="flex items-center gap-2 bg-[#D4AF37] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#B8960C] transition-colors">
+            className="flex items-center gap-2 bg-[#CC1016] text-white font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-[#A80D12] transition-colors">
             <Plus size={15} /> Add Data Point
           </button>
         </div>
 
         {adding && (
-          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E2E8F0] p-6 space-y-4">
-            <h3 className="font-bold text-[#1A3A8F]">New Data Point</h3>
+          <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-4">
+            <h3 className="font-bold text-[#0D0D0D]">New Data Point</h3>
             <div className="grid sm:grid-cols-5 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">Discipline</label>
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">Discipline</label>
                 <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})} required
-                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37] bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016] bg-white">
                   <option value="">Select</option>
                   {DISCIPLINES.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">Level</label>
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">Level</label>
                 <select value={form.experience_level} onChange={e => setForm({...form, experience_level: e.target.value})} required
-                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37] bg-white">
+                  className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016] bg-white">
                   <option value="">Select</option>
                   {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
                 </select>
               </div>
               {[{key:'salary_min',label:'Min ($)'},{key:'salary_median',label:'Median ($)'},{key:'salary_max',label:'Max ($)'}].map(({ key, label }) => (
                 <div key={key}>
-                  <label className="block text-xs font-semibold text-[#1A3A8F] mb-1">{label}</label>
+                  <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">{label}</label>
                   <input type="number" value={form[key as keyof typeof form]}
                     onChange={e => setForm({...form, [key]: e.target.value})} required
-                    className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#D4AF37]" />
+                    className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#CC1016]" />
                 </div>
               ))}
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
-                className="bg-[#D4AF37] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#B8960C] transition-colors disabled:opacity-60">
+                className="bg-[#CC1016] text-white font-bold px-5 py-2 rounded-lg text-sm hover:bg-[#A80D12] transition-colors disabled:opacity-60">
                 {saving ? 'Saving...' : 'Save'}
               </button>
               <button type="button" onClick={() => setAdding(false)}
-                className="px-5 py-2 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] hover:border-[#1A3A8F] transition-colors">
+                className="px-5 py-2 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] hover:border-[#0D0D0D] transition-colors">
                 Cancel
               </button>
             </div>
@@ -117,11 +117,11 @@ export default function AdminSalaryDataPage() {
         )}
 
         {loading ? (
-          <div className="h-64 bg-white rounded-xl border border-[#E2E8F0] animate-pulse" />
+          <div className="h-64 bg-white rounded-xl border border-[#E5E5E5] animate-pulse" />
         ) : (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-[#1A3A8F] text-white">
+              <thead className="bg-[#0D0D0D] text-white">
                 <tr>
                   <th className="text-left px-5 py-3 font-semibold">Discipline</th>
                   <th className="text-left px-4 py-3 font-semibold">Level</th>
@@ -133,21 +133,21 @@ export default function AdminSalaryDataPage() {
               </thead>
               <tbody>
                 {rows.map((r, i) => (
-                  <tr key={r.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F7F9FC]'}>
-                    <td className="px-5 py-3 text-[#1A3A8F] font-medium">{r.discipline}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{r.experience_level}</td>
-                    <td className="px-4 py-3 text-right text-[#4A5568]">${r.salary_min?.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-right text-[#D4AF37] font-semibold">${r.salary_median?.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-right text-[#4A5568]">${r.salary_max?.toLocaleString()}</td>
+                  <tr key={r.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F5F5F5]'}>
+                    <td className="px-5 py-3 text-[#0D0D0D] font-medium">{r.discipline}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{r.experience_level}</td>
+                    <td className="px-4 py-3 text-right text-[#6B6B6B]">${r.salary_min?.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-right text-[#CC1016] font-semibold">${r.salary_median?.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-right text-[#6B6B6B]">${r.salary_max?.toLocaleString()}</td>
                     <td className="px-4 py-3 text-right">
-                      <button onClick={() => handleDelete(r.id)} className="text-[#4A5568] hover:text-red-600 transition-colors">
+                      <button onClick={() => handleDelete(r.id)} className="text-[#6B6B6B] hover:text-red-600 transition-colors">
                         <Trash2 size={14} />
                       </button>
                     </td>
                   </tr>
                 ))}
                 {rows.length === 0 && (
-                  <tr><td colSpan={6} className="px-5 py-10 text-center text-[#4A5568]">No salary data yet. Add data points above.</td></tr>
+                  <tr><td colSpan={6} className="px-5 py-10 text-center text-[#6B6B6B]">No salary data yet. Add data points above.</td></tr>
                 )}
               </tbody>
             </table>

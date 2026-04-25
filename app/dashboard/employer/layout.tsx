@@ -63,20 +63,20 @@ export default function EmployerLayout({ children }: { children: React.ReactNode
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-[#CC1016] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
+    <div className="min-h-screen bg-[#F5F5F5]">
       {/* Top bar */}
-      <div className="bg-[#1A3A8F] text-white py-4 px-4 sticky top-0 z-40">
+      <div className="bg-[#0D0D0D] text-white py-4 px-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="font-bold text-lg">
-              CC<span className="text-[#D4AF37]">Promoters</span>
+              CC<span className="text-[#CC1016]">Promoters</span>
             </Link>
             <span className="text-white/30 hidden sm:block">|</span>
             <span className="text-white/70 text-sm hidden sm:block">{companyName}</span>
@@ -98,10 +98,10 @@ export default function EmployerLayout({ children }: { children: React.ReactNode
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <aside className="lg:w-56 shrink-0">
-            <div className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden sticky top-24">
-              <div className="px-5 py-4 border-b border-[#E2E8F0]">
-                <p className="text-xs text-[#4A5568] font-medium uppercase tracking-wide">Employer</p>
-                <p className="font-bold text-[#1A3A8F] mt-0.5 truncate">{companyName}</p>
+            <div className="bg-white rounded-xl border border-[#E5E5E5] overflow-hidden sticky top-24">
+              <div className="px-5 py-4 border-b border-[#E5E5E5]">
+                <p className="text-xs text-[#6B6B6B] font-medium uppercase tracking-wide">Employer</p>
+                <p className="font-bold text-[#0D0D0D] mt-0.5 truncate">{companyName}</p>
               </div>
               {navItems.map(item => {
                 const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
@@ -109,15 +109,15 @@ export default function EmployerLayout({ children }: { children: React.ReactNode
                   <Link key={item.href} href={item.href}
                     className={`flex items-center gap-3 px-5 py-3.5 text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-[#FFF8E7] text-[#D4AF37] border-r-2 border-[#D4AF37]'
-                        : 'text-[#4A5568] hover:bg-[#F7F9FC]'
+                        ? 'bg-[#FFF8E7] text-[#CC1016] border-r-2 border-[#CC1016]'
+                        : 'text-[#6B6B6B] hover:bg-[#F5F5F5]'
                     }`}>
                     <item.icon size={16} />
                     {item.label}
                   </Link>
                 );
               })}
-              <div className="border-t border-[#E2E8F0]">
+              <div className="border-t border-[#E5E5E5]">
                 <button onClick={handleSignOut}
                   className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium text-red-500 hover:bg-red-50 transition-colors">
                   <LogOut size={16} /> Sign Out

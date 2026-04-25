@@ -49,7 +49,7 @@ export default async function HomePage() {
       <FeaturedJobs />
 
       {/* Salary Guide Teaser */}
-      <section className="py-20 bg-gradient-to-br from-[#D4AF37] to-[#1A3A8F] relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-[#CC1016] to-[#0D0D0D] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-white" />
           <div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-white" />
@@ -67,7 +67,7 @@ export default async function HomePage() {
               Our annual salary guide covers every discipline, experience level, and region — with real placement data from thousands of successful hires.
             </p>
             <Link href="/salary-guide"
-              className="inline-flex items-center gap-2 bg-white text-[#1A3A8F] font-semibold px-7 py-4 rounded-lg hover:bg-white/90 transition-colors">
+              className="inline-flex items-center gap-2 bg-white text-[#0D0D0D] font-semibold px-7 py-4 rounded-lg hover:bg-white/90 transition-colors">
               Download the Free Salary Guide <ArrowRight size={18} />
             </Link>
           </div>
@@ -85,19 +85,19 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1A3A8F]" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                  Industry <span className="text-[#D4AF37]">Insights</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#0D0D0D]" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                  Industry <span className="text-[#CC1016]">Insights</span>
                 </h2>
-                <p className="text-[#4A5568] mt-2">Salary data, hiring trends, and career advice for civil engineers.</p>
+                <p className="text-[#6B6B6B] mt-2">Salary data, hiring trends, and career advice for civil engineers.</p>
               </div>
-              <Link href="/insights" className="text-[#D4AF37] font-semibold hover:underline shrink-0">
+              <Link href="/insights" className="text-[#CC1016] font-semibold hover:underline shrink-0">
                 Visit Our Insights Hub →
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {blogPosts.map(post => (
                 <Link key={post.id} href={`/insights/${post.slug}`}
-                  className="group border border-[#E2E8F0] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#D4AF37] transition-all duration-300 hover:-translate-y-1">
+                  className="group border border-[#E5E5E5] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#CC1016] transition-all duration-300 hover:-translate-y-1">
                   <div className="h-44 overflow-hidden">
                     <BlogThumbnail tag={post.discipline_tag} />
                   </div>
@@ -105,11 +105,11 @@ export default async function HomePage() {
                     <span className="discipline-tag bg-pink-100 text-pink-700 mb-3 inline-block">
                       {post.discipline_tag}
                     </span>
-                    <h3 className="font-bold text-[#1A3A8F] text-base leading-snug mb-2 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="font-bold text-[#0D0D0D] text-base leading-snug mb-2 group-hover:text-[#CC1016] transition-colors">
                       {post.title}
                     </h3>
-                    <p className="text-[#4A5568] text-sm line-clamp-2 mb-4">{post.excerpt}</p>
-                    <span className="text-[#D4AF37] text-sm font-semibold">Read More →</span>
+                    <p className="text-[#6B6B6B] text-sm line-clamp-2 mb-4">{post.excerpt}</p>
+                    <span className="text-[#CC1016] text-sm font-semibold">Read More →</span>
                   </div>
                 </Link>
               ))}
@@ -123,13 +123,13 @@ export default async function HomePage() {
       <NewsletterSection />
 
       {/* Services overview */}
-      <section className="py-20 bg-[#F7F9FC]">
+      <section className="py-20 bg-[#F5F5F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1A3A8F] mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0D0D0D] mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
             More Than Recruitment —{' '}
-            <span className="text-[#D4AF37]">A True Talent Partner</span>
+            <span className="text-[#CC1016]">A True Talent Partner</span>
           </h2>
-          <p className="text-[#4A5568] text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-[#6B6B6B] text-lg mb-12 max-w-2xl mx-auto">
             From executive search to career coaching, CCPromoters supports engineering firms and professionals at every stage.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -140,15 +140,15 @@ export default async function HomePage() {
               { title: 'Career Coaching', desc: 'Interview prep, salary negotiation, and PE roadmap support for candidates.', href: '/services/career-roadmap', icon: '🎯' },
             ].map(s => (
               <Link key={s.href} href={s.href}
-                className="bg-white rounded-xl p-7 border border-[#E2E8F0] hover:border-[#D4AF37] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-left">
+                className="bg-white rounded-xl p-7 border border-[#E5E5E5] hover:border-[#CC1016] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-left">
                 <div className="text-3xl mb-4">{s.icon}</div>
-                <h3 className="font-bold text-[#1A3A8F] mb-2 group-hover:text-[#D4AF37] transition-colors">{s.title}</h3>
-                <p className="text-[#4A5568] text-sm mb-4">{s.desc}</p>
-                <span className="text-[#D4AF37] text-sm font-semibold">Learn More →</span>
+                <h3 className="font-bold text-[#0D0D0D] mb-2 group-hover:text-[#CC1016] transition-colors">{s.title}</h3>
+                <p className="text-[#6B6B6B] text-sm mb-4">{s.desc}</p>
+                <span className="text-[#CC1016] text-sm font-semibold">Learn More →</span>
               </Link>
             ))}
           </div>
-          <Link href="/services" className="inline-block mt-10 border-2 border-[#1A3A8F] text-[#1A3A8F] font-semibold px-8 py-3 rounded-lg hover:bg-[#1A3A8F] hover:text-white transition-all">
+          <Link href="/services" className="inline-block mt-10 border-2 border-[#0D0D0D] text-[#0D0D0D] font-semibold px-8 py-3 rounded-lg hover:bg-[#0D0D0D] hover:text-white transition-all">
             View All Services
           </Link>
         </div>

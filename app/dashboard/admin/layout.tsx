@@ -49,10 +49,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!ready) {
     return (
-      <div className="min-h-screen bg-[#F7F9FC] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-10 h-10 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-[#4A5568] text-sm">Loading admin panel...</p>
+          <div className="w-10 h-10 border-4 border-[#CC1016] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-[#6B6B6B] text-sm">Loading admin panel...</p>
         </div>
       </div>
     );
@@ -64,12 +64,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F7F9FC]">
+    <div className="flex min-h-screen bg-[#F5F5F5]">
       {/* Sidebar */}
-      <aside className="w-60 bg-[#1A3A8F] shrink-0 flex flex-col">
+      <aside className="w-60 bg-[#0D0D0D] shrink-0 flex flex-col">
         {/* Admin header */}
         <div className="px-5 py-5 border-b border-white/10">
-          <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-1">Admin Panel</p>
+          <p className="text-[#CC1016] text-xs font-bold uppercase tracking-widest mb-1">Admin Panel</p>
           <p className="text-white font-semibold text-sm truncate">
             {adminUser?.email?.split('@')[0]}
           </p>
@@ -84,7 +84,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
                   active
-                    ? 'bg-[#D4AF37] text-white'
+                    ? 'bg-[#CC1016] text-white'
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}>
                 <item.icon size={16} className={active ? 'text-white' : 'text-white/50 group-hover:text-white'} />

@@ -21,10 +21,10 @@ export default function BlogThumbnail({ tag }: { tag?: string }) {
         alt={tag ? `${tag} — civil engineering industry insights and career advice` : 'Civil engineering construction site — industry insights'}
         className="w-full h-full object-cover object-center"
       />
-      <div className="absolute inset-0 bg-[#1A3A8F]/20" />
+      <div className="absolute inset-0 bg-[#0D0D0D]/20" />
       {tag && (
         <div className="absolute bottom-3 left-3">
-          <span className="bg-[#D4AF37]/90 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
+          <span className="bg-[#CC1016]/90 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
             {tag}
           </span>
         </div>

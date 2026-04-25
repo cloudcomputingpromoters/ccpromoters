@@ -95,7 +95,7 @@ export default function SaveJobButton({ jobId }: Props) {
 
   if (state === 'loading') {
     return (
-      <button disabled className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] opacity-50">
+      <button disabled className="flex-1 flex items-center justify-center gap-2 border border-[#E5E5E5] rounded-lg py-2.5 text-sm text-[#6B6B6B] opacity-50">
         <Bookmark size={15} /> Save Job
       </button>
     );
@@ -103,7 +103,7 @@ export default function SaveJobButton({ jobId }: Props) {
 
   if (state === 'guest') {
     return (
-      <a href="/login" className="flex-1 flex items-center justify-center gap-2 border border-[#E2E8F0] rounded-lg py-2.5 text-sm text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors">
+      <a href="/login" className="flex-1 flex items-center justify-center gap-2 border border-[#E5E5E5] rounded-lg py-2.5 text-sm text-[#6B6B6B] hover:border-[#CC1016] hover:text-[#CC1016] transition-colors">
         <Bookmark size={15} /> Save Job
       </a>
     );
@@ -115,8 +115,8 @@ export default function SaveJobButton({ jobId }: Props) {
       disabled={busy}
       className={`flex-1 flex items-center justify-center gap-2 border rounded-lg py-2.5 text-sm font-medium transition-colors disabled:opacity-60 ${
         state === 'saved'
-          ? 'border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/5'
-          : 'border-[#E2E8F0] text-[#4A5568] hover:border-[#D4AF37] hover:text-[#D4AF37]'
+          ? 'border-[#CC1016] text-[#CC1016] bg-[#CC1016]/5'
+          : 'border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016] hover:text-[#CC1016]'
       }`}
     >
       {state === 'saved'

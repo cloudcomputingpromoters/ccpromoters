@@ -9,6 +9,9 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)"
+    ],
+    "additionalDirectories": [
+      "C:\\My Projects\\Personal\\ccpromoters\\app\\disciplines\\[slug]"
     ]
   }
 }

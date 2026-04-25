@@ -60,10 +60,10 @@ export default function SalaryGuidePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-r from-[#1A3A8F] to-[#163298] py-20 px-4 text-center">
-        <span className="inline-block bg-[#D4AF37]/20 text-[#D4AF37] text-sm font-semibold px-4 py-1.5 rounded-full mb-4">2026 Salary Data</span>
+      <section className="bg-[#0D0D0D] py-20 px-4 text-center">
+        <span className="inline-block bg-[#CC1016]/20 text-[#CC1016] text-sm font-semibold px-4 py-1.5 rounded-full mb-4">2026 Salary Data</span>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          Civil Engineering <span className="text-[#D4AF37]">Salary Guide</span>
+          Civil Engineering <span className="text-[#CC1016]">Salary Guide</span>
         </h1>
         <p className="text-white/70 text-lg max-w-2xl mx-auto">
           Real placement data from 300+ civil engineering hires in 2025–2026. See what engineers in your discipline and experience level are actually earning.
@@ -71,46 +71,46 @@ export default function SalaryGuidePage() {
       </section>
 
       {/* Interactive calculator */}
-      <section className="py-16 px-4 bg-[#F7F9FC]">
+      <section className="py-16 px-4 bg-[#F5F5F5]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-[#1A3A8F] mb-2 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>Salary Calculator</h2>
-          <p className="text-[#4A5568] text-center mb-8">Select your discipline to see salary ranges by experience level.</p>
+          <h2 className="text-3xl font-bold text-[#0D0D0D] mb-2 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>Salary Calculator</h2>
+          <p className="text-[#6B6B6B] text-center mb-8">Select your discipline to see salary ranges by experience level.</p>
 
           <div className="flex flex-wrap gap-2 justify-center mb-8">
             {disciplines.map(d => (
               <button key={d.value} onClick={() => setSelectedDiscipline(d.value)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${selectedDiscipline === d.value ? 'bg-[#D4AF37] text-white' : 'bg-white border border-[#E2E8F0] text-[#4A5568] hover:border-[#D4AF37]'}`}>
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${selectedDiscipline === d.value ? 'bg-[#CC1016] text-white' : 'bg-white border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
                 {d.label}
               </button>
             ))}
           </div>
 
           {chartData.length > 0 ? (
-            <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 shadow-sm">
-              <h3 className="font-bold text-[#1A3A8F] mb-6 text-center">
+            <div className="bg-white rounded-2xl border border-[#E5E5E5] p-6 shadow-sm">
+              <h3 className="font-bold text-[#0D0D0D] mb-6 text-center">
                 {disciplines.find(d => d.value === selectedDiscipline)?.label} — Salary by Experience Level (USD thousands)
               </h3>
               <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                  <XAxis dataKey="level" tick={{ fill: '#4A5568', fontSize: 12 }} />
-                  <YAxis tick={{ fill: '#4A5568', fontSize: 12 }} unit="k" />
-                  <Tooltip formatter={(v) => [`$${Number(v)}k`, '']} labelStyle={{ color: '#1A3A8F', fontWeight: 'bold' }} />
-                  <Bar dataKey="Min" fill="#1A3A8F" radius={[4,4,0,0]} />
-                  <Bar dataKey="Median" fill="#D4AF37" radius={[4,4,0,0]} />
-                  <Bar dataKey="Max" fill="#163298" radius={[4,4,0,0]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E5E5" />
+                  <XAxis dataKey="level" tick={{ fill: '#6B6B6B', fontSize: 12 }} />
+                  <YAxis tick={{ fill: '#6B6B6B', fontSize: 12 }} unit="k" />
+                  <Tooltip formatter={(v) => [`$${Number(v)}k`, '']} labelStyle={{ color: '#0D0D0D', fontWeight: 'bold' }} />
+                  <Bar dataKey="Min" fill="#0D0D0D" radius={[4,4,0,0]} />
+                  <Bar dataKey="Median" fill="#CC1016" radius={[4,4,0,0]} />
+                  <Bar dataKey="Max" fill="#111111" radius={[4,4,0,0]} />
                 </BarChart>
               </ResponsiveContainer>
               <div className="flex justify-center gap-6 mt-4 text-sm">
-                {[{c:'#1A3A8F',l:'Min'},{c:'#D4AF37',l:'Median'},{c:'#163298',l:'Max'}].map(item => (
+                {[{c:'#0D0D0D',l:'Min'},{c:'#CC1016',l:'Median'},{c:'#111111',l:'Max'}].map(item => (
                   <span key={item.l} className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm inline-block" style={{background:item.c}} />{item.l}</span>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-[#E2E8F0] p-16 text-center">
+            <div className="bg-white rounded-2xl border border-[#E5E5E5] p-16 text-center">
               <div className="text-4xl mb-3">📊</div>
-              <p className="text-[#4A5568]">Loading salary data...</p>
+              <p className="text-[#6B6B6B]">Loading salary data...</p>
             </div>
           )}
         </div>
@@ -119,10 +119,10 @@ export default function SalaryGuidePage() {
       {/* Full table */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-[#1A3A8F] mb-8 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>Salary Ranges by Discipline</h2>
-          <div className="overflow-x-auto rounded-2xl border border-[#E2E8F0] shadow-sm">
+          <h2 className="text-3xl font-bold text-[#0D0D0D] mb-8 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>Salary Ranges by Discipline</h2>
+          <div className="overflow-x-auto rounded-2xl border border-[#E5E5E5] shadow-sm">
             <table className="w-full text-sm">
-              <thead className="bg-[#1A3A8F] text-white">
+              <thead className="bg-[#0D0D0D] text-white">
                 <tr>
                   <th className="text-left px-5 py-4 font-semibold">Discipline</th>
                   <th className="text-center px-4 py-4 font-semibold">Graduate</th>
@@ -133,23 +133,23 @@ export default function SalaryGuidePage() {
               </thead>
               <tbody>
                 {summaryTable.map((row, i) => (
-                  <tr key={row.discipline} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F7F9FC]'}>
-                    <td className="px-5 py-4 font-semibold text-[#1A3A8F]">{row.discipline}</td>
-                    <td className="px-4 py-4 text-center text-[#4A5568]">{row.graduate}</td>
-                    <td className="px-4 py-4 text-center text-[#4A5568]">{row.mid}</td>
-                    <td className="px-4 py-4 text-center text-[#D4AF37] font-semibold">{row.senior}</td>
-                    <td className="px-4 py-4 text-center text-[#4A5568]">{row.principal}</td>
+                  <tr key={row.discipline} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F5F5F5]'}>
+                    <td className="px-5 py-4 font-semibold text-[#0D0D0D]">{row.discipline}</td>
+                    <td className="px-4 py-4 text-center text-[#6B6B6B]">{row.graduate}</td>
+                    <td className="px-4 py-4 text-center text-[#6B6B6B]">{row.mid}</td>
+                    <td className="px-4 py-4 text-center text-[#CC1016] font-semibold">{row.senior}</td>
+                    <td className="px-4 py-4 text-center text-[#6B6B6B]">{row.principal}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-[#4A5568] text-sm mt-3 text-center">All figures are annual base salary in USD. Data reflects national averages from 2025–2026 placements.</p>
+          <p className="text-[#6B6B6B] text-sm mt-3 text-center">All figures are annual base salary in USD. Data reflects national averages from 2025–2026 placements.</p>
         </div>
       </section>
 
       {/* Download gate */}
-      <section className="py-16 px-4 bg-gradient-to-br from-[#D4AF37] to-[#1A3A8F]">
+      <section className="py-16 px-4 bg-gradient-to-br from-[#CC1016] to-[#0D0D0D]">
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>Download the Full 2026 Salary Guide</h2>
           <p className="text-white/85 mb-8">Get the complete 28-page PDF including contract rates, benefits benchmarking, and region-by-region breakdowns.</p>
@@ -161,8 +161,8 @@ export default function SalaryGuidePage() {
           ) : (
             <form onSubmit={handleEmailSubmit} className="flex gap-2">
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter your email address"
-                className="flex-1 border-0 rounded-lg px-4 py-3 text-[#1A3A8F] focus:outline-none" required />
-              <button type="submit" className="bg-[#1A3A8F] text-white font-bold px-6 py-3 rounded-lg hover:bg-[#163298] transition-colors whitespace-nowrap">
+                className="flex-1 border-0 rounded-lg px-4 py-3 text-[#0D0D0D] focus:outline-none" required />
+              <button type="submit" className="bg-[#0D0D0D] text-white font-bold px-6 py-3 rounded-lg hover:bg-[#111111] transition-colors whitespace-nowrap">
                 Get PDF
               </button>
             </form>
@@ -173,8 +173,8 @@ export default function SalaryGuidePage() {
 
       {/* Market value CTA */}
       <section className="py-16 px-4 text-center">
-        <h2 className="text-2xl font-bold text-[#1A3A8F] mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>Want to Know Your Personal Market Value?</h2>
-        <p className="text-[#4A5568] mb-6 max-w-lg mx-auto">Talk to one of our specialist recruiters for a personalised salary assessment based on your experience, licensure, and target market.</p>
+        <h2 className="text-2xl font-bold text-[#0D0D0D] mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>Want to Know Your Personal Market Value?</h2>
+        <p className="text-[#6B6B6B] mb-6 max-w-lg mx-auto">Talk to one of our specialist recruiters for a personalised salary assessment based on your experience, licensure, and target market.</p>
         <Link href="/contact" className="btn-pink">Talk to a Recruiter</Link>
       </section>
     </div>

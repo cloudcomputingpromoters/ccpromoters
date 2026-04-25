@@ -37,8 +37,8 @@ export default function AdminUsersPage() {
     : users;
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC]">
-      <div className="bg-[#1A3A8F] py-10 px-4">
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="bg-[#0D0D0D] py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <Link href="/dashboard/admin" className="text-white/60 hover:text-white text-sm mb-2 inline-block">← Admin</Link>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Manrope, sans-serif' }}>Users</h1>
@@ -47,16 +47,16 @@ export default function AdminUsersPage() {
       </div>
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="relative mb-6 max-w-sm">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4A5568]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6B6B]" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name or email..."
-            className="w-full pl-9 pr-4 py-2.5 border border-[#E2E8F0] rounded-lg text-sm text-[#1A3A8F] focus:outline-none focus:border-[#D4AF37] transition-colors" />
+            className="w-full pl-9 pr-4 py-2.5 border border-[#E5E5E5] rounded-lg text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
         </div>
         {loading ? (
-          <div className="space-y-2">{[1,2,3,4,5].map(i => <div key={i} className="h-14 bg-white rounded-lg border border-[#E2E8F0] animate-pulse" />)}</div>
+          <div className="space-y-2">{[1,2,3,4,5].map(i => <div key={i} className="h-14 bg-white rounded-lg border border-[#E5E5E5] animate-pulse" />)}</div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-[#1A3A8F] text-white">
+              <thead className="bg-[#0D0D0D] text-white">
                 <tr>
                   <th className="text-left px-5 py-3 font-semibold">Name</th>
                   <th className="text-left px-4 py-3 font-semibold">Role</th>
@@ -66,17 +66,17 @@ export default function AdminUsersPage() {
               </thead>
               <tbody>
                 {filtered.map((u, i) => (
-                  <tr key={u.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F7F9FC]'}>
-                    <td className="px-5 py-3 font-semibold text-[#1A3A8F]">{u.name || '—'}</td>
+                  <tr key={u.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#F5F5F5]'}>
+                    <td className="px-5 py-3 font-semibold text-[#0D0D0D]">{u.name || '—'}</td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${u.role === 'Employer' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700'}`}>{u.role}</span>
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${u.role === 'Employer' ? 'bg-yellow-100 text-yellow-700' : 'bg-[#F5F5F5] text-[#0D0D0D]'}`}>{u.role}</span>
                     </td>
-                    <td className="px-4 py-3 text-[#4A5568]">{u.detail || '—'}</td>
-                    <td className="px-4 py-3 text-[#4A5568]">{new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{u.detail || '—'}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={4} className="px-5 py-10 text-center text-[#4A5568]">No users found.</td></tr>
+                  <tr><td colSpan={4} className="px-5 py-10 text-center text-[#6B6B6B]">No users found.</td></tr>
                 )}
               </tbody>
             </table>
