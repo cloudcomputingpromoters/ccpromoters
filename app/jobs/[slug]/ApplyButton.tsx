@@ -125,7 +125,7 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
   if (authState === 'guest') {
     return (
       <div className="space-y-2 mb-3">
-        <a href={`/apply?job=${encodeURIComponent(jobTitle)}&loc=${encodeURIComponent(jobSlug)}`}
+        <a href={`/apply?job=${encodeURIComponent(jobTitle)}&loc=${encodeURIComponent(location)}`}
           className="block bg-[#CC1016] text-white font-bold text-center py-4 rounded-xl hover:bg-[#A80D12] transition-colors text-lg">
           Apply Now →
         </a>

@@ -109,7 +109,7 @@ export default function EmployerLayout({ children }: { children: React.ReactNode
                   <Link key={item.href} href={item.href}
                     className={`flex items-center gap-3 px-5 py-3.5 text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-[#FFF8E7] text-[#CC1016] border-r-2 border-[#CC1016]'
+                        ? 'bg-[#CC1016]/10 text-[#CC1016] border-r-2 border-[#CC1016]'
                         : 'text-[#6B6B6B] hover:bg-[#F5F5F5]'
                     }`}>
                     <item.icon size={16} />

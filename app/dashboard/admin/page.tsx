@@ -34,12 +34,12 @@ export default function AdminDashboardPage() {
   }, []);
 
   const statCards = [
-    { label: 'Active Jobs', value: stats.jobs, icon: Briefcase, color: 'text-blue-600 bg-[#F5F5F5]' },
-    { label: 'Candidates', value: stats.candidates, icon: Users, color: 'text-purple-600 bg-purple-100' },
-    { label: 'Employers', value: stats.employers, icon: Star, color: 'text-yellow-600 bg-yellow-100' },
-    { label: 'Applications', value: stats.applications, icon: FileText, color: 'text-green-600 bg-green-100' },
-    { label: 'Contact Submissions', value: stats.contacts, icon: MessageSquare, color: 'text-pink-600 bg-pink-100' },
-    { label: 'Talent Requests', value: stats.talent_requests, icon: ClipboardList, color: 'text-indigo-600 bg-indigo-100' },
+    { label: 'Active Jobs',          value: stats.jobs,            icon: Briefcase,    color: 'text-[#CC1016] bg-[#CC1016]/10' },
+    { label: 'Candidates',           value: stats.candidates,      icon: Users,        color: 'text-white bg-[#0D0D0D]' },
+    { label: 'Employers',            value: stats.employers,       icon: Star,         color: 'text-[#CC1016] bg-[#CC1016]/10' },
+    { label: 'Applications',         value: stats.applications,    icon: FileText,     color: 'text-white bg-[#0D0D0D]' },
+    { label: 'Contact Submissions',  value: stats.contacts,        icon: MessageSquare,color: 'text-[#CC1016] bg-[#CC1016]/10' },
+    { label: 'Talent Requests',      value: stats.talent_requests, icon: ClipboardList,color: 'text-white bg-[#0D0D0D]' },
   ];
 
   const navItems = [

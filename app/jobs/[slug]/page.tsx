@@ -3,9 +3,10 @@ export const dynamic = 'force-dynamic';
 import { insforge } from '@/lib/insforge';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, DollarSign, Award, Briefcase, ArrowLeft, Share2, CheckCircle } from 'lucide-react';
+import { MapPin, DollarSign, Award, Briefcase, ArrowLeft, CheckCircle } from 'lucide-react';
 import ApplyButton from './ApplyButton';
 import SaveJobButton from './SaveJobButton';
+import ShareButton from './ShareButton';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -241,9 +242,7 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                   />
                   <div className="flex gap-2">
                     <SaveJobButton jobId={job.id} />
-                    <button className="flex-1 flex items-center justify-center gap-2 border border-[#E5E5E5] rounded-lg py-2.5 text-sm text-[#6B6B6B] hover:border-[#CC1016] hover:text-[#CC1016] transition-colors">
-                      <Share2 size={15} /> Share
-                    </button>
+                    <ShareButton title={job.title} />
                   </div>
                 </div>
 

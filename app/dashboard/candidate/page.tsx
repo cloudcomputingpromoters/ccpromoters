@@ -165,7 +165,7 @@ export default function CandidateDashboard() {
                   <Link key={item.href} href={item.href}
                     className={`w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-[#FFF8E7] text-[#CC1016] border-r-2 border-[#CC1016]'
+                        ? 'bg-[#CC1016]/10 text-[#CC1016] border-r-2 border-[#CC1016]'
                         : 'text-[#6B6B6B] hover:bg-[#F5F5F5]'
                     }`}>
                     <item.icon size={16} />
@@ -189,9 +189,9 @@ export default function CandidateDashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { label: 'Applications', value: applications.length, icon: Briefcase, color: '#CC1016' },
-                { label: 'Saved Jobs', value: savedJobs.length, icon: BookmarkCheck, color: '#7C3AED' },
-                { label: 'Interviews', value: applications.filter(a => a.status === 'interview_scheduled').length, icon: MessageSquare, color: '#059669' },
-                { label: 'Offers', value: applications.filter(a => a.status === 'offer_made').length, icon: Award, color: '#D97706' },
+                { label: 'Saved Jobs', value: savedJobs.length, icon: BookmarkCheck, color: '#0D0D0D' },
+                { label: 'Interviews', value: applications.filter(a => a.status === 'interview_scheduled').length, icon: MessageSquare, color: '#CC1016' },
+                { label: 'Offers', value: applications.filter(a => a.status === 'offer_made').length, icon: Award, color: '#0D0D0D' },
               ].map(stat => (
                 <div key={stat.label} className="bg-white rounded-xl border border-[#E5E5E5] p-5 flex items-center gap-4">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: stat.color + '20' }}>

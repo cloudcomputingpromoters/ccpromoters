@@ -6,8 +6,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { insforge } from '@/lib/insforge';
 
-const DISCIPLINES = ['accounting-finance','engineering','technology','sales-marketing','human-resources','supply-chain','life-sciences','legal','creative','operations'];
-const EMP_TYPES = ['full-time','part-time','contract','temporary','direct-hire'];
+const DISCIPLINES = [
+  { value: 'structural',      label: 'Structural Engineering' },
+  { value: 'transportation',  label: 'Transportation Engineering' },
+  { value: 'geotechnical',    label: 'Geotechnical Engineering' },
+  { value: 'water-resources', label: 'Water Resources & Hydrology' },
+  { value: 'environmental',   label: 'Environmental Engineering' },
+  { value: 'wastewater',      label: 'Wastewater & Utilities' },
+  { value: 'construction',    label: 'Construction & Project Management' },
+  { value: 'land-development',label: 'Land Development & Urban Planning' },
+  { value: 'surveying',       label: 'Surveying & Geospatial' },
+  { value: 'coastal',         label: 'Coastal & Marine Engineering' },
+];
+const EMP_TYPES = [
+  { value: 'permanent',         label: 'Permanent / Direct Hire' },
+  { value: 'contract',          label: 'Contract' },
+  { value: 'contract-to-hire',  label: 'Contract-to-Hire' },
+];
 const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
 function slugify(text: string) {
@@ -96,7 +111,7 @@ export default function PostJobPage() {
             <div>
               <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Job Title <span className="text-red-500">*</span></label>
               <input type="text" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required
-                placeholder="e.g. Senior Financial Analyst"
+                placeholder="e.g. Senior Structural Engineer"
                 className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors" />
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -105,7 +120,7 @@ export default function PostJobPage() {
                 <select value={form.discipline} onChange={e => setForm({...form, discipline: e.target.value})} required
                   className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                   <option value="">Select discipline</option>
-                  {DISCIPLINES.map(d => <option key={d} value={d}>{d.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
+                  {DISCIPLINES.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
                 </select>
               </div>
               <div>
@@ -113,7 +128,7 @@ export default function PostJobPage() {
                 <select value={form.employment_type} onChange={e => setForm({...form, employment_type: e.target.value})} required
                   className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-[#0D0D0D] focus:outline-none focus:border-[#CC1016] transition-colors bg-white">
                   <option value="">Select type</option>
-                  {EMP_TYPES.map(t => <option key={t} value={t}>{t.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())}</option>)}
+                  {EMP_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
               </div>
             </div>

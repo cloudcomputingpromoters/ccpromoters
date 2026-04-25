@@ -49,7 +49,7 @@ export default function LoginPage() {
   async function handleOAuth(provider: 'google' | 'github') {
     await insforge.auth.signInWithOAuth({
       provider,
-      redirectTo: `${window.location.origin}/dashboard/candidate`,
+      redirectTo: `${window.location.origin}/dashboard`,
     });
   }
 
@@ -117,7 +117,7 @@ export default function LoginPage() {
                 </button>
               </div>
               <div className="text-right mt-1">
-                <Link href="/forgot-password" className="text-xs text-[#CC1016] hover:underline">Forgot Password?</Link>
+                <Link href="/auth/forgot-password" className="text-xs text-[#CC1016] hover:underline">Forgot Password?</Link>
               </div>
             </div>
 

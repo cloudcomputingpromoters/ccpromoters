@@ -38,7 +38,7 @@ export default function NewsletterSection() {
 
         {submitted ? (
           <div className="flex items-center justify-center gap-3 text-white">
-            <CheckCircle size={24} className="text-[#059669]" />
+            <CheckCircle size={24} className="text-white" />
             <span className="text-lg font-semibold">You&apos;re on the list! We&apos;ll be in touch.</span>
           </div>
         ) : (

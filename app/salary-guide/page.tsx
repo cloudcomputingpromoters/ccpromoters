@@ -8,23 +8,31 @@ import { insforge } from '@/lib/insforge';
 type SalaryPoint = { discipline: string; experience_level: string; salary_min: number; salary_median: number; salary_max: number };
 
 const disciplines = [
-  { value: 'structural', label: 'Structural Engineering' },
-  { value: 'transportation', label: 'Transportation Engineering' },
-  { value: 'geotechnical', label: 'Geotechnical Engineering' },
+  { value: 'structural',      label: 'Structural Engineering' },
+  { value: 'transportation',  label: 'Transportation Engineering' },
+  { value: 'geotechnical',    label: 'Geotechnical Engineering' },
   { value: 'water-resources', label: 'Water Resources' },
-  { value: 'environmental', label: 'Environmental Engineering' },
-  { value: 'construction', label: 'Construction Management' },
+  { value: 'environmental',   label: 'Environmental Engineering' },
+  { value: 'construction',    label: 'Construction Management' },
+  { value: 'wastewater',      label: 'Wastewater & Utilities' },
+  { value: 'land-development',label: 'Land Development' },
+  { value: 'surveying',       label: 'Surveying & Geospatial' },
+  { value: 'coastal',         label: 'Coastal & Marine' },
 ];
 
 const levels = ['Graduate', 'EIT', 'Mid-Level', 'Senior', 'Principal'];
 
 const summaryTable = [
-  { discipline: 'Structural', graduate: '$60k–$76k', mid: '$90k–$128k', senior: '$115k–$160k', principal: '$145k–$210k' },
-  { discipline: 'Transportation', graduate: '$58k–$74k', mid: '$87k–$122k', senior: '$108k–$152k', principal: '$120k–$165k' },
-  { discipline: 'Geotechnical', graduate: '$58k–$75k', mid: '$84k–$118k', senior: '$105k–$144k', principal: '$120k–$158k' },
+  { discipline: 'Structural',      graduate: '$60k–$76k', mid: '$90k–$128k', senior: '$115k–$160k', principal: '$145k–$210k' },
+  { discipline: 'Transportation',  graduate: '$58k–$74k', mid: '$87k–$122k', senior: '$108k–$152k', principal: '$120k–$165k' },
+  { discipline: 'Geotechnical',    graduate: '$58k–$75k', mid: '$84k–$118k', senior: '$105k–$144k', principal: '$120k–$158k' },
   { discipline: 'Water Resources', graduate: '$57k–$73k', mid: '$80k–$114k', senior: '$100k–$140k', principal: '$115k–$155k' },
-  { discipline: 'Environmental', graduate: '$55k–$70k', mid: '$78k–$112k', senior: '$95k–$135k', principal: '$110k–$150k' },
-  { discipline: 'Construction', graduate: '$60k–$78k', mid: '$82k–$116k', senior: '$105k–$148k', principal: '$130k–$175k' },
+  { discipline: 'Environmental',   graduate: '$55k–$70k', mid: '$78k–$112k', senior: '$95k–$135k',  principal: '$110k–$150k' },
+  { discipline: 'Construction',    graduate: '$60k–$78k', mid: '$82k–$116k', senior: '$105k–$148k', principal: '$130k–$175k' },
+  { discipline: 'Wastewater',      graduate: '$56k–$72k', mid: '$79k–$110k', senior: '$98k–$138k',  principal: '$112k–$152k' },
+  { discipline: 'Land Development',graduate: '$57k–$73k', mid: '$80k–$114k', senior: '$102k–$142k', principal: '$118k–$158k' },
+  { discipline: 'Surveying',       graduate: '$52k–$68k', mid: '$74k–$104k', senior: '$92k–$128k',  principal: '$108k–$145k' },
+  { discipline: 'Coastal & Marine',graduate: '$60k–$77k', mid: '$86k–$120k', senior: '$108k–$150k', principal: '$125k–$168k' },
 ];
 
 export default function SalaryGuidePage() {
@@ -96,13 +104,13 @@ export default function SalaryGuidePage() {
                   <XAxis dataKey="level" tick={{ fill: '#6B6B6B', fontSize: 12 }} />
                   <YAxis tick={{ fill: '#6B6B6B', fontSize: 12 }} unit="k" />
                   <Tooltip formatter={(v) => [`$${Number(v)}k`, '']} labelStyle={{ color: '#0D0D0D', fontWeight: 'bold' }} />
-                  <Bar dataKey="Min" fill="#0D0D0D" radius={[4,4,0,0]} />
+                  <Bar dataKey="Min" fill="#E5E5E5" radius={[4,4,0,0]} />
                   <Bar dataKey="Median" fill="#CC1016" radius={[4,4,0,0]} />
-                  <Bar dataKey="Max" fill="#111111" radius={[4,4,0,0]} />
+                  <Bar dataKey="Max" fill="#0D0D0D" radius={[4,4,0,0]} />
                 </BarChart>
               </ResponsiveContainer>
               <div className="flex justify-center gap-6 mt-4 text-sm">
-                {[{c:'#0D0D0D',l:'Min'},{c:'#CC1016',l:'Median'},{c:'#111111',l:'Max'}].map(item => (
+                {[{c:'#E5E5E5',l:'Min'},{c:'#CC1016',l:'Median'},{c:'#0D0D0D',l:'Max'}].map(item => (
                   <span key={item.l} className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm inline-block" style={{background:item.c}} />{item.l}</span>
                 ))}
               </div>

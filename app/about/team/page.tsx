@@ -35,17 +35,17 @@ export default function TeamPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {team.map(member => (
               <div key={member.name} className="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="relative bg-[#061838] overflow-hidden" style={{ height: '140px' }}>
+                <div className="relative bg-[#0D0D0D] overflow-hidden" style={{ height: '140px' }}>
                   {/* Engineering blueprint background */}
                   <svg viewBox="0 0 320 140" className="absolute inset-0 w-full h-full" aria-hidden="true">
                     {Array.from({length:7},(_,i)=>(
-                      <line key={`v${i}`} x1={i*54} y1="0" x2={i*54} y2="140" stroke="#1E3A8A" strokeOpacity="0.18" strokeWidth="0.5"/>
+                      <line key={`v${i}`} x1={i*54} y1="0" x2={i*54} y2="140" stroke="#FFFFFF" strokeOpacity="0.06" strokeWidth="0.5"/>
                     ))}
                     {Array.from({length:4},(_,i)=>(
-                      <line key={`h${i}`} x1="0" y1={i*46} x2="320" y2={i*46} stroke="#1E3A8A" strokeOpacity="0.18" strokeWidth="0.5"/>
+                      <line key={`h${i}`} x1="0" y1={i*46} x2="320" y2={i*46} stroke="#FFFFFF" strokeOpacity="0.06" strokeWidth="0.5"/>
                     ))}
                     {/* Mini bridge silhouette */}
-                    <line x1="40" y1="100" x2="280" y2="100" stroke="#2A4A6A" strokeWidth="1" strokeOpacity="0.4"/>
+                    <line x1="40" y1="100" x2="280" y2="100" stroke="#CC1016" strokeWidth="1" strokeOpacity="0.5"/>
                     <rect x="128" y="55" width="6" height="45" fill="none" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.35"/>
                     <rect x="186" y="55" width="6" height="45" fill="none" stroke="#CC1016" strokeWidth="0.8" strokeOpacity="0.35"/>
                     {[50,80,110].map(x=>(<line key={x} x1="131" y1="57" x2={x} y2="100" stroke="#CC1016" strokeWidth="0.5" strokeOpacity="0.25"/>))}
@@ -75,13 +75,15 @@ export default function TeamPage() {
                   </div>
                   <div className="flex gap-3 pt-4 border-t border-[#E5E5E5]">
                     <a href={`mailto:${member.email}`}
-                      className="flex-1 text-center bg-[#0D0D0D] text-white text-sm font-semibold py-2 rounded-lg hover:bg-[#111111] transition-colors">
+                      className={`${member.linkedin && member.linkedin !== '#' ? 'flex-1' : 'w-full'} text-center bg-[#0D0D0D] text-white text-sm font-semibold py-2 rounded-lg hover:bg-[#CC1016] transition-colors`}>
                       Email
                     </a>
-                    <a href={member.linkedin}
-                      className="flex-1 text-center border border-[#E5E5E5] text-[#6B6B6B] text-sm font-semibold py-2 rounded-lg hover:border-[#CC1016] hover:text-[#CC1016] transition-colors">
-                      LinkedIn
-                    </a>
+                    {member.linkedin && member.linkedin !== '#' && (
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 text-center border border-[#E5E5E5] text-[#6B6B6B] text-sm font-semibold py-2 rounded-lg hover:border-[#CC1016] hover:text-[#CC1016] transition-colors">
+                        LinkedIn
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

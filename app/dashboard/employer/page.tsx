@@ -57,9 +57,9 @@ export default function EmployerDashboard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: 'Active Jobs',       value: activeJobs.length,                                      icon: Briefcase, color: '#CC1016' },
-          { label: 'Total Listings',    value: jobs.length,                                            icon: BarChart2, color: '#7C3AED' },
-          { label: 'Total Views',       value: jobs.reduce((s, j) => s + (j.view_count || 0), 0),     icon: Eye,       color: '#0891B2' },
-          { label: 'Total Applicants',  value: totalApplicants,                                        icon: Users,     color: '#059669' },
+          { label: 'Total Listings',    value: jobs.length,                                            icon: BarChart2, color: '#0D0D0D' },
+          { label: 'Total Views',       value: jobs.reduce((s, j) => s + (j.view_count || 0), 0),     icon: Eye,       color: '#CC1016' },
+          { label: 'Total Applicants',  value: totalApplicants,                                        icon: Users,     color: '#0D0D0D' },
         ].map(stat => (
           <div key={stat.label} className="bg-white rounded-xl border border-[#E5E5E5] p-5 flex items-center gap-4">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: stat.color + '20' }}>

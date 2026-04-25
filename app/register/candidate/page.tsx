@@ -171,14 +171,14 @@ export default function CandidateRegister() {
             <span className="font-bold text-[#0D0D0D] text-lg">CC<span className="text-[#CC1016]">Promoters</span></span>
           </Link>
           <h1 className="text-2xl font-bold text-[#0D0D0D] mt-4">Create Your Candidate Profile</h1>
-          <p className="text-[#6B6B6B] mt-1">Join 326,000+ civil engineering professionals</p>
+          <p className="text-[#6B6B6B] mt-1">Join our growing network of civil engineering professionals</p>
         </div>
 
         {/* Progress stepper */}
         <div className="flex items-center justify-between mb-8 px-2">
           {steps.map((s, i) => (
             <div key={s} className="flex flex-col items-center gap-1 flex-1">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${i < step ? 'bg-[#059669] text-white' : i === step ? 'bg-[#CC1016] text-white' : 'bg-[#E5E5E5] text-[#6B6B6B]'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${i < step ? 'bg-[#0D0D0D] text-white' : i === step ? 'bg-[#CC1016] text-white' : 'bg-[#E5E5E5] text-[#6B6B6B]'}`}>
                 {i < step ? '✓' : i + 1}
               </div>
               <span className="text-xs text-[#6B6B6B] hidden sm:block text-center leading-tight">{s}</span>
