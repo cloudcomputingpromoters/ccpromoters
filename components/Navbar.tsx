@@ -157,7 +157,7 @@ export default function Navbar() {
                 className="text-white/85 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-all">
                 Find a Job
               </Link>
-              <Link href="/jobs?audience=employer"
+              <Link href="/hire"
                 className="text-white/85 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-all">
                 Hire Talent
               </Link>
@@ -308,7 +308,7 @@ export default function Navbar() {
           <div className="lg:hidden bg-[#0D0D0D] border-t border-white/10 px-4 py-5 space-y-1">
             {[
               { label: 'Find a Job', href: '/jobs' },
-              { label: 'Hire Talent', href: '/jobs?audience=employer' },
+              { label: 'Hire Talent', href: '/hire' },
               { label: 'Services', href: '/services' },
               { label: 'Disciplines', href: '/disciplines' },
               { label: 'Insights', href: '/insights' },
