@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__insforge__fetch-docs",
+      "mcp__insforge__get-table-schema",
+      "mcp__insforge__run-raw-sql",
+      "mcp__insforge__get-backend-metadata",
+      "mcp__insforge__get-anon-key",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}
