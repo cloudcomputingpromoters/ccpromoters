@@ -147,7 +147,7 @@ export default function JobsClient() {
       const to = from + PAGE_SIZE - 1;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      function buildFilters(q: any) {
+      const buildFilters = (q: any) => {
         if (discipline && discipline !== 'all') q = q.eq('discipline_slug', discipline);
         if (typeFilter) q = q.eq('employment_type', typeFilter);
         if (remoteFilter === 'true') q = q.eq('is_remote', true);
