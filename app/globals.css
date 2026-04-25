@@ -6,7 +6,7 @@
 
 /* ─────────────────────────────────────────────
    DESIGN TOKENS
-   Black / White / Red  +  Gold borders only
+   Black / White / Red only
 ───────────────────────────────────────────── */
 :root {
   --black:      #0D0D0D;
@@ -14,8 +14,6 @@
   --red:        #CC1016;
   --red-dark:   #A80D12;
   --white:      #FFFFFF;
-  --gold:       #C9A84C;   /* borders & premium accents only */
-  --gold-dark:  #A8853A;
   --gray-light: #F5F5F5;
   --gray-mid:   #E5E5E5;
   --text-muted: #6B6B6B;
@@ -45,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: 0; left: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--red));
+  background: var(--red);
   z-index: 9999;
   transition: width 0.1s;
   width: 0%;
@@ -58,39 +56,40 @@ h1, h2, h3, h4, h5, h6 {
 
   /* ── BUTTONS ── */
 
-  /* Primary: Red fill + Gold border  →  "Apply Now", main CTAs */
+  /* Primary: Red fill  →  "Apply Now", main CTAs */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5;
     background-color: var(--red);
     color: var(--white);
-    border: 2px solid var(--gold);
+    border: 2px solid var(--red);
   }
   .btn-primary:hover {
     background-color: var(--red-dark);
+    border-color: var(--red-dark);
     box-shadow: 0 6px 24px rgba(204, 16, 22, 0.40);
   }
 
-  /* Secondary: Black fill + Gold border  →  "Post a Job", secondary CTAs */
+  /* Secondary: Black fill + White border  →  "Post a Job", secondary CTAs */
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5;
     background-color: var(--black);
     color: var(--white);
-    border: 2px solid var(--gold);
+    border: 2px solid var(--white);
   }
   .btn-secondary:hover {
     background-color: var(--black-soft);
-    box-shadow: 0 6px 24px rgba(201, 168, 76, 0.35);
+    box-shadow: 0 6px 24px rgba(255, 255, 255, 0.15);
   }
 
-  /* Ghost: Transparent + Gold border  →  on dark sections */
+  /* Ghost: Transparent + White border  →  on dark sections */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg transition-all duration-200;
     background: transparent;
     color: var(--white);
-    border: 2px solid var(--gold);
+    border: 2px solid var(--white);
   }
   .btn-ghost:hover {
-    background-color: var(--gold);
+    background-color: var(--white);
     color: var(--black);
   }
 
@@ -150,14 +149,15 @@ h1, h2, h3, h4, h5, h6 {
 
   /* ── CARDS ── */
 
-  /* Gold-border card — premium containers */
+  /* Standard bordered card */
   .card-gold {
-    border: 1.5px solid var(--gold);
+    border: 1.5px solid var(--gray-mid);
     border-radius: 12px;
     @apply transition-all duration-300;
   }
   .card-gold:hover {
-    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.30);
+    border-color: var(--red);
+    box-shadow: 0 8px 32px rgba(204, 16, 22, 0.15);
     transform: translateY(-4px);
   }
 
@@ -166,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
     @apply transition-all duration-300;
   }
   .card-hover:hover {
-    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
   }
 
@@ -189,8 +189,8 @@ h1, h2, h3, h4, h5, h6 {
 
   .discipline-tag {
     background-color: transparent;
-    color: var(--gold);
-    border: 1.5px solid var(--gold);
+    color: var(--red);
+    border: 1.5px solid var(--red);
     @apply text-xs font-bold px-2 py-1 rounded uppercase tracking-wider inline-block;
   }
   .tag-red {
@@ -205,43 +205,38 @@ h1, h2, h3, h4, h5, h6 {
    GLOBAL INTERACTION STATES
 ───────────────────────────────────────────── */
 
-/* Input / textarea / select focus → gold ring */
+/* Input / textarea / select focus → red ring */
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--gold) !important;
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18) !important;
-}
-
-/* Gold-border hover glow */
-.hover\:border-\[\#C9A84C\]:hover {
-  box-shadow: 0 6px 28px rgba(201, 168, 76, 0.25);
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px rgba(204, 16, 22, 0.18) !important;
 }
 
 /* ─────────────────────────────────────────────
    NAVBAR BUTTONS (DOM-selector overrides)
 ───────────────────────────────────────────── */
 
-/* "Post a Job" → Black bg + Gold border */
+/* "Post a Job" → Black bg + White border */
 nav a[href="/register/employer"] {
   background-color: var(--black) !important;
-  border: 2px solid var(--gold) !important;
+  border: 2px solid var(--white) !important;
   color: var(--white) !important;
 }
 nav a[href="/register/employer"]:hover {
   background-color: var(--black-soft) !important;
-  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.30);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
 }
 
-/* "Submit Resume" → White bg + Red text + Gold border */
+/* "Submit Resume" → Red bg + White text */
 nav a[href="/register/candidate"] {
-  background-color: var(--white) !important;
-  border: 2px solid var(--gold) !important;
-  color: var(--red) !important;
+  background-color: var(--red) !important;
+  border: 2px solid var(--red) !important;
+  color: var(--white) !important;
 }
 nav a[href="/register/candidate"]:hover {
-  background-color: var(--gray-light) !important;
+  background-color: var(--red-dark) !important;
 }
 
 /* ─────────────────────────────────────────────

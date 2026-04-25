@@ -46,15 +46,15 @@ const legalLinks = [
 export default function Footer() {
   return (
     <footer className="bg-[#0D0D0D] text-white">
-      {/* Premium gold-to-red accent line */}
-      <div className="h-[3px] bg-gradient-to-r from-[#C9A84C] via-[#CC1016] to-[#C9A84C]" />
+      {/* Red accent line */}
+      <div className="h-[3px] bg-[#CC1016]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Row 1: Brand + social */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-[#C9A84C]/20">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/10">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-[#CC1016] rounded flex items-center justify-center border border-[#C9A84C]/40">
+              <div className="w-8 h-8 bg-[#CC1016] rounded flex items-center justify-center">
                 <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
                   <path d="M2 12l10-8 10 8" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                   <path d="M4 19h16v2H4v-2zm5-9h3v9H9V10zm5-3h3v12h-3V7z" />
@@ -84,7 +84,7 @@ export default function Footer() {
               { label: 'ig', href: 'https://instagram.com' },
             ].map(s => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-[#C9A84C]/30 hover:bg-[#CC1016] hover:border-[#CC1016] flex items-center justify-center transition-all text-xs font-bold text-white">
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:bg-[#CC1016] hover:border-[#CC1016] flex items-center justify-center transition-all text-xs font-bold text-white">
                 {s.label}
               </a>
             ))}
@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
 
         {/* Row 2: Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 py-12 border-b border-[#C9A84C]/20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 py-12 border-b border-white/10">
           {[
             { title: 'Quick Links',    links: quickLinks },
             { title: 'For Employers',  links: employerLinks },
@@ -101,7 +101,7 @@ export default function Footer() {
             { title: 'Legal',          links: legalLinks },
           ].map(col => (
             <div key={col.title}>
-              <h4 className="text-white font-semibold text-xs uppercase tracking-widest mb-4 border-l-2 border-[#C9A84C] pl-3">
+              <h4 className="text-white font-semibold text-xs uppercase tracking-widest mb-4 border-l-2 border-[#CC1016] pl-3">
                 {col.title}
               </h4>
               <ul className="space-y-2">
@@ -114,7 +114,7 @@ export default function Footer() {
                 ))}
                 {col.extra && (
                   <li>
-                    <Link href={col.extra.href} className="text-[#C9A84C] text-sm hover:underline">
+                    <Link href={col.extra.href} className="text-[#CC1016] text-sm hover:underline">
                       {col.extra.name}
                     </Link>
                   </li>

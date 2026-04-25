@@ -14,8 +14,7 @@ const config: Config = {
           red:      '#CC1016',
           'red-dark': '#A80D12',
           white:    '#FFFFFF',
-          gold:     '#C9A84C',
-          'gold-dark': '#A8853A',
+
           gray:     '#F5F5F5',
           muted:    '#6B6B6B',
         },

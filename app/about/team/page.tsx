@@ -57,7 +57,7 @@ export default function TeamPage() {
                   {/* Avatar centered */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Image
-                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=1A3A8F&color=D4AF37&bold=true&size=128`}
+                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=CC1016&color=FFFFFF&bold=true&size=128`}
                       alt={member.name}
                       width={80} height={80}
                       className="rounded-full border-2 border-[#CC1016]/40 relative z-10"

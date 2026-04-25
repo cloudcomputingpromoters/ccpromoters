@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import JobsClient from './JobsClient';
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function JobsPage() {
-  return <JobsClient />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F5F5F5]" />}>
+      <JobsClient />
+    </Suspense>
+  );
 }
