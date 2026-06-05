@@ -19,7 +19,6 @@ async function getFeaturedJobs() {
   const { data } = await insforge.database
     .from('jobs')
     .select('id, title, slug, discipline, discipline_slug, employment_type, location_city, location_state, is_remote, salary_min, salary_max, rate_min, rate_max, license_required, posted_at')
-    .eq('status', 'active')
     .order('is_featured', { ascending: false })
     .order('posted_at', { ascending: false })
     .limit(6);

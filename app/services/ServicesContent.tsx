@@ -65,14 +65,25 @@ export default function ServicesContent() {
               We support engineering firms and professionals at every stage — from sourcing a single specialist to building an entire project team.
             </p>
           </div>
-          <div className="relative rounded-2xl overflow-hidden border border-white/10" style={{ height: '240px' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/blueprints-tools.jpg"
-              alt="Civil engineering blueprints and tools"
-              className="w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-[#0D0D0D]/30" />
+          <div className="grid grid-cols-2 gap-2" style={{ height: '240px' }}>
+            <div className="relative rounded-2xl overflow-hidden border border-white/10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/blueprints-tools.jpg"
+                alt="Civil engineering blueprints and precision tools on desk"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-[#0D0D0D]/30" />
+            </div>
+            <div className="relative rounded-2xl overflow-hidden border border-white/10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/worker-hardhat.jpg"
+                alt="Civil engineering worker holding hard hat at construction site"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-[#0D0D0D]/20" />
+            </div>
           </div>
         </div>
       </section>

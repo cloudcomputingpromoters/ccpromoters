@@ -2,13 +2,19 @@ function photoForTag(tag?: string): string {
   const t = tag?.toLowerCase() ?? '';
   if (t.includes('water') || t.includes('coastal') || t.includes('environ'))
     return '/images/construction-cranes.jpg';
-  if (t.includes('struct') || t.includes('geo') || t.includes('transport'))
+  if (t.includes('struct'))
     return '/images/workers-steel.jpg';
+  if (t.includes('geo'))
+    return '/images/workers-concrete.webp';
+  if (t.includes('transport'))
+    return '/images/city-construction.jpg';
+  if (t.includes('construct') || t.includes('land'))
+    return '/images/construction-labor.jpg';
   if (t.includes('career') || t.includes('salary') || t.includes('plan') || t.includes('survey'))
     return '/images/blueprints-tools.jpg';
   if (t.includes('execut') || t.includes('leader') || t.includes('manage'))
-    return '/images/construction-sunset.jpg';
-  return '/images/engineers-site.jpg';
+    return '/images/workers-steel.jpg';
+  return '/images/engineer-portrait.jpg';
 }
 
 export default function BlogThumbnail({ tag }: { tag?: string }) {

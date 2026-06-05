@@ -45,8 +45,8 @@ export default function AboutPage() {
             <div className="rounded-2xl overflow-hidden border border-[#E5E5E5]" style={{ height: '280px' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/workers-steel.jpg"
-                alt="Civil engineers in safety vests and hard hats working on large-scale steel structure construction site"
+                src="/images/engineers-review.jpg"
+                alt="Two civil engineers in safety gear reviewing construction plans and blueprints on site"
                 className="w-full h-full object-cover object-center"
               />
             </div>

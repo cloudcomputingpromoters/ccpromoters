@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import type { ReactNode } from 'react';
 import { insforge } from '@/lib/insforge';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -21,12 +22,68 @@ const disciplineColors: Record<string, string> = {
   coastal: 'bg-teal-100 text-teal-700',
 };
 
+function renderInline(text: string): string {
+  return text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-[#0D0D0D]">$1</strong>');
+}
+
+function MarkdownContent({ content }: { content: string }) {
+  const lines = content.split('\n');
+  const result: ReactNode[] = [];
+  let listBuffer: string[] = [];
+  let key = 0;
+
+  const flush = () => {
+    if (!listBuffer.length) return;
+    const items = [...listBuffer];
+    listBuffer = [];
+    result.push(
+      <ul key={key++} className="space-y-2.5 mb-5">
+        {items.map((item, i) => (
+          <li key={i} className="flex items-start gap-3 text-[#6B6B6B] text-sm leading-relaxed">
+            <CheckCircle size={15} className="text-[#CC1016] mt-0.5 shrink-0" />
+            <span dangerouslySetInnerHTML={{ __html: renderInline(item) }} />
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  for (const line of lines) {
+    const t = line.trim();
+    if (t.startsWith('## ')) {
+      flush();
+      result.push(<h2 key={key++} className="text-xl font-bold text-[#0D0D0D] mt-8 mb-3 pb-2 border-b border-[#E5E5E5] first:mt-0">{t.slice(3)}</h2>);
+    } else if (t.startsWith('### ')) {
+      flush();
+      result.push(<h3 key={key++} className="text-base font-semibold text-[#0D0D0D] mt-5 mb-2">{t.slice(4)}</h3>);
+    } else if (t.startsWith('- ')) {
+      listBuffer.push(t.slice(2));
+    } else if (t === '') {
+      flush();
+    } else {
+      flush();
+      result.push(<p key={key++} className="text-[#6B6B6B] leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: renderInline(t) }} />);
+    }
+  }
+  flush();
+  return <div>{result}</div>;
+}
+
+function stripMarkdown(md: string): string {
+  return md
+    .replace(/^#{1,3}\s+/gm, '')
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/^-\s+/gm, '')
+    .replace(/\n{2,}/g, ' ')
+    .trim()
+    .slice(0, 500);
+}
+
 async function getJob(slug: string) {
   const { data } = await insforge.database
     .from('jobs')
     .select('*')
     .eq('slug', slug)
-    .eq('status', 'active')
     .maybeSingle();
   return data;
 }
@@ -36,7 +93,6 @@ async function getRelatedJobs(disciplineSlug: string, currentId: string) {
     .from('jobs')
     .select('id, title, slug, discipline, discipline_slug, employment_type, location_city, location_state, is_remote, salary_min, salary_max, rate_min, rate_max, posted_at')
     .eq('discipline_slug', disciplineSlug)
-    .eq('status', 'active')
     .neq('id', currentId)
     .limit(3);
   return data || [];
@@ -69,7 +125,7 @@ export default async function JobDetailPage({ params }: { params: { slug: string
     '@context': 'https://schema.org/',
     '@type': 'JobPosting',
     title: job.title,
-    description: job.description,
+    description: stripMarkdown(job.description || ''),
     hiringOrganization: {
       '@type': 'Organization',
       name: job.is_confidential ? 'Confidential Client (via CCPromoters)' : 'CCPromoters Client',
@@ -158,27 +214,33 @@ export default async function JobDetailPage({ params }: { params: { slug: string
                   )}
                 </div>
 
-                {/* Description */}
-                <div className="mb-8">
-                  <h2 className="text-xl font-bold text-[#0D0D0D] mb-4">About This Role</h2>
-                  <div className="text-[#6B6B6B] leading-relaxed space-y-4">
-                    {job.description?.split('\n').map((p: string, i: number) => p.trim() && <p key={i}>{p}</p>)}
-                  </div>
-                </div>
-
-                {/* Requirements */}
-                {job.requirements && (
+                {/* Description — renders rich markdown if present, plain text otherwise */}
+                {job.description?.includes('## ') ? (
                   <div className="mb-8">
-                    <h2 className="text-xl font-bold text-[#0D0D0D] mb-4">Requirements</h2>
-                    <ul className="space-y-2">
-                      {job.requirements.split('. ').filter((r: string) => r.trim()).map((req: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3 text-[#6B6B6B]">
-                          <CheckCircle size={16} className="text-[#CC1016] mt-0.5 shrink-0" />
-                          <span>{req.trim().replace(/\.$/, '')}.</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <MarkdownContent content={job.description} />
                   </div>
+                ) : (
+                  <>
+                    <div className="mb-8">
+                      <h2 className="text-xl font-bold text-[#0D0D0D] mb-4">About This Role</h2>
+                      <div className="text-[#6B6B6B] leading-relaxed space-y-4">
+                        {job.description?.split('\n').map((p: string, i: number) => p.trim() && <p key={i}>{p}</p>)}
+                      </div>
+                    </div>
+                    {job.requirements && (
+                      <div className="mb-8">
+                        <h2 className="text-xl font-bold text-[#0D0D0D] mb-4">Requirements</h2>
+                        <ul className="space-y-2">
+                          {job.requirements.split('. ').filter((r: string) => r.trim()).map((req: string, i: number) => (
+                            <li key={i} className="flex items-start gap-3 text-[#6B6B6B]">
+                              <CheckCircle size={16} className="text-[#CC1016] mt-0.5 shrink-0" />
+                              <span>{req.trim().replace(/\.$/, '')}.</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {/* Skills */}

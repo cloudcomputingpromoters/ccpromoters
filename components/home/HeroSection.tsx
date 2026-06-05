@@ -94,8 +94,8 @@ export default function HeroSection() {
                style={{ height: '340px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/engineers-site.jpg"
-              alt="Two civil engineers in hard hats reviewing large-scale infrastructure construction project at sunset"
+              src="/images/engineer-portrait.jpg"
+              alt="Professional civil engineer at construction site — CCPromoters specialist recruiter network"
               className="w-full h-full object-cover object-center"
             />
             {/* Gradient fade on bottom */}

@@ -7,16 +7,16 @@ export const SITE_IMAGES = {
 };
 
 export const DISCIPLINE_IMAGES: Record<string, string> = {
-  structural: 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=800&q=80',
-  transportation: 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=800&q=80',
-  geotechnical: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&q=80',
-  'water-resources': 'https://images.unsplash.com/photo-1559825481-12a05cc00344?w=800&q=80',
-  environmental: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
-  wastewater: 'https://images.unsplash.com/photo-1548687228-b8021c355de8?w=800&q=80',
-  construction: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
-  'land-development': 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-  surveying: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80',
-  coastal: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80',
+  structural:          '/images/workers-steel.jpg',
+  transportation:      '/images/city-construction.jpg',
+  geotechnical:        '/images/workers-concrete.webp',
+  'water-resources':   '/images/construction-cranes.jpg',
+  environmental:       '/images/construction-sunset.jpg',
+  wastewater:          '/images/construction-cranes.jpg',
+  construction:        '/images/construction-labor.jpg',
+  'land-development':  '/images/house-blueprints.jpg',
+  surveying:           '/images/blueprints-tools.jpg',
+  coastal:             '/images/engineers-site.jpg',
 };
 
 export const BLOG_IMAGES = {

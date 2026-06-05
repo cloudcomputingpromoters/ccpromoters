@@ -1,4 +1,11 @@
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  return [
+    'permanent-placement','contract-staffing','executive-search','volume-recruitment',
+    'talent-mapping','compensation-benchmarking','job-search','resume-optimization',
+    'interview-coaching','salary-negotiation','career-roadmap','unlisted-roles',
+    'employer-branding','outplacement',
+  ].map(slug => ({ slug }));
+}
 
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -306,9 +313,9 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   if (!content) notFound();
 
   const service = await getService(slug);
-  if (!service) notFound();
-
-  const svc = service as { id: string; slug: string; title: string; description: string; audience: string };
+  const svc = (service as { id: string; slug: string; title: string; description: string; audience: string } | null) ?? {
+    id: slug, slug, title: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), description: '', audience: content.audience,
+  };
 
   return (
     <div className="min-h-screen bg-white">

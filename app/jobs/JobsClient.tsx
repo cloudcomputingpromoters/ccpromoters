@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MapPin, DollarSign, Award, Search, X } from 'lucide-react';
-import { insforge } from '@/lib/insforge';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -17,6 +16,7 @@ const disciplineColors: Record<string, string> = {
   'land-development': 'bg-indigo-100 text-indigo-700',
   surveying: 'bg-slate-100 text-slate-700',
   coastal: 'bg-teal-100 text-teal-700',
+  'concrete-inspector': 'bg-red-100 text-red-700',
 };
 
 const disciplineChips = [
@@ -30,6 +30,7 @@ const disciplineChips = [
   { label: 'Land Development', value: 'land-development' },
   { label: 'Surveying', value: 'surveying' },
   { label: 'Coastal', value: 'coastal' },
+  { label: 'Concrete Inspector', value: 'concrete-inspector' },
 ];
 
 type Job = {
@@ -49,6 +50,7 @@ type Job = {
   license_required: string | null;
   experience_level: string | null;
   is_featured: boolean;
+  posted_at?: string;
 };
 
 function formatSalary(job: Job) {
@@ -106,25 +108,13 @@ function JobCard({ job }: { job: Job }) {
   );
 }
 
-function JobSkeleton() {
-  return (
-    <div className="bg-white rounded-xl border border-[#E5E5E5] p-6 flex flex-col gap-4 animate-pulse">
-      <div className="flex gap-2">
-        <div className="h-6 w-24 bg-gray-200 rounded-full" />
-        <div className="h-6 w-20 bg-gray-200 rounded-full" />
-      </div>
-      <div className="h-6 w-3/4 bg-gray-200 rounded" />
-      <div className="flex gap-4">
-        <div className="h-4 w-32 bg-gray-200 rounded" />
-        <div className="h-4 w-24 bg-gray-200 rounded" />
-      </div>
-    </div>
-  );
-}
-
 const PAGE_SIZE = 10;
 
-export default function JobsClient() {
+interface JobsClientProps {
+  initialJobs: Job[];
+}
+
+export default function JobsClient({ initialJobs }: JobsClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -132,57 +122,127 @@ export default function JobsClient() {
   const typeFilter = searchParams.get('type') || '';
   const remoteFilter = searchParams.get('remote') || '';
   const licenseFilter = searchParams.get('license') || '';
+  const keyword = searchParams.get('q') || '';
+  const location = searchParams.get('location') || '';
   const page = parseInt(searchParams.get('page') || '1');
 
   const [keywordInput, setKeywordInput] = useState(searchParams.get('q') || '');
   const [locationInput, setLocationInput] = useState(searchParams.get('location') || '');
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const fetchJobs = useCallback(async () => {
-    setLoading(true);
-    try {
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const buildFilters = (q: any) => {
-        if (discipline && discipline !== 'all') q = q.eq('discipline_slug', discipline);
-        if (typeFilter) q = q.eq('employment_type', typeFilter);
-        if (remoteFilter === 'true') q = q.eq('is_remote', true);
-        if (licenseFilter) q = q.ilike('license_required', `%${licenseFilter}%`);
-        return q;
-      }
-
-      const countQuery = buildFilters(
-        insforge.database.from('jobs').select('*', { count: 'exact', head: true }).eq('status', 'active')
-      );
-      const { count, error: countErr } = await countQuery;
-      if (countErr) console.error('[jobs] count error:', countErr);
-
-      const dataQuery = buildFilters(
-        insforge.database
-          .from('jobs')
-          .select('id, title, slug, discipline, discipline_slug, employment_type, location_city, location_state, is_remote, salary_min, salary_max, rate_min, rate_max, license_required, experience_level, is_featured, posted_at, status')
-          .eq('status', 'active')
-          .order('is_featured', { ascending: false })
-          .order('posted_at', { ascending: false })
-          .range(from, to)
-      );
-      const { data, error: dataErr } = await dataQuery;
-      if (dataErr) console.error('[jobs] data error:', dataErr);
-
-      setJobs(data || []);
-      setTotal(count || 0);
-    } finally {
-      setLoading(false);
-    }
-  }, [discipline, typeFilter, remoteFilter, licenseFilter, page]);
-
+  // Detect mobile on client-side only to avoid hydration mismatch
   useEffect(() => {
-    fetchJobs();
-  }, [fetchJobs]);
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Real-time instant search with debounce
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (keywordInput) params.set('q', keywordInput);
+      if (locationInput) params.set('location', locationInput);
+      if (discipline && discipline !== 'all') params.set('discipline', discipline);
+      if (typeFilter) params.set('type', typeFilter);
+      if (remoteFilter) params.set('remote', remoteFilter);
+      if (licenseFilter) params.set('license', licenseFilter);
+      params.delete('page');
+      router.push(`/jobs?${params.toString()}`);
+    }, 300); // 300ms debounce for smooth real-time search
+
+    return () => clearTimeout(debounceTimer);
+  }, [keywordInput, locationInput, discipline, typeFilter, remoteFilter, licenseFilter, router]);
+
+  // Validate initial jobs
+  const allJobs = useMemo(() => {
+    if (!initialJobs || !Array.isArray(initialJobs)) {
+      console.error('[Client] initialJobs is invalid:', initialJobs);
+      return [];
+    }
+    console.log(`[Client] Received ${initialJobs.length} initial jobs`);
+    return initialJobs;
+  }, [initialJobs]);
+
+  // Apply server-side filters (discipline, employment type, remote, license)
+  const serverFilteredJobs = useMemo(() => {
+    let filtered = allJobs;
+
+    if (discipline && discipline !== 'all') {
+      if (discipline === 'concrete-inspector') {
+        filtered = filtered.filter(job => job.title.toLowerCase().includes('concrete inspector'));
+      } else {
+        filtered = filtered.filter(job => job.discipline_slug === discipline);
+      }
+    }
+
+    if (typeFilter) {
+      filtered = filtered.filter(job => job.employment_type === typeFilter);
+    }
+
+    if (remoteFilter === 'true') {
+      filtered = filtered.filter(job => job.is_remote === true);
+    }
+
+    if (licenseFilter) {
+      filtered = filtered.filter(job =>
+        job.license_required?.toUpperCase().includes(licenseFilter.toUpperCase())
+      );
+    }
+
+    console.log(`[Client] After server filters: ${filtered.length} jobs`);
+    return filtered;
+  }, [allJobs, discipline, typeFilter, remoteFilter, licenseFilter]);
+
+  // Apply client-side keyword and location filters with comprehensive search
+  const filteredJobs = useMemo(() => {
+    let filtered = serverFilteredJobs;
+
+    if (keyword) {
+      const searchTerm = keyword.toLowerCase();
+      filtered = filtered.filter(job => {
+        // Search across all relevant fields
+        const searchableText = [
+          job.title,
+          job.discipline,
+          job.employment_type,
+          job.license_required || '',
+          job.experience_level || '',
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        return searchableText.includes(searchTerm);
+      });
+    }
+
+    if (location) {
+      const locTerm = location.toLowerCase();
+      filtered = filtered.filter(job => {
+        const locationText = [
+          job.location_city || '',
+          job.location_state || '',
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        return locationText.includes(locTerm);
+      });
+    }
+
+    console.log(`[Client] After keyword/location filters: ${filtered.length} jobs`);
+    return filtered;
+  }, [serverFilteredJobs, keyword, location]);
+
+  // Apply pagination to filtered results
+  const paginatedJobs = useMemo(() => {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE;
+    return filteredJobs.slice(from, to);
+  }, [filteredJobs, page]);
+
+  const totalPages = Math.ceil(filteredJobs.length / PAGE_SIZE);
 
   function applyFilters(overrides: Record<string, string> = {}) {
     const params = new URLSearchParams();
@@ -193,6 +253,7 @@ export default function JobsClient() {
     if (remoteFilter) params.set('remote', remoteFilter);
     if (licenseFilter) params.set('license', licenseFilter);
     Object.entries(overrides).forEach(([k, v]) => v ? params.set(k, v) : params.delete(k));
+    params.delete('page');
     router.push(`/jobs?${params.toString()}`);
   }
 
@@ -212,53 +273,49 @@ export default function JobsClient() {
     router.push(`/jobs?${params.toString()}`);
   }
 
-  const totalPages = Math.ceil(total / PAGE_SIZE);
-
   return (
-    <div className="min-h-screen bg-[#F5F5F5]">
+    <div className="w-full max-w-full overflow-hidden min-h-screen bg-[#F5F5F5]">
       {/* Search Hero */}
-      <div className="bg-[#0D0D0D] py-14 px-4">
-        <div className="max-w-5xl mx-auto">
+      <div className="w-full max-w-full overflow-hidden bg-[#0D0D0D] py-14 px-4">
+        <div className="w-full max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
             Find Your Next Civil Engineering Role
           </h1>
-          <p className="text-white/60 text-center mb-8">{loading ? '...' : `${total} active roles across all disciplines`}</p>
-          <div className="bg-white rounded-xl shadow-xl p-2 flex flex-col md:flex-row gap-2">
-            <div className="flex items-center gap-2 flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-[#E5E5E5]">
+          <p className="text-white/60 text-center mb-8">{allJobs.length} active roles across all disciplines</p>
+          <div className="w-full max-w-full bg-white rounded-xl shadow-xl p-2 flex flex-col gap-2 overflow-hidden">
+            <div className="flex items-center gap-2 flex-1 px-3 py-2 border-b md:border-b-0 md:border-r border-[#E5E5E5] min-w-0">
               <Search size={18} className="text-[#CC1016] shrink-0" />
               <input
                 type="text"
                 value={keywordInput}
                 onChange={e => setKeywordInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && applyFilters()}
                 placeholder="Job title, discipline, skills..."
-                className="flex-1 outline-none text-[#0D0D0D] text-sm"
+                className="flex-1 outline-none text-[#0D0D0D] text-sm min-w-0"
               />
               {keywordInput && <button onClick={() => setKeywordInput('')}><X size={14} className="text-[#6B6B6B]" /></button>}
             </div>
-            <div className="flex items-center gap-2 flex-1 px-4 py-2">
+            <div className="flex items-center gap-2 flex-1 px-3 py-2 min-w-0">
               <MapPin size={18} className="text-[#CC1016] shrink-0" />
               <input
                 type="text"
                 value={locationInput}
                 onChange={e => setLocationInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && applyFilters()}
                 placeholder="City or state..."
-                className="flex-1 outline-none text-[#0D0D0D] text-sm"
+                className="flex-1 outline-none text-[#0D0D0D] text-sm min-w-0"
               />
             </div>
             <button
               onClick={() => applyFilters()}
-              className="bg-[#CC1016] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#A80D12] transition-colors whitespace-nowrap">
+              className="w-full md:w-auto bg-[#CC1016] text-white font-semibold px-6 md:px-8 py-3 rounded-lg hover:bg-[#A80D12] transition-colors whitespace-nowrap">
               Search Jobs
             </button>
           </div>
 
           {/* Discipline chips */}
-          <div className="flex flex-wrap gap-2 mt-5 justify-center">
+          <div className="w-full max-w-full flex flex-wrap gap-2 mt-5 justify-center overflow-hidden">
             {disciplineChips.map(chip => (
               <button key={chip.value} onClick={() => setDiscipline(chip.value)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${discipline === chip.value
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all flex-shrink-0 ${discipline === chip.value
                   ? 'bg-[#CC1016] text-white'
                   : 'bg-white/20 text-white hover:bg-white/30'}`}>
                 {chip.label}
@@ -268,11 +325,11 @@ export default function JobsClient() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="w-full max-w-full overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="w-full max-w-full overflow-hidden flex flex-col lg:flex-row gap-8">
           {/* Sidebar filters */}
-          <aside className="lg:w-64 shrink-0">
-            <div className="bg-white rounded-xl border border-[#E5E5E5] p-6 sticky top-24">
+          <aside className="w-full lg:w-64 shrink-0 overflow-hidden">
+            <div className="w-full max-w-full bg-white rounded-xl border border-[#E5E5E5] p-4 lg:p-6 sticky top-24 overflow-hidden">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-bold text-[#0D0D0D]">Filter Results</h3>
                 <button onClick={() => router.push('/jobs')} className="text-xs text-[#CC1016] hover:underline">Clear All</button>
@@ -321,48 +378,70 @@ export default function JobsClient() {
           </aside>
 
           {/* Results */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between mb-5">
+          <div className="w-full lg:flex-1 min-w-0 overflow-hidden max-w-full">
+            <div className="w-full max-w-full flex items-center justify-between mb-5 overflow-hidden">
               <p className="text-sm text-[#6B6B6B]">
-                {loading ? 'Loading jobs...' : <>Showing <strong>{jobs.length}</strong> of <strong>{total}</strong> civil engineering jobs</>}
+                {allJobs.length === 0 ? 'No jobs available' : <>Showing <strong>{paginatedJobs.length}</strong> of <strong>{filteredJobs.length}</strong> civil engineering jobs</>}
               </p>
             </div>
 
-            {loading ? (
-              <div className="grid gap-5">
-                {[1, 2, 3, 4, 5].map(i => <JobSkeleton key={i} />)}
+            {allJobs.length === 0 ? (
+              <div className="w-full max-w-full bg-white rounded-xl border border-[#E5E5E5] p-8 md:p-16 text-center overflow-hidden">
+                <div className="text-3xl md:text-5xl mb-4">⚠️</div>
+                <h3 className="font-bold text-[#0D0D0D] text-lg md:text-xl mb-2">Unable to Load Jobs</h3>
+                <p className="text-[#6B6B6B] mb-6 text-sm md:text-base">The job database is currently unavailable. Please try again later.</p>
               </div>
-            ) : jobs.length === 0 ? (
-              <div className="bg-white rounded-xl border border-[#E5E5E5] p-16 text-center">
-                <div className="text-5xl mb-4">🔍</div>
-                <h3 className="font-bold text-[#0D0D0D] text-xl mb-2">No jobs found</h3>
-                <p className="text-[#6B6B6B] mb-6">Try adjusting your filters or browse all disciplines.</p>
+            ) : filteredJobs.length === 0 ? (
+              <div className="w-full max-w-full bg-white rounded-xl border border-[#E5E5E5] p-8 md:p-16 text-center overflow-hidden">
+                <div className="text-3xl md:text-5xl mb-4">🔍</div>
+                <h3 className="font-bold text-[#0D0D0D] text-lg md:text-xl mb-2">No jobs found</h3>
+                <p className="text-[#6B6B6B] mb-6 text-sm md:text-base">Try adjusting your filters or browse all disciplines.</p>
                 <Link href="/jobs" className="btn-pink">Clear Filters</Link>
               </div>
             ) : (
-              <div className="grid gap-5">
-                {jobs.map(job => <JobCard key={job.id} job={job} />)}
+              <div className="w-full max-w-full grid gap-5 overflow-hidden">
+                {paginatedJobs.map(job => <JobCard key={job.id} job={job} />)}
               </div>
             )}
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-10">
+              <div className="flex items-center justify-center gap-1 sm:gap-2 mt-10 overflow-hidden px-2">
                 {page > 1 && (
                   <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(page - 1) })}`}
-                    className="px-4 py-2 border border-[#E5E5E5] rounded-lg text-sm hover:border-[#CC1016] text-[#6B6B6B]">
-                    ← Previous
+                    className="px-2 sm:px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs sm:text-sm hover:border-[#CC1016] text-[#6B6B6B] whitespace-nowrap flex-shrink-0">
+                    ← Prev
                   </Link>
                 )}
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                  <Link key={p} href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(p) })}`}
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${p === page ? 'bg-[#CC1016] text-white' : 'border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
-                    {p}
-                  </Link>
-                ))}
+
+                {/* Mobile: Show current page ± 2 | Desktop: Show all */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter(p => {
+                    // On mobile (sm breakpoint ~640px), only show current ± 2
+                    if (isMobile) {
+                      return Math.abs(p - page) <= 2;
+                    }
+                    // Desktop: show all
+                    return true;
+                  })
+                  .map((p, idx, arr) => {
+                    // Show ellipsis if there's a gap
+                    const showEllipsisBefore = idx === 0 && p > 1;
+                    return (
+                      <div key={`page-${p}`} className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                        {showEllipsisBefore && <span className="text-[#6B6B6B] px-1 text-xs">…</span>}
+                        <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(p) })}`}
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-xs sm:text-sm font-medium transition-colors flex-shrink-0 ${p === page ? 'bg-[#CC1016] text-white' : 'border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
+                          {p}
+                        </Link>
+                        {idx === arr.length - 1 && p < totalPages && <span className="text-[#6B6B6B] px-1 text-xs">…</span>}
+                      </div>
+                    );
+                  })}
+
                 {page < totalPages && (
                   <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(page + 1) })}`}
-                    className="px-4 py-2 border border-[#E5E5E5] rounded-lg text-sm hover:border-[#CC1016] text-[#6B6B6B]">
+                    className="px-2 sm:px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs sm:text-sm hover:border-[#CC1016] text-[#6B6B6B] whitespace-nowrap flex-shrink-0">
                     Next →
                   </Link>
                 )}

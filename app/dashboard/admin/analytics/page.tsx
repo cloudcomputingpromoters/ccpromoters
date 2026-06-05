@@ -19,7 +19,7 @@ export default function AdminAnalyticsPage() {
       if (!userData?.user) { window.location.href = '/login'; return; }
       const [jobs, activeJobs, candidates, employers, apps, contacts, talent] = await Promise.all([
         insforge.database.from('jobs').select('id', { count: 'exact', head: true }),
-        insforge.database.from('jobs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+        insforge.database.from('jobs').select('id', { count: 'exact', head: true }),
         insforge.database.from('candidate_profiles').select('id', { count: 'exact', head: true }),
         insforge.database.from('employer_profiles').select('id', { count: 'exact', head: true }),
         insforge.database.from('applications').select('id', { count: 'exact', head: true }),

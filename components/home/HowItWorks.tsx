@@ -23,22 +23,37 @@ export default function HowItWorks() {
   return (
     <section className="py-20 bg-[#0D0D0D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-            How <span className="text-[#CC1016]">CCPromoters</span> Works
-          </h2>
-          {/* Tabs */}
-          <div className="inline-flex bg-white/10 rounded-lg p-1 mt-4">
-            <button
-              onClick={() => setTab('employer')}
-              className={`px-6 py-2 rounded-md text-sm font-semibold transition-all ${tab === 'employer' ? 'bg-[#CC1016] text-white' : 'text-white/70 hover:text-white'}`}>
-              For Employers
-            </button>
-            <button
-              onClick={() => setTab('candidate')}
-              className={`px-6 py-2 rounded-md text-sm font-semibold transition-all ${tab === 'candidate' ? 'bg-[#CC1016] text-white' : 'text-white/70 hover:text-white'}`}>
-              For Candidates
-            </button>
+        <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              How <span className="text-[#CC1016]">CCPromoters</span> Works
+            </h2>
+            <div className="inline-flex bg-white/10 rounded-lg p-1">
+              <button
+                onClick={() => setTab('employer')}
+                className={`px-6 py-2 rounded-md text-sm font-semibold transition-all ${tab === 'employer' ? 'bg-[#CC1016] text-white' : 'text-white/70 hover:text-white'}`}>
+                For Employers
+              </button>
+              <button
+                onClick={() => setTab('candidate')}
+                className={`px-6 py-2 rounded-md text-sm font-semibold transition-all ${tab === 'candidate' ? 'bg-[#CC1016] text-white' : 'text-white/70 hover:text-white'}`}>
+                For Candidates
+              </button>
+            </div>
+          </div>
+          <div className="hidden md:block relative rounded-2xl overflow-hidden border border-white/10" style={{ height: '200px' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/team-blueprints.jpg"
+              alt="Civil engineering team reviewing project blueprints on construction site"
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-[#0D0D0D]/50" />
+            <div className="absolute inset-0 flex items-end p-5">
+              <p className="text-white/80 text-sm font-medium leading-snug">
+                Pre-screened engineers. PE-verified. Deployed within 48 hours.
+              </p>
+            </div>
           </div>
         </div>
 

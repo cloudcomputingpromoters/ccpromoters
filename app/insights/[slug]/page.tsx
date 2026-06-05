@@ -1,4 +1,9 @@
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  try {
+    const { data } = await insforge.database.from('blog_posts').select('slug').eq('is_published', true);
+    return (data || []).map((p: { slug: string }) => ({ slug: p.slug }));
+  } catch { return []; }
+}
 
 import Link from 'next/link';
 import { notFound } from 'next/navigation';

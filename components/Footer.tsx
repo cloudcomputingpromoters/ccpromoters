@@ -77,17 +77,10 @@ export default function Footer() {
 
           {/* Social icons */}
           <div className="flex items-center gap-3">
-            {[
-              { label: 'in', href: 'https://linkedin.com' },
-              { label: 'X',  href: 'https://twitter.com' },
-              { label: 'fb', href: 'https://facebook.com' },
-              { label: 'ig', href: 'https://instagram.com' },
-            ].map(s => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:bg-[#CC1016] hover:border-[#CC1016] flex items-center justify-center transition-all text-xs font-bold text-white">
-                {s.label}
-              </a>
-            ))}
+            <a href="https://linkedin.com/company/ccpromoters" target="_blank" rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-white/5 border border-white/20 hover:bg-[#CC1016] hover:border-[#CC1016] flex items-center justify-center transition-all text-xs font-bold text-white">
+              in
+            </a>
           </div>
         </div>
 

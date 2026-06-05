@@ -1,4 +1,9 @@
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  return [
+    'structural','transportation','geotechnical','water-resources',
+    'environmental','wastewater','construction','land-development','surveying','coastal',
+  ].map(slug => ({ slug }));
+}
 
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -224,7 +229,6 @@ async function getJobsForDiscipline(slug: string) {
   const { data } = await insforge.database
     .from('jobs')
     .select('id, title, slug, employment_type, location_city, location_state, is_remote, salary_min, salary_max, rate_min, rate_max, license_required, is_featured')
-    .eq('status', 'active')
     .eq('discipline_slug', slug)
     .order('is_featured', { ascending: false })
     .order('posted_at', { ascending: false })
@@ -237,8 +241,7 @@ export default async function DisciplineDetailPage({ params }: { params: { slug:
   const content = disciplineContent[slug];
   if (!content) notFound();
 
-  const [discipline, jobs] = await Promise.all([getDiscipline(slug), getJobsForDiscipline(slug)]);
-  if (!discipline) notFound();
+  const [, jobs] = await Promise.all([getDiscipline(slug), getJobsForDiscipline(slug)]);
 
   const img = DISCIPLINE_IMAGES[slug];
 

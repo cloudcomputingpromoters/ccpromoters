@@ -27,7 +27,7 @@ export default function DisciplinesContent() {
     async function load() {
       const [{ data: discs }, { data: jobs }] = await Promise.all([
         insforge.database.from('disciplines').select('*').order('slug', { ascending: true }),
-        insforge.database.from('jobs').select('discipline_slug').eq('status', 'active'),
+        insforge.database.from('jobs').select('discipline_slug'),
       ]);
       setDisciplines(discs || []);
       const counts: Record<string, number> = {};
