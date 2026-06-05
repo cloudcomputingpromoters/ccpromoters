@@ -67,7 +67,7 @@ function JobCard({ job }: { job: Job }) {
   const colorClass = disciplineColors[job.discipline_slug] || 'bg-gray-100 text-gray-700';
   return (
     <Link href={`/jobs/${job.slug}`}
-      className={`group bg-white rounded-xl border border-[#E5E5E5] p-6 hover:shadow-lg hover:border-[#CC1016] transition-all duration-300 hover:-translate-y-0.5 flex flex-col gap-4 border-l-4 ${job.is_featured ? 'border-l-[#CC1016]' : 'border-l-transparent hover:border-l-[#CC1016]'}`}>
+      className={`group bg-white rounded-xl border border-[#E5E5E5] p-8 hover:shadow-lg hover:border-[#CC1016] transition-all duration-300 hover:-translate-y-0.5 flex flex-col gap-5 border-l-4 ${job.is_featured ? 'border-l-[#CC1016]' : 'border-l-transparent hover:border-l-[#CC1016]'}`}>
       {job.is_featured && (
         <div className="text-xs text-[#CC1016] font-semibold uppercase tracking-wider">⭐ Featured</div>
       )}
@@ -82,27 +82,27 @@ function JobCard({ job }: { job: Job }) {
           <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full shrink-0">Remote</span>
         )}
       </div>
-      <h3 className="font-bold text-[#0D0D0D] text-lg group-hover:text-[#CC1016] transition-colors leading-snug">
+      <h3 className="font-bold text-[#0D0D0D] text-xl group-hover:text-[#CC1016] transition-colors leading-snug">
         {job.title}
       </h3>
-      <div className="flex flex-wrap gap-4 text-sm text-[#6B6B6B]">
+      <div className="flex flex-wrap gap-4 text-base text-[#6B6B6B]">
         <span className="flex items-center gap-1.5">
-          <MapPin size={14} className="text-[#CC1016]" />
+          <MapPin size={16} className="text-[#CC1016]" />
           {job.is_remote ? 'Remote (US)' : [job.location_city, job.location_state].filter(Boolean).join(', ')}
         </span>
         <span className="flex items-center gap-1.5">
-          <DollarSign size={14} className="text-[#CC1016]" />
+          <DollarSign size={16} className="text-[#CC1016]" />
           {formatSalary(job)}
         </span>
         {job.license_required && (
           <span className="flex items-center gap-1.5">
-            <Award size={14} className="text-[#CC1016]" />
+            <Award size={16} className="text-[#CC1016]" />
             {job.license_required}
           </span>
         )}
       </div>
-      <div className="flex items-center justify-end pt-2 border-t border-[#E5E5E5] mt-auto">
-        <span className="text-[#CC1016] text-sm font-semibold">View Role →</span>
+      <div className="flex items-center justify-end pt-3 border-t border-[#E5E5E5] mt-auto">
+        <span className="text-[#CC1016] text-base font-semibold">View Role →</span>
       </div>
     </Link>
   );
