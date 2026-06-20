@@ -89,9 +89,9 @@ Verified: row present; live at https://ccpromoters.com/jobs/junior-concrete-insp
 
 | Date/time | Change | Files | Commit | Live? | Reversible |
 |---|---|---|---|---|---|
-| 2026-06-20 | **Removed the `/about/team` "Meet the Team" page** entirely (route + 6 hardcoded recruiter profiles — no DB table, no shared components involved). Removed all references: the "Meet the Team" CTA button on `/about` (heading reworded to "Work With Specialist Recruiters", Contact Us button kept), the sitemap HTML entry, and the `sitemap.xml` route entry. `/about` itself kept intact. | **Deleted:** `app/about/team/page.tsx`. **Edited:** `app/about/page.tsx`, `app/sitemap/page.tsx`, `app/sitemap.xml/route.ts` | this commit (`feat: remove Meet the Team page (no longer needed)`) | **Code pushed; live 404 pending redeploy** (route removal needs a site rebuild — not instant like the DB-driven job pages) | `git revert` of this commit restores the page and all references |
+| 2026-06-20 | **Removed the `/about/team` "Meet the Team" page** entirely (route + 6 hardcoded recruiter profiles — no DB table, no shared components involved). Removed all references: the "Meet the Team" CTA button on `/about` (heading reworded to "Work With Specialist Recruiters", Contact Us button kept), the sitemap HTML entry, and the `sitemap.xml` route entry. `/about` itself kept intact. | **Deleted:** `app/about/team/page.tsx`. **Edited:** `app/about/page.tsx`, `app/sitemap/page.tsx`, `app/sitemap.xml/route.ts` | `68c1ca5` (`feat: remove Meet the Team page (no longer needed)`) | **Live** — deployed 2026-06-20 09:07 via InsForge (deployment `5db285db`, provider vercel); verified on production | `git revert 68c1ca5` restores the page and all references; redeploy to apply |
 
-Codebase verified post-change: no remaining `about/team` references, no `TeamPage`/dead imports, route directory gone, `/about` unaffected. Live verification: see Pending #9.
+Codebase verified post-change: no remaining `about/team` references, no `TeamPage`/dead imports, route directory gone, `/about` unaffected. **Live verified 2026-06-20:** `/about/team` → HTTP 404; `/about` shows "Work With Specialist Recruiters" with no "Meet the Team" button; `sitemap.xml` has no `/about/team`.
 
 ## PENDING / OPEN ITEMS
 
@@ -104,6 +104,7 @@ Codebase verified post-change: no remaining `about/team` references, no `TeamPag
 7. **ccpacademy uncommitted working tree** — the above local changes should be reviewed/committed or stashed so they aren't lost.
 8. **PAT in ccpacademy git remote** — rotate the `ghp_…` token embedded in `.git/config` and switch to a credential helper.
 
-9. **Live 404 for `/about/team` pending redeploy.** The page route was deleted in code and pushed, but the live site (`cizr93dz.insforge.site` / `ccpromoters.com`) still serves the old build until it is rebuilt/redeployed. No CI/deploy config is in the repo, so the deploy is external/manual. Re-verify `/about/team` → 404 and the reworded `/about` CTA after the next deploy.
+9. ~~Live 404 for `/about/team` pending redeploy.~~ **RESOLVED 2026-06-20.** Deployed via InsForge (`npx @insforge/cli deployments deploy .`, deployment `5db285db`, READY). Verified live: `/about/team`→404, `/about` reworded with no Team button, `sitemap.xml` clean.
+   - _Deploy note for future sessions:_ this site is hosted on **InsForge** (project `cizr93dz`, Vercel under the hood → `cizr93dz.insforge.site`). Page/route/code changes require a redeploy with `npx @insforge/cli deployments deploy .`; DB content changes (e.g. `jobs.description`) are live instantly via the `force-dynamic` pages.
 
 > Status note: ccpromoters `main` and ccpacademy `master` are both in sync with their origins as of this log (only the new docs in this commit are being added to ccpromoters).
