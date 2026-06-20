@@ -129,11 +129,10 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-16 bg-[#CC1016] text-center px-4">
-        <h2 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>Meet the Team Behind the Placements</h2>
+        <h2 className="text-3xl font-bold text-white mb-3" style={{ fontFamily: 'Manrope, sans-serif' }}>Work With Specialist Recruiters</h2>
         <p className="text-white/85 mb-8 max-w-xl mx-auto">Our specialist recruiters are ready to help you find the right engineer or the right opportunity.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/about/team" className="bg-white text-[#CC1016] font-bold px-8 py-3 rounded-lg hover:bg-white/90 transition-colors">Meet the Team</Link>
-          <Link href="/contact" className="border border-white text-white font-bold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">Contact Us</Link>
+          <Link href="/contact" className="bg-white text-[#CC1016] font-bold px-8 py-3 rounded-lg hover:bg-white/90 transition-colors">Contact Us</Link>
         </div>
       </section>
     </div>

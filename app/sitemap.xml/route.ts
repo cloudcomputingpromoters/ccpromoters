@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 const BASE = 'https://cizr93dz.insforge.site';
 
 const staticRoutes = [
-  '/', '/jobs', '/disciplines', '/services', '/about', '/about/team',
+  '/', '/jobs', '/disciplines', '/services', '/about',
   '/insights', '/salary-guide', '/project-placement-map', '/contact', '/faqs',
   '/privacy-policy', '/terms-of-service', '/cookie-policy', '/sitemap',
   '/login', '/register', '/register/candidate', '/register/employer',
