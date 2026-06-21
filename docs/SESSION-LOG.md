@@ -101,14 +101,15 @@ Codebase verified post-change: no remaining `about/team` references, no `TeamPag
 
 | Date/time | Files | Commit | Live? | Reversible |
 |---|---|---|---|---|
-| 2026-06-20 | **New:** `lib/jobSearch.ts` (pure, tested filter helpers). **Edited:** `app/jobs/JobsClient.tsx`. Style change limited to the subtitle color. | `fix: city/state job search + readable hero subtitle` (this commit) | **Code pushed; deploy pending** (needs `npx @insforge/cli deployments deploy .`) | `git revert` of this commit |
+| 2026-06-20 | **New:** `lib/jobSearch.ts` (pure, tested filter helpers). **Edited:** `app/jobs/JobsClient.tsx`. Style change limited to the subtitle color. | `23864ec` (`fix: city/state job search + readable hero subtitle`) | **Live** — deployed 2026-06-21 via InsForge (deployment `cb440019`, READY) | `git revert 23864ec` + redeploy |
 
-**Tested (localhost, pure-logic harness against the real 523 jobs — 8/8 PASS):** "New York"→19 NY only; "Denver"→23 Denver; "TX"/"Texas"→65 TX (both); "new"→all 19 NY included; "concrete inspector"+"New York"→2; Concrete pill→18 (incl NY junior); clear→523; "zzzzz"→0 (no-match). Production `npm run build` passed.
+**Tested (localhost, pure-logic harness vs the real 523 jobs — 8/8 PASS):** "New York"→19 NY only; "Denver"→23 Denver; "TX"/"Texas"→65 TX (both); "new"→all 19 NY included; "concrete inspector"+"New York"→2; Concrete pill→18 (incl NY junior); clear→523; "zzzzz"→0. Production `npm run build` passed.
+**Live verified 2026-06-21 (deployment `cb440019`):** deployed JS bundle contains the fix (`No jobs match your search`, `STATE_NAMES`/"Tennessee", `City or state`); 8/8 logic cases re-run against live data all PASS.
 
 ## PENDING / OPEN ITEMS
 
-1. **InsForge support — revoke old leaked key** `ik_269f91279e81e422e94e2a9257178aac`. As of 2026-06-20 09:04 UTC it is **still alive**. New key is in use locally. Until revoked, the GitHub-exposed key remains a live admin credential.
-2. **`.insforge/` cleanup — NOT done.** `.insforge/project.json` is still git-tracked and still contains the OLD key in the working tree. Needs: add `.insforge/` to `.gitignore`, `git rm --cached .insforge/project.json`, update local copy to new key, commit + push. (Same pattern as `.mcp.json`. Deferred — user said stand by.)
+1. ~~InsForge support — revoke old leaked key~~ **RESOLVED 2026-06-21.** Old key `ik_269f…` now returns **401 (dead)** — confirmed by direct probe. New key `ik_de62…` works (200). The GitHub-exposed key is no longer a live credential.
+2. ~~`.insforge/` cleanup~~ **DONE 2026-06-21.** Added `.insforge/` to `.gitignore` and `git rm --cached .insforge/project.json` (it had been needed for the CLI deploy and now holds the **new** key locally — untracking keeps the new key out of git). Local file retained for the InsForge CLI. The dead old key remains only in past history commits (see #3).
 3. **Git history rewrite — deferred** until the old key is revoked. Then optionally scrub `ik_269f…` from commits `802b75e`, `bfe0f77`, `bbfbf97` (e.g., `git filter-repo`). Coordinate because it rewrites shared history.
 4. **ccpromoters CM cluster — 22 JDs drafted, NOT applied** (`docs/cm-cluster-jd-drafts.md`). Awaiting go-ahead to run the migration (snapshot → UPDATE → verify → commit).
 5. **ccpacademy Razorpay — Phases C–F.** Phase B reportedly done; Phase C waiting (per user). NOTE: Razorpay code is **uncommitted/local** in ccpacademy working tree (`app/api/razorpay/`, `lib/razorpay.ts`, plus `_q.sql`, `_seed_questions.js`) — not committed, not live.

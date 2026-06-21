@@ -37,3 +37,6 @@ next-env.d.ts
 
 # secrets — MCP server config holds the InsForge API key; never commit
 .mcp.json
+
+# InsForge CLI project config — holds the API key; never commit
+.insforge/
