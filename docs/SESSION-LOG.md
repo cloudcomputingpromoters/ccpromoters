@@ -106,6 +106,18 @@ Codebase verified post-change: no remaining `about/team` references, no `TeamPag
 **Tested (localhost, pure-logic harness vs the real 523 jobs — 8/8 PASS):** "New York"→19 NY only; "Denver"→23 Denver; "TX"/"Texas"→65 TX (both); "new"→all 19 NY included; "concrete inspector"+"New York"→2; Concrete pill→18 (incl NY junior); clear→523; "zzzzz"→0. Production `npm run build` passed.
 **Live verified 2026-06-21 (deployment `cb440019`):** deployed JS bundle contains the fix (`No jobs match your search`, `STATE_NAMES`/"Tennessee", `City or state`); 8/8 logic cases re-run against live data all PASS.
 
+## PHASE I — deployment topology discovery + /jobs dynamic fix
+
+**Two deployments exist (important):**
+- **`ccpromoters.com` → `www.ccpromoters.com` → Vercel** (auto-deploys from every `git push origin main`). **This is the real customer-facing site and it is healthy** — `/jobs` renders all 523 jobs, detail pages 200, search fix + team removal + NY job all live.
+- **`cizr93dz.insforge.site`** (deployed via `npx @insforge/cli deployments deploy .`) is a **separate mirror whose build is missing `NEXT_PUBLIC_INSFORGE_URL` / `NEXT_PUBLIC_INSFORGE_ANON_KEY`** → it shows no jobs and 404s on detail pages. Not the customer domain. (The `.env*.local` file holding those vars is gitignored and isn't included in the InsForge build.)
+
+| Date | Change | Files | Commit | Live? | Reversible |
+|---|---|---|---|---|---|
+| 2026-06-21 | Made `/jobs` `force-dynamic` so it fetches live data per request instead of baking an empty list at build time. | `app/jobs/page.tsx` | `bc0a73b` | **Live on Vercel** (auto-deploy from main) | `git revert bc0a73b` |
+
+Note: a stray remote `master` branch was accidentally created during a push and immediately deleted; `origin/main` is the production branch (`origin/HEAD → main`).
+
 ## PENDING / OPEN ITEMS
 
 1. ~~InsForge support — revoke old leaked key~~ **RESOLVED 2026-06-21.** Old key `ik_269f…` now returns **401 (dead)** — confirmed by direct probe. New key `ik_de62…` works (200). The GitHub-exposed key is no longer a live credential.
@@ -119,5 +131,7 @@ Codebase verified post-change: no remaining `about/team` references, no `TeamPag
 
 9. ~~Live 404 for `/about/team` pending redeploy.~~ **RESOLVED 2026-06-20.** Deployed via InsForge (`npx @insforge/cli deployments deploy .`, deployment `5db285db`, READY). Verified live: `/about/team`→404, `/about` reworded with no Team button, `sitemap.xml` clean.
    - _Deploy note for future sessions:_ this site is hosted on **InsForge** (project `cizr93dz`, Vercel under the hood → `cizr93dz.insforge.site`). Page/route/code changes require a redeploy with `npx @insforge/cli deployments deploy .`; DB content changes (e.g. `jobs.description`) are live instantly via the `force-dynamic` pages.
+
+10. **`cizr93dz.insforge.site` shows no jobs** — its InsForge-CLI build lacks `NEXT_PUBLIC_INSFORGE_URL` / `NEXT_PUBLIC_INSFORGE_ANON_KEY`. The real site (Vercel/ccpromoters.com) is unaffected. Fix options if this mirror is wanted: add those two (the anon key is a **public, non-secret** client key) to a committed `.env.production`, or set them in the InsForge project's build env, then redeploy. Not done — needs a decision on whether the InsForge mirror is needed at all.
 
 > Status note: ccpromoters `main` and ccpacademy `master` are both in sync with their origins as of this log (only the new docs in this commit are being added to ccpromoters).
