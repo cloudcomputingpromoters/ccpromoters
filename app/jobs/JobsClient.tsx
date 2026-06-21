@@ -2,8 +2,9 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { MapPin, DollarSign, Award, Search, X } from 'lucide-react';
+import { filterJobs } from '@/lib/jobSearch';
 
 const disciplineColors: Record<string, string> = {
   structural: 'bg-pink-100 text-pink-700',
@@ -115,19 +116,23 @@ interface JobsClientProps {
 }
 
 export default function JobsClient({ initialJobs }: JobsClientProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
-  const discipline = searchParams.get('discipline') || 'all';
-  const typeFilter = searchParams.get('type') || '';
-  const remoteFilter = searchParams.get('remote') || '';
-  const licenseFilter = searchParams.get('license') || '';
-  const keyword = searchParams.get('q') || '';
-  const location = searchParams.get('location') || '';
-  const page = parseInt(searchParams.get('page') || '1');
+  const allJobs = useMemo(() => (Array.isArray(initialJobs) ? initialJobs : []), [initialJobs]);
 
-  const [keywordInput, setKeywordInput] = useState(searchParams.get('q') || '');
-  const [locationInput, setLocationInput] = useState(searchParams.get('location') || '');
+  // Filters are local state, seeded once from the URL so inbound deep links still
+  // work (e.g. /jobs?discipline=structural, /jobs?location=Denver). Filtering is
+  // done entirely client-side over the already-loaded jobs — no navigation/refetch
+  // per keystroke (that previously caused focus loss / a broken-feeling search).
+  const [keywordInput, setKeywordInput] = useState(() => searchParams.get('q') || '');
+  const [locationInput, setLocationInput] = useState(() => searchParams.get('location') || '');
+  const [debouncedKeyword, setDebouncedKeyword] = useState(() => searchParams.get('q') || '');
+  const [debouncedLocation, setDebouncedLocation] = useState(() => searchParams.get('location') || '');
+  const [discipline, setDiscipline] = useState(() => searchParams.get('discipline') || 'all');
+  const [typeFilter, setTypeFilter] = useState(() => searchParams.get('type') || '');
+  const [remoteFilter, setRemoteFilter] = useState(() => searchParams.get('remote') || '');
+  const [licenseFilter, setLicenseFilter] = useState(() => searchParams.get('license') || '');
+  const [page, setPage] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile on client-side only to avoid hydration mismatch
@@ -138,140 +143,65 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Real-time instant search with debounce
+  // Debounce the text inputs (~300ms) — instant, client-side, no page navigation.
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      const params = new URLSearchParams();
-      if (keywordInput) params.set('q', keywordInput);
-      if (locationInput) params.set('location', locationInput);
-      if (discipline && discipline !== 'all') params.set('discipline', discipline);
-      if (typeFilter) params.set('type', typeFilter);
-      if (remoteFilter) params.set('remote', remoteFilter);
-      if (licenseFilter) params.set('license', licenseFilter);
-      params.delete('page');
-      router.push(`/jobs?${params.toString()}`);
-    }, 300); // 300ms debounce for smooth real-time search
+    const t = setTimeout(() => {
+      setDebouncedKeyword(keywordInput);
+      setDebouncedLocation(locationInput);
+    }, 300);
+    return () => clearTimeout(t);
+  }, [keywordInput, locationInput]);
 
-    return () => clearTimeout(debounceTimer);
-  }, [keywordInput, locationInput, discipline, typeFilter, remoteFilter, licenseFilter, router]);
+  // Flush the debounce immediately — used by Enter key and the Search button.
+  function runSearch() {
+    setDebouncedKeyword(keywordInput);
+    setDebouncedLocation(locationInput);
+  }
 
-  // Validate initial jobs
-  const allJobs = useMemo(() => {
-    if (!initialJobs || !Array.isArray(initialJobs)) {
-      console.error('[Client] initialJobs is invalid:', initialJobs);
-      return [];
+  function handleSearchKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      runSearch();
     }
-    console.log(`[Client] Received ${initialJobs.length} initial jobs`);
-    return initialJobs;
-  }, [initialJobs]);
+  }
 
-  // Apply server-side filters (discipline, employment type, remote, license)
-  const serverFilteredJobs = useMemo(() => {
-    let filtered = allJobs;
+  function clearAll() {
+    setKeywordInput('');
+    setLocationInput('');
+    setDebouncedKeyword('');
+    setDebouncedLocation('');
+    setDiscipline('all');
+    setTypeFilter('');
+    setRemoteFilter('');
+    setLicenseFilter('');
+    setPage(1);
+  }
 
-    if (discipline && discipline !== 'all') {
-      if (discipline === 'concrete-inspector') {
-        filtered = filtered.filter(job => job.title.toLowerCase().includes('concrete inspector'));
-      } else {
-        filtered = filtered.filter(job => job.discipline_slug === discipline);
-      }
-    }
+  // All filters applied together (AND'd), case-insensitive, partial-match.
+  const filteredJobs = useMemo(
+    () =>
+      filterJobs(allJobs, {
+        keyword: debouncedKeyword,
+        location: debouncedLocation,
+        discipline,
+        type: typeFilter,
+        remote: remoteFilter,
+        license: licenseFilter,
+      }),
+    [allJobs, debouncedKeyword, debouncedLocation, discipline, typeFilter, remoteFilter, licenseFilter]
+  );
 
-    if (typeFilter) {
-      filtered = filtered.filter(job => job.employment_type === typeFilter);
-    }
+  // Reset to page 1 whenever the active filters change.
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedKeyword, debouncedLocation, discipline, typeFilter, remoteFilter, licenseFilter]);
 
-    if (remoteFilter === 'true') {
-      filtered = filtered.filter(job => job.is_remote === true);
-    }
-
-    if (licenseFilter) {
-      filtered = filtered.filter(job =>
-        job.license_required?.toUpperCase().includes(licenseFilter.toUpperCase())
-      );
-    }
-
-    console.log(`[Client] After server filters: ${filtered.length} jobs`);
-    return filtered;
-  }, [allJobs, discipline, typeFilter, remoteFilter, licenseFilter]);
-
-  // Apply client-side keyword and location filters with comprehensive search
-  const filteredJobs = useMemo(() => {
-    let filtered = serverFilteredJobs;
-
-    if (keyword) {
-      const searchTerm = keyword.toLowerCase();
-      filtered = filtered.filter(job => {
-        // Search across all relevant fields
-        const searchableText = [
-          job.title,
-          job.discipline,
-          job.employment_type,
-          job.license_required || '',
-          job.experience_level || '',
-        ]
-          .join(' ')
-          .toLowerCase();
-
-        return searchableText.includes(searchTerm);
-      });
-    }
-
-    if (location) {
-      const locTerm = location.toLowerCase();
-      filtered = filtered.filter(job => {
-        const locationText = [
-          job.location_city || '',
-          job.location_state || '',
-        ]
-          .join(' ')
-          .toLowerCase();
-
-        return locationText.includes(locTerm);
-      });
-    }
-
-    console.log(`[Client] After keyword/location filters: ${filtered.length} jobs`);
-    return filtered;
-  }, [serverFilteredJobs, keyword, location]);
-
-  // Apply pagination to filtered results
+  const totalPages = Math.max(1, Math.ceil(filteredJobs.length / PAGE_SIZE));
+  const safePage = Math.min(Math.max(1, page), totalPages);
   const paginatedJobs = useMemo(() => {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE;
-    return filteredJobs.slice(from, to);
-  }, [filteredJobs, page]);
-
-  const totalPages = Math.ceil(filteredJobs.length / PAGE_SIZE);
-
-  function applyFilters(overrides: Record<string, string> = {}) {
-    const params = new URLSearchParams();
-    if (keywordInput) params.set('q', keywordInput);
-    if (locationInput) params.set('location', locationInput);
-    if (discipline && discipline !== 'all') params.set('discipline', discipline);
-    if (typeFilter) params.set('type', typeFilter);
-    if (remoteFilter) params.set('remote', remoteFilter);
-    if (licenseFilter) params.set('license', licenseFilter);
-    Object.entries(overrides).forEach(([k, v]) => v ? params.set(k, v) : params.delete(k));
-    params.delete('page');
-    router.push(`/jobs?${params.toString()}`);
-  }
-
-  function setDiscipline(val: string) {
-    const params = new URLSearchParams(window.location.search);
-    if (val === 'all') params.delete('discipline');
-    else params.set('discipline', val);
-    params.delete('page');
-    router.push(`/jobs?${params.toString()}`);
-  }
-
-  function setFilter(key: string, val: string) {
-    const params = new URLSearchParams(window.location.search);
-    if (val) params.set(key, val);
-    else params.delete(key);
-    params.delete('page');
-    router.push(`/jobs?${params.toString()}`);
-  }
+    const from = (safePage - 1) * PAGE_SIZE;
+    return filteredJobs.slice(from, from + PAGE_SIZE);
+  }, [filteredJobs, safePage]);
 
   return (
     <div className="w-full max-w-full overflow-hidden min-h-screen bg-[#F5F5F5]">
@@ -281,7 +211,7 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
             Find Your Next Civil Engineering Role
           </h1>
-          <p className="text-white/60 text-center mb-8">{allJobs.length} active roles across all disciplines</p>
+          <p className="text-gray-200 text-center mb-8">{allJobs.length} active roles across all disciplines</p>
           <div className="w-full max-w-full bg-white rounded-xl shadow-xl p-2 flex flex-col gap-2 overflow-hidden">
             <div className="flex items-center gap-2 flex-1 px-3 py-2 border-b md:border-b-0 md:border-r border-[#E5E5E5] min-w-0">
               <Search size={18} className="text-[#CC1016] shrink-0" />
@@ -289,10 +219,11 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                 type="text"
                 value={keywordInput}
                 onChange={e => setKeywordInput(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="Job title, discipline, skills..."
                 className="flex-1 outline-none text-[#0D0D0D] text-sm min-w-0"
               />
-              {keywordInput && <button onClick={() => setKeywordInput('')}><X size={14} className="text-[#6B6B6B]" /></button>}
+              {keywordInput && <button onClick={() => { setKeywordInput(''); setDebouncedKeyword(''); }}><X size={14} className="text-[#6B6B6B]" /></button>}
             </div>
             <div className="flex items-center gap-2 flex-1 px-3 py-2 min-w-0">
               <MapPin size={18} className="text-[#CC1016] shrink-0" />
@@ -300,12 +231,14 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                 type="text"
                 value={locationInput}
                 onChange={e => setLocationInput(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="City or state..."
                 className="flex-1 outline-none text-[#0D0D0D] text-sm min-w-0"
               />
+              {locationInput && <button onClick={() => { setLocationInput(''); setDebouncedLocation(''); }}><X size={14} className="text-[#6B6B6B]" /></button>}
             </div>
             <button
-              onClick={() => applyFilters()}
+              onClick={runSearch}
               className="w-full md:w-auto bg-[#CC1016] text-white font-semibold px-6 md:px-8 py-3 rounded-lg hover:bg-[#A80D12] transition-colors whitespace-nowrap">
               Search Jobs
             </button>
@@ -332,14 +265,14 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
             <div className="w-full max-w-full bg-white rounded-xl border border-[#E5E5E5] p-4 lg:p-6 sticky top-24 overflow-hidden">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-bold text-[#0D0D0D]">Filter Results</h3>
-                <button onClick={() => router.push('/jobs')} className="text-xs text-[#CC1016] hover:underline">Clear All</button>
+                <button onClick={clearAll} className="text-xs text-[#CC1016] hover:underline">Clear All</button>
               </div>
 
               <div className="mb-6">
                 <label className="block text-sm font-semibold text-[#0D0D0D] mb-3">Employment Type</label>
                 {[{ label: 'All Types', value: '' }, { label: 'Permanent', value: 'permanent' }, { label: 'Contract', value: 'contract' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
-                    <input type="radio" name="type" checked={typeFilter === opt.value} onChange={() => setFilter('type', opt.value)}
+                    <input type="radio" name="type" checked={typeFilter === opt.value} onChange={() => setTypeFilter(opt.value)}
                       className="accent-[#CC1016]" />
                     <span className="text-sm text-[#6B6B6B]">{opt.label}</span>
                   </label>
@@ -350,7 +283,7 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                 <label className="block text-sm font-semibold text-[#0D0D0D] mb-3">Work Style</label>
                 {[{ label: 'All', value: '' }, { label: 'Remote Only', value: 'true' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
-                    <input type="radio" name="remote" checked={remoteFilter === opt.value} onChange={() => setFilter('remote', opt.value)}
+                    <input type="radio" name="remote" checked={remoteFilter === opt.value} onChange={() => setRemoteFilter(opt.value)}
                       className="accent-[#CC1016]" />
                     <span className="text-sm text-[#6B6B6B]">{opt.label}</span>
                   </label>
@@ -361,7 +294,7 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                 <label className="block text-sm font-semibold text-[#0D0D0D] mb-3">License Required</label>
                 {[{ label: 'Any', value: '' }, { label: 'PE Licensed', value: 'PE' }, { label: 'EIT / Engineer-in-Training', value: 'EIT' }].map(opt => (
                   <label key={opt.value} className="flex items-center gap-2 py-1.5 cursor-pointer">
-                    <input type="radio" name="license" checked={licenseFilter === opt.value} onChange={() => setFilter('license', opt.value)}
+                    <input type="radio" name="license" checked={licenseFilter === opt.value} onChange={() => setLicenseFilter(opt.value)}
                       className="accent-[#CC1016]" />
                     <span className="text-sm text-[#6B6B6B]">{opt.label}</span>
                   </label>
@@ -394,9 +327,9 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
             ) : filteredJobs.length === 0 ? (
               <div className="w-full max-w-full bg-white rounded-xl border border-[#E5E5E5] p-8 md:p-16 text-center overflow-hidden">
                 <div className="text-3xl md:text-5xl mb-4">🔍</div>
-                <h3 className="font-bold text-[#0D0D0D] text-lg md:text-xl mb-2">No jobs found</h3>
-                <p className="text-[#6B6B6B] mb-6 text-sm md:text-base">Try adjusting your filters or browse all disciplines.</p>
-                <Link href="/jobs" className="btn-pink">Clear Filters</Link>
+                <h3 className="font-bold text-[#0D0D0D] text-lg md:text-xl mb-2">No jobs match your search</h3>
+                <p className="text-[#6B6B6B] mb-6 text-sm md:text-base">Try a different city, state, or job title — or clear your filters to see all roles.</p>
+                <button onClick={clearAll} className="btn-pink">Clear Filters</button>
               </div>
             ) : (
               <div className="w-full max-w-full grid gap-5 overflow-hidden">
@@ -407,11 +340,11 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-1 sm:gap-2 mt-10 overflow-hidden px-2">
-                {page > 1 && (
-                  <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(page - 1) })}`}
+                {safePage > 1 && (
+                  <button onClick={() => setPage(safePage - 1)}
                     className="px-2 sm:px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs sm:text-sm hover:border-[#CC1016] text-[#6B6B6B] whitespace-nowrap flex-shrink-0">
                     ← Prev
-                  </Link>
+                  </button>
                 )}
 
                 {/* Mobile: Show current page ± 2 | Desktop: Show all */}
@@ -419,7 +352,7 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                   .filter(p => {
                     // On mobile (sm breakpoint ~640px), only show current ± 2
                     if (isMobile) {
-                      return Math.abs(p - page) <= 2;
+                      return Math.abs(p - safePage) <= 2;
                     }
                     // Desktop: show all
                     return true;
@@ -430,20 +363,20 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
                     return (
                       <div key={`page-${p}`} className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                         {showEllipsisBefore && <span className="text-[#6B6B6B] px-1 text-xs">…</span>}
-                        <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(p) })}`}
-                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-xs sm:text-sm font-medium transition-colors flex-shrink-0 ${p === page ? 'bg-[#CC1016] text-white' : 'border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
+                        <button onClick={() => setPage(p)}
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-xs sm:text-sm font-medium transition-colors flex-shrink-0 ${p === safePage ? 'bg-[#CC1016] text-white' : 'border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#CC1016]'}`}>
                           {p}
-                        </Link>
+                        </button>
                         {idx === arr.length - 1 && p < totalPages && <span className="text-[#6B6B6B] px-1 text-xs">…</span>}
                       </div>
                     );
                   })}
 
-                {page < totalPages && (
-                  <Link href={`/jobs?${new URLSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(page + 1) })}`}
+                {safePage < totalPages && (
+                  <button onClick={() => setPage(safePage + 1)}
                     className="px-2 sm:px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs sm:text-sm hover:border-[#CC1016] text-[#6B6B6B] whitespace-nowrap flex-shrink-0">
                     Next →
-                  </Link>
+                  </button>
                 )}
               </div>
             )}

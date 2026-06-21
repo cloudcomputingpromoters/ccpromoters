@@ -93,6 +93,18 @@ Verified: row present; live at https://ccpromoters.com/jobs/junior-concrete-insp
 
 Codebase verified post-change: no remaining `about/team` references, no `TeamPage`/dead imports, route directory gone, `/about` unaffected. **Live verified 2026-06-20:** `/about/team` → HTTP 404; `/about` shows "Work With Specialist Recruiters" with no "Meet the Team" button; `sitemap.xml` has no `/about/team`.
 
+## PHASE H — ccpromoters: job search fix + readable hero subtitle
+
+**What broke:** On `/jobs` the "City or state" search (and overall search) felt broken because (1) there was **no Enter-key handler**, (2) **state full names didn't match** the DB's state *codes* (typing "Texas" matched nothing — DB stores "TX"), (3) the **"Concrete Inspector" pill returned only 12** roles (matched `title ~ "concrete inspector"`, missing the 6 "Concrete Testing/Materials/QA" roles), and (4) every debounced keystroke did a `router.push` → the async server page re-fetched all 523 jobs → Suspense remount → focus loss / janky typing. Also the hero subtitle ("N active roles…") was too dim (`text-white/60`).
+
+**What changed:** Reworked `/jobs` search to **instant client-side filtering** over the already-loaded jobs (no per-keystroke navigation/refetch). Search now triggers on **debounced typing + Enter + the Search button**. City/state matches **city, state code, AND full state name** (case-insensitive, partial) via a new `STATE_NAMES` map. Job-title + city + discipline all **AND** together. Empty fields = no filter. "Concrete Inspector" pill now matches **all 18** concrete roles (`title ~ "concrete"`). No-match state reworded to **"No jobs match your search."** Pagination moved to local state (resets to page 1 on filter change; clamps to valid range). Subtitle bumped to **`text-gray-200`**. Inbound deep links (`?discipline=`, `?location=`, `?q=`) still honored on load; filters no longer write to the URL (deliberate).
+
+| Date/time | Files | Commit | Live? | Reversible |
+|---|---|---|---|---|
+| 2026-06-20 | **New:** `lib/jobSearch.ts` (pure, tested filter helpers). **Edited:** `app/jobs/JobsClient.tsx`. Style change limited to the subtitle color. | `fix: city/state job search + readable hero subtitle` (this commit) | **Code pushed; deploy pending** (needs `npx @insforge/cli deployments deploy .`) | `git revert` of this commit |
+
+**Tested (localhost, pure-logic harness against the real 523 jobs — 8/8 PASS):** "New York"→19 NY only; "Denver"→23 Denver; "TX"/"Texas"→65 TX (both); "new"→all 19 NY included; "concrete inspector"+"New York"→2; Concrete pill→18 (incl NY junior); clear→523; "zzzzz"→0 (no-match). Production `npm run build` passed.
+
 ## PENDING / OPEN ITEMS
 
 1. **InsForge support — revoke old leaked key** `ik_269f91279e81e422e94e2a9257178aac`. As of 2026-06-20 09:04 UTC it is **still alive**. New key is in use locally. Until revoked, the GitHub-exposed key remains a live admin credential.
