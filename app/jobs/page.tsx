@@ -2,6 +2,11 @@ import { Suspense } from 'react';
 import { insforge } from '@/lib/insforge';
 import JobsClient from './JobsClient';
 
+// Always fetch the live job list at request time. Without this the page is
+// statically prerendered and bakes in whatever the build-time fetch returned —
+// if that fetch fails/returns empty, every visitor sees "Unable to Load Jobs".
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Civil Engineering Jobs | CCPromoters',
   description: 'Browse 500+ active civil engineering jobs across all disciplines. Filter by location, salary, discipline, and license requirement.',
