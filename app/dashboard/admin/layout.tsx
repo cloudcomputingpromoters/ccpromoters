@@ -7,12 +7,19 @@ import { insforge } from '@/lib/insforge';
 import {
   LayoutDashboard, Users, Briefcase, FileText, HelpCircle,
   Star, Mail, BarChart2, Settings, LogOut, ChevronRight,
+  ClipboardList, Building2, UserCheck, MapPin,
 } from 'lucide-react';
 
 const navItems = [
   { href: '/dashboard/admin', label: 'Overview', icon: LayoutDashboard, exact: true },
+  { href: '/dashboard/admin/applications', label: 'Applications', icon: ClipboardList },
+  { href: '/dashboard/admin/candidates', label: 'Candidates', icon: UserCheck },
+  { href: '/dashboard/admin/employers', label: 'Employers', icon: Building2 },
+  { href: '/dashboard/admin/talent-requests', label: 'Talent Requests', icon: FileText },
   { href: '/dashboard/admin/users', label: 'Users', icon: Users },
   { href: '/dashboard/admin/jobs', label: 'Jobs', icon: Briefcase },
+  { href: '/dashboard/admin/placements', label: 'Placements', icon: MapPin },
+  { href: '/dashboard/admin/salary-data', label: 'Salary Data', icon: BarChart2 },
   { href: '/dashboard/admin/blog', label: 'Blog / Insights', icon: FileText },
   { href: '/dashboard/admin/faqs', label: 'FAQs', icon: HelpCircle },
   { href: '/dashboard/admin/testimonials', label: 'Testimonials', icon: Star },

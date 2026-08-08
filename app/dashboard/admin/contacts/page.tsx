@@ -21,17 +21,11 @@ export default function AdminContactsPage() {
       .then(({ data }) => { setSubmissions(data || []); setLoading(false); });
   }, []);
 
-  async function updateStatus(id: string, status: string) {
-    await insforge.database.from('contact_submissions').update({ status }).eq('id', id);
-    setSubmissions(prev => prev.map(s => s.id === id ? {...s, status} : s));
+  async function updateReadState(id: string, isRead: boolean) {
+    const { error } = await insforge.database.from('contact_submissions').update({ is_read: isRead }).eq('id', id);
+    if (error) return;
+    setSubmissions(prev => prev.map(s => s.id === id ? { ...s, is_read: isRead } : s));
   }
-
-  const statusColors: Record<string, string> = {
-    new: 'bg-[#F5F5F5] text-[#0D0D0D]',
-    read: 'bg-yellow-100 text-yellow-700',
-    replied: 'bg-green-100 text-green-700',
-    archived: 'bg-gray-100 text-gray-500',
-  };
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
@@ -51,7 +45,7 @@ export default function AdminContactsPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {submissions.map((s: { id: string; name: string; email: string; subject?: string; message: string; submitted_at: string; status?: string }) => (
+            {submissions.map((s: { id: string; name: string; email: string; subject?: string; message: string; submitted_at: string; is_read?: boolean }) => (
               <div key={s.id} className="bg-white rounded-xl border border-[#E5E5E5] overflow-hidden">
                 <button onClick={() => setExpanded(expanded === s.id ? null : s.id)}
                   className="w-full text-left px-5 py-4 flex items-center justify-between gap-4">
@@ -64,12 +58,11 @@ export default function AdminContactsPage() {
                     <p className="text-xs text-[#6B6B6B] mt-0.5">{new Date(s.submitted_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <select value={s.status || 'new'} onClick={e => e.stopPropagation()} onChange={e => updateStatus(s.id, e.target.value)}
-                      className={`text-xs font-semibold px-2.5 py-1 rounded-full border-0 focus:outline-none cursor-pointer ${statusColors[s.status || 'new']}`}>
+                    <select value={s.is_read ? 'read' : 'new'} onClick={e => e.stopPropagation()}
+                      onChange={e => updateReadState(s.id, e.target.value === 'read')}
+                      className={`text-xs font-semibold px-2.5 py-1 rounded-full border-0 focus:outline-none cursor-pointer ${s.is_read ? 'bg-green-100 text-green-700' : 'bg-[#F5F5F5] text-[#0D0D0D]'}`}>
                       <option value="new">New</option>
                       <option value="read">Read</option>
-                      <option value="replied">Replied</option>
-                      <option value="archived">Archived</option>
                     </select>
                     <ChevronDown size={16} className={`text-[#6B6B6B] transition-transform ${expanded === s.id ? 'rotate-180' : ''}`} />
                   </div>

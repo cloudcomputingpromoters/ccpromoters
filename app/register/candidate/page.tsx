@@ -107,6 +107,25 @@ export default function CandidateRegister() {
       salary_expected: parseInt(form.salary) || 0,
     });
 
+    // setProfile only writes the auth jsonb. The dashboard, admin candidate list
+    // and employer search all read candidate_profiles, so mirror it there too.
+    await insforge.database.from('candidate_profiles').insert({
+      user_id: userId,
+      first_name: form.firstName,
+      last_name: form.lastName,
+      email: form.email,
+      phone: form.phone,
+      current_title: form.jobTitle,
+      discipline: form.discipline,
+      years_experience: parseInt(form.yearsExp) || 0,
+      employment_type_preference: form.jobType,
+      salary_expectation_min: parseInt(form.salary) || null,
+      location_city: form.city,
+      location_state: form.state,
+      open_to_remote: form.workEnv === 'remote' || form.workEnv === 'open',
+      skills: form.skills,
+    });
+
     // Notify HR of new registration (fire-and-forget)
     fetch('/api/notify', {
       method: 'POST',
