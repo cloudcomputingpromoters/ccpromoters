@@ -199,3 +199,45 @@ So the value exists only in the Zoho mailbox settings and inside the InsForge de
 **Cheaper alternative:** upgrading InsForge project `cizr93dz` off the free plan unlocks `insforge.emails.send()` / `POST /api/email/send-raw`, which needs only the anon key — no SMTP password, no Vercel env vars, and no second deployment in the path. Currently returns `403 Custom email service is not available for free plan`.
 
 **Current state: email is working** via the relay (both hops verified healthy on 2026-08-08). This addendum is about removing a single point of failure, not about a live outage.
+
+## PHASE K — 2026-08-08: signed-in apply parity + InsForge deployment repaired
+
+**User's ask:** no plan upgrade; make signed-in applying behave like it used to (email arrives, resume arrives), and deploy everything to InsForge.
+
+### K1 — Signed-in applications were sending HR far less than guest ones
+
+`ApplyButton.tsx` (the button on a job detail page, used only when a candidate is logged in) sent `candidateName: userData.email.split('@')[0]` — literally the email prefix — with **no phone and no resume**. A guest applying through `/apply` sent full name, phone and a resume link. Same job, two very different emails, which is what "pehle resume bhi aata tha" was describing.
+
+Fixed: `ApplyButton` now loads the candidate's `candidate_profiles` row and their newest `candidate_resumes` row on mount, and sends `candidateName`, `candidatePhone` and `resumeUrl` with the notification. The button also tells the candidate whether a resume is attached and links to `/dashboard/candidate/resume` when none is on file (previously they could apply with nothing attached and never know).
+
+| Files | Commit |
+|---|---|
+| `app/jobs/[slug]/ApplyButton.tsx` | `ba02679` |
+
+### K2 — Why the InsForge deployment had shown zero jobs since June (PENDING item 10, now resolved)
+
+The first redeploy still rendered **"Unable to Load Jobs" / 0 active roles** and 404'd on job detail pages. Two separate causes, fixed in order:
+
+1. **The InsForge CLI build does not receive the deployment env vars.** `NEXT_PUBLIC_INSFORGE_URL` / `NEXT_PUBLIC_INSFORGE_ANON_KEY` were undefined at build time, so the SDK had no backend. Fixed by committing `.env.production` with both values. They are `NEXT_PUBLIC_*`, i.e. inlined into the browser bundle and already public — verified by finding the anon key served today inside `www.ccpromoters.com/_next/static/chunks/app/login/page-*.js`. Real secrets (`SMTP_*`, `ADMIN_SETUP_SECRET`) were **not** committed and stay in the deployment env. Platform env still wins over `.env.production` in Next.js's load order, so Vercel is unaffected.
+2. **The stored deployment env values were themselves wrong/stale.** After step 1 the client bundle had the key but server-side rendering still failed — the runtime env was overriding with a bad value. The values are write-only (`type: "encrypted"`, no `env get`), so they were simply overwritten with the known-good ones via `deployments env set`, then redeployed.
+
+| Files | Commit |
+|---|---|
+| `.env.production` (new) | `ed21ef4` |
+
+**Deployment IDs this session:** `12956cd0` (first, still broken) → `1c09d039` (env.production, partial) → **`f40320a9` (current, working)**.
+
+### Verified on https://cizr93dz.insforge.site after `f40320a9`
+
+- `/jobs` → **524 active roles**, "Showing 10 of 524", 10 job links (was 0 / "Unable to Load").
+- `/jobs/junior-concrete-inspector-new-york` → **200**, full JD renders (was 404).
+- 20 routes smoke-tested → **all 200**: `/ /jobs /apply /login /register/candidate /register/employer /auth/forgot-password /contact /about /hire /salary-guide /insights` and all `/dashboard/*` admin, candidate and employer pages.
+- All four notification types → `{"ok":true}`: `application` (guest shape, with resume link), `application` (signed-in shape, now with resume link), `resume`, `registration`. Sent to hr@ccpromoters.com, all subjects prefixed `[TEST]`.
+- Auth: wrong password → **401** (endpoint healthy, not erroring).
+- Storage: resume PUT → **201**, download → **200 / 209 bytes**; test object deleted afterwards.
+- `/apply` renders the full form including the PDF upload; job detail shows "Apply Now" + "Create Account & Apply" for guests.
+- **www.ccpromoters.com re-checked after every push** — 524 roles, detail 200, notify 400 (healthy). Unaffected by `.env.production`.
+
+### Note on the two deployments
+
+Both are now running the same current code. `www.ccpromoters.com` (Vercel, Git-connected) still has no SMTP creds of its own and relays to `cizr93dz.insforge.site`, which sends. That relay is unchanged and healthy. The Vercel-env work in the PHASE J addendum is still the way to remove the relay, but it is no longer urgent: both deployments are current and email works from either entry point.
