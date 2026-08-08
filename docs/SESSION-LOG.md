@@ -135,3 +135,34 @@ Note: a stray remote `master` branch was accidentally created during a push and 
 10. **`cizr93dz.insforge.site` shows no jobs** — its InsForge-CLI build lacks `NEXT_PUBLIC_INSFORGE_URL` / `NEXT_PUBLIC_INSFORGE_ANON_KEY`. The real site (Vercel/ccpromoters.com) is unaffected. Fix options if this mirror is wanted: add those two (the anon key is a **public, non-secret** client key) to a committed `.env.production`, or set them in the InsForge project's build env, then redeploy. Not done — needs a decision on whether the InsForge mirror is needed at all.
 
 > Status note: ccpromoters `main` and ccpacademy `master` are both in sync with their origins as of this log (only the new docs in this commit are being added to ccpromoters).
+
+## PHASE J — 2026-08-08: HR email outage + apply/admin/registration repairs
+
+**Reported:** Boss applied on the live site (no login), resume submitted fine, but no email arrived at hr@ccpromoters.com. "This used to work."
+
+**Root cause of the email outage:** `ccpromoters.com` is served by the **Vercel** deployment, which never had `SMTP_USER` / `SMTP_PASS` set. Those Zoho creds live only on the **InsForge** deployment env (set 2026-04-27). `/api/notify` bails out with 503 "SMTP not configured" when they are absent, and every caller (`apply`, `contact`, `register/candidate`, `candidate/resume`) fires the request without awaiting or surfacing the result — so applications kept saving to the DB and storage while every notification silently died. Confirmed by probing live: `POST https://www.ccpromoters.com/api/notify` → **503 SMTP not configured**, while the same route on `cizr93dz.insforge.site` → **200 ok**.
+
+Note: InsForge's own `emails.send` API is **not** an option here — project `cizr93dz` is on the free plan and returns `403 Custom email service is not available for free plan`.
+
+| Date | Change | Files | Commit | Live? | Reversible |
+|---|---|---|---|---|---|
+| 2026-08-08 | **Email relay fix.** `/api/notify` now forwards the request to the InsForge deployment's working notify endpoint when local SMTP creds are missing (loop-guard header `x-notify-forwarded`, 20s timeout). Also fixed `SITE_URL` fallback from the InsForge mirror to `https://www.ccpromoters.com` so admin links in emails point at the real site. | `app/api/notify/route.ts` | `2c081f3` | **Live** (Vercel) | `git revert 2c081f3` |
+| 2026-08-08 | **Guest applications were invisible to HR.** Applying without an account writes to `contact_submissions` (subject `Job Application: …`), but the admin Applications page only read the `applications` table — 5 real applications, including the boss's, were never listed. Page now merges both sources, tags guest rows, shows email/phone and a resume download link. | `app/dashboard/admin/applications/page.tsx` | `781056a` | **Live** | `git revert 781056a` |
+| 2026-08-08 | **Admin contacts status dropdown was dead.** It PATCHed a `status` column that does not exist on `contact_submissions` (verified: `PGRST204 Could not find the 'status' column`). The table tracks `is_read`. Reduced to a working New/Read toggle. | `app/dashboard/admin/contacts/page.tsx` | `781056a` | **Live** | `git revert 781056a` |
+| 2026-08-08 | **Registration data never reached `candidate_profiles`.** `signUp` called only `auth.setProfile` (auth jsonb), while the candidate dashboard, admin candidate list and employer search all read the `candidate_profiles` table — new candidates saw "Profile Not Set Up" and admin saw 2 candidates out of 20 users. Registration now writes both. | `app/register/candidate/page.tsx` | `781056a` | **Live** | `git revert 781056a` |
+| 2026-08-08 | **Backfilled `candidate_profiles`** for the 4 pre-existing candidate users that had none (from their auth jsonb). DB INSERT only. | DB `candidate_profiles` | — | **Live** (DB) | `DELETE FROM candidate_profiles WHERE user_id IN (…)` — affected emails: waheeduddin9050@gmail.com, waheed@ccpromoters.com, abdulsami@ccpromoters.com, laurawalkerdev@gmail.com |
+| 2026-08-08 | Added the 6 admin pages that existed but were missing from the sidebar (Applications, Candidates, Employers, Talent Requests, Placements, Salary Data) — they were only reachable via overview cards. | `app/dashboard/admin/layout.tsx` | `781056a` | **Live** | `git revert 781056a` |
+
+**Verified working (2026-08-08):**
+- Live `POST /api/notify` on www.ccpromoters.com → `{"ok":true}` for both `application` and `contact` types (previously 503). Test emails sent to hr@ccpromoters.com, all clearly labelled `[TEST]`.
+- Resume upload: PUT to `candidate-files` with the anon key → **201**; public download → **200**. Boss's resume confirmed present (`resumes/1786209913500_Terraform_Command_Reference_Ahmad_Haroon_Rahmatullah.pdf`, 19.8 KB, 2026-08-08 17:23 UTC) and his row is in `contact_submissions`.
+- Login: `POST /api/auth/sessions` with a fresh test account → **200** with access token. Registration wizard walked end-to-end in a browser (5 steps → OTP screen); `require_email_verification` is **true**, `verify_email_method` = `code`.
+- Live smoke test: `/jobs /apply /login /register/candidate /register/employer /auth/forgot-password /contact` and all dashboard routes → **200**.
+- Deployed bundle for the admin applications page contains the fix (`contact_submissions`, `Job Application: `, `Guest`).
+- `npm run build` passes.
+
+**Still open after this session:**
+1. **The relay is a bridge, not the real fix.** The proper fix is setting `SMTP_HOST/PORT/USER/PASS/FROM` on the **Vercel** project (team `ccp6`) so `ccpromoters.com` sends directly. Right now every HR email depends on the InsForge deployment staying up. The Vercel project is not linked locally (`vercel projects ls` under `ccp6` lists only `zafrani-zaiqa`), so the vars must be added from the Vercel dashboard, or the project linked first.
+2. **Nobody was watching.** All four notify callers fire-and-forget; the apply page logs a failure to the browser console only. Consider surfacing send failures (or a weekly digest) so a future outage is not silent for months.
+3. **Test account left behind:** `claude-test-20260808@example.com` (id `7a443d14-f206-4303-a099-6fb77d129cf9`). InsForge blocks `DELETE` on the `auth` schema and no admin delete endpoint responded (404 on `/api/auth/users/:id` and `/api/auth/admin/users/:id`) — remove it from the InsForge dashboard.
+4. Items 3, 4, 5, 6, 7, 8 and 10 from the previous PENDING list remain untouched.
