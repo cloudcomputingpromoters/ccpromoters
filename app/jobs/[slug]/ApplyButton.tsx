@@ -17,6 +17,7 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userData, setUserData] = useState<any>(null);
   const [candidateId, setCandidateId] = useState<string | null>(null);
+  const [contact, setContact] = useState<{ name: string; phone: string; resumeUrl: string }>({ name: '', phone: '', resumeUrl: '' });
 
   useEffect(() => {
     async function check() {
@@ -30,6 +31,31 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
 
       setUserData(user);
 
+      const { data: prof } = await insforge.database
+        .from('candidate_profiles')
+        .select('first_name, last_name, phone, discipline, years_experience, skills')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      // HR needs the same details a guest application carries — name, phone and
+      // the actual resume — otherwise a signed-in application arrives as a bare
+      // email address with nothing attached.
+      const { data: resume } = await insforge.database
+        .from('candidate_resumes')
+        .select('file_url')
+        .eq('user_id', user.id)
+        .order('uploaded_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      setContact({
+        name: [prof?.first_name, prof?.last_name].filter(Boolean).join(' ')
+          || (user.profile as Record<string, unknown>)?.name as string
+          || user.email.split('@')[0],
+        phone: prof?.phone || '',
+        resumeUrl: resume?.file_url || '',
+      });
+
       // Get or create candidates row (needed for applications FK)
       let { data: candidate } = await insforge.database
         .from('candidates')
@@ -38,12 +64,6 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
         .maybeSingle();
 
       if (!candidate) {
-        const { data: prof } = await insforge.database
-          .from('candidate_profiles')
-          .select('first_name, last_name, discipline, years_experience, skills')
-          .eq('user_id', user.id)
-          .maybeSingle();
-
         const { data: newCand } = await insforge.database
           .from('candidates')
           .insert({
@@ -86,20 +106,22 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
         status: 'applied',
       });
       // Notify HR
-      fetch('/api/notify', {
+      await fetch('/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: 'application',
           data: {
-            candidateName: userData.email.split('@')[0],
+            candidateName: contact.name,
             candidateEmail: userData.email,
+            candidatePhone: contact.phone,
             jobTitle,
             discipline,
             location,
+            resumeUrl: contact.resumeUrl,
           },
         }),
-      });
+      }).catch(() => {}); // application is already saved; never block on email
       setAuthState('applied');
     } catch {
       setAuthState('candidate');
@@ -152,6 +174,19 @@ export default function ApplyButton({ jobId, jobTitle, jobSlug, discipline, loca
       <p className="text-xs text-center text-[#6B6B6B] mt-2">
         Applying as <span className="font-semibold text-[#0D0D0D]">{userData?.email}</span>
       </p>
+      {contact.resumeUrl ? (
+        <p className="text-xs text-center text-green-700 mt-1.5 flex items-center justify-center gap-1">
+          <CheckCircle size={12} /> Your resume will be sent with this application
+        </p>
+      ) : (
+        <p className="text-xs text-center text-[#6B6B6B] mt-1.5">
+          No resume on file —{' '}
+          <a href="/dashboard/candidate/resume" className="text-[#CC1016] font-semibold hover:underline">
+            upload one
+          </a>{' '}
+          so we can send it with your application.
+        </p>
+      )}
     </div>
   );
 }
