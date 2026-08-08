@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 const HR_EMAIL = 'hr@ccpromoters.com';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://cizr93dz.insforge.site';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ccpromoters.com';
+// Same app deployed on InsForge — its env DOES have working SMTP creds (set 2026-04-27).
+// Used as a relay when this deployment (e.g. Vercel) has no SMTP_USER/SMTP_PASS of its own.
+const NOTIFY_FALLBACK_URL = process.env.NOTIFY_FALLBACK_URL || 'https://cizr93dz.insforge.site/api/notify';
+const FORWARDED_HEADER = 'x-notify-forwarded';
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.zoho.com',
@@ -134,8 +138,27 @@ const templates = {
 
 export async function POST(req: NextRequest) {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.error('[notify] SMTP_USER and SMTP_PASS env vars are not set — email skipped');
-    return NextResponse.json({ ok: false, error: 'SMTP not configured' }, { status: 503 });
+    // No local SMTP creds — relay to the InsForge deployment, which has them.
+    // The forwarded header stops a relay loop if that deployment ever loses its creds too.
+    if (req.headers.get(FORWARDED_HEADER)) {
+      console.error('[notify] SMTP not configured and request already forwarded — giving up');
+      return NextResponse.json({ ok: false, error: 'SMTP not configured' }, { status: 503 });
+    }
+    try {
+      const body = await req.text();
+      const res = await fetch(NOTIFY_FALLBACK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', [FORWARDED_HEADER]: '1' },
+        body,
+        signal: AbortSignal.timeout(20000),
+      });
+      const json = await res.json().catch(() => ({ ok: false, error: 'Bad relay response' }));
+      if (!res.ok) console.error('[notify] Relay failed:', res.status, json);
+      return NextResponse.json(json, { status: res.status });
+    } catch (err) {
+      console.error('[notify] Relay error:', err);
+      return NextResponse.json({ ok: false, error: 'Email relay failed' }, { status: 502 });
+    }
   }
 
   try {
