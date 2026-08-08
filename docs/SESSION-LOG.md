@@ -166,3 +166,36 @@ Note: InsForge's own `emails.send` API is **not** an option here — project `ci
 2. **Nobody was watching.** All four notify callers fire-and-forget; the apply page logs a failure to the browser console only. Consider surfacing send failures (or a weekly digest) so a future outage is not silent for months.
 3. **Test account left behind:** `claude-test-20260808@example.com` (id `7a443d14-f206-4303-a099-6fb77d129cf9`). InsForge blocks `DELETE` on the `auth` schema and no admin delete endpoint responded (404 on `/api/auth/users/:id` and `/api/auth/admin/users/:id`) — remove it from the InsForge dashboard.
 4. Items 3, 4, 5, 6, 7, 8 and 10 from the previous PENDING list remain untouched.
+
+### PHASE J addendum — why the SMTP vars could not be set on Vercel (2026-08-08)
+
+Attempted the "real fix" (item 1 above) and hit two hard blockers. Both need the user; no code change can route around either.
+
+**Blocker 1 — the Vercel project is in an account we are not signed into.**
+`vercel whoami` = `waheed-9605`; `GET /v2/teams` returns exactly one team, `ccp6` (`team_m7stHvi23wrnpffOACQ7XHv1`). Listing projects in both the personal and `ccp6` scopes returns only `zafrani-zaiqa`. Decisive check: `GET https://api.vercel.com/v5/domains/ccpromoters.com` → `403 {"code":"forbidden","message":"You don't have access to \"ccpromoters.com\""}`. There is no `.vercel/project.json` in the repo either. Yet pushes to `main` go live on www.ccpromoters.com within ~45s, so the site is Git-connected to `cloudcomputingpromoters/ccpromoters` from **some other Vercel account**. That account has to add the env vars (or invite this one to the project).
+
+**Blocker 2 — the SMTP password is not readable from anywhere on this machine.**
+- InsForge deployment env vars come back as `type: "encrypted"` with keys only — `GET /api/deployments/env-vars` lists `SMTP_HOST/PORT/USER/PASS/FROM` but no values; `/api/deployments/env` and `/api/deployments/envs` 500.
+- The CLI has no `deployments env get` (only `list`/`set`/`delete`).
+- The creds are **not** in InsForge backend secrets (`secrets list --all` = API_KEY, ANON_KEY, INSFORGE_BASE_URL, INSFORGE_INTERNAL_URL, VERCEL_WEBHOOK_SECRET, one rotated old key).
+- No `.env*` file was ever committed (`git log --all --diff-filter=A -- '*.env*'` is empty); commit `562afcf` ("Zoho SMTP email config") touched only `route.ts`, `apply/page.tsx`, `ApplyButton.tsx`.
+
+So the value exists only in the Zoho mailbox settings and inside the InsForge deployment's encrypted store.
+
+**What the user needs to add** (Production scope, on whichever Vercel project serves ccpromoters.com):
+| Key | Value |
+|---|---|
+| `SMTP_USER` | the Zoho mailbox that sends (likely `hr@ccpromoters.com`) |
+| `SMTP_PASS` | Zoho **app-specific password**, from Zoho Mail → Settings → Security → App Passwords |
+| `SMTP_HOST` | `smtp.zoho.com` (code default — only needed if different) |
+| `SMTP_PORT` | `587` (code default — only needed if different) |
+| `SMTP_FROM` | optional; falls back to `SMTP_USER` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.ccpromoters.com` (makes "View in Admin Panel" links correct) |
+
+**No code change is needed when they do.** `app/api/notify/route.ts` already prefers local SMTP and only relays when `SMTP_USER`/`SMTP_PASS` are absent — the moment the vars exist and the project redeploys, ccpromoters.com sends directly and the relay goes dormant as a fallback.
+
+**Verification after adding them:** `curl -s -o /dev/null -w "%{http_code}" -X POST https://www.ccpromoters.com/api/notify -H "Content-Type: application/json" -d '{"type":"__probe__","data":{}}'` should still return `400`; then send a real `contact` type and confirm arrival at hr@ccpromoters.com.
+
+**Cheaper alternative:** upgrading InsForge project `cizr93dz` off the free plan unlocks `insforge.emails.send()` / `POST /api/email/send-raw`, which needs only the anon key — no SMTP password, no Vercel env vars, and no second deployment in the path. Currently returns `403 Custom email service is not available for free plan`.
+
+**Current state: email is working** via the relay (both hops verified healthy on 2026-08-08). This addendum is about removing a single point of failure, not about a live outage.
