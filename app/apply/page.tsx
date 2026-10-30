@@ -16,6 +16,10 @@ function ApplyFormContent() {
   const prefillEmail= searchParams.get('email') || '';
 
   const [form, setForm] = useState({ name: '', email: prefillEmail, phone: '' });
+  // Jobs based in India get a country-code picker (India / USA); US jobs keep the plain field.
+  const isIndiaJob = /india/i.test(jobLocation);
+  const [dialCode, setDialCode] = useState(isIndiaJob ? '+91' : '+1');
+  const fullPhone = isIndiaJob ? `${dialCode} ${form.phone.trim()}` : form.phone.trim();
   const [file,       setFile]       = useState<File | null>(null);
   const [errors,     setErrors]     = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -26,7 +30,10 @@ function ApplyFormContent() {
     const e: Record<string, string> = {};
     if (form.name.trim().length < 2)               e.name  = 'Full name is required.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Valid email is required.';
-    if (form.phone.trim().length < 7)              e.phone = 'Valid phone number is required.';
+    const phoneDigits = form.phone.replace(/\D/g, '');
+    if (phoneDigits.length < 7)                    e.phone = 'Valid phone number is required.';
+    else if (isIndiaJob && dialCode === '+91' && phoneDigits.length !== 10)
+                                                   e.phone = 'Enter the 10-digit Indian mobile number.';
     if (!file)                                     e.file  = 'Please upload your resume (PDF).';
     else if (file.size > MAX_RESUME_BYTES)         e.file  = 'Resume must be under 5 MB.';
     setErrors(e);
@@ -70,9 +77,9 @@ function ApplyFormContent() {
       await insforge.database.from('contact_submissions').insert({
         name:    form.name,
         email:   form.email,
-        phone:   form.phone,
+        phone:   fullPhone,
         subject: `Job Application: ${jobTitle}`,
-        message: `Position: ${jobTitle}\nLocation: ${jobLocation}\nPhone: ${form.phone}${resumeUrl ? `\nResume: ${resumeUrl}` : ''}`,
+        message: `Position: ${jobTitle}\nLocation: ${jobLocation}\nPhone: ${fullPhone}${resumeUrl ? `\nResume: ${resumeUrl}` : ''}`,
         company: null,
       });
 
@@ -85,7 +92,7 @@ function ApplyFormContent() {
           data: {
             candidateName:  form.name,
             candidateEmail: form.email,
-            candidatePhone: form.phone,
+            candidatePhone: fullPhone,
             jobTitle,
             discipline:     jobLocation,
             location:       jobLocation,
@@ -185,12 +192,28 @@ function ApplyFormContent() {
           {/* Phone */}
           <div>
             <label className="block text-sm font-semibold text-[#0D0D0D] mb-1.5">Phone <span className="text-[#CC1016]">*</span></label>
+            {isIndiaJob ? (
+              <div className="flex gap-2">
+                <select aria-label="Country code" value={dialCode} onChange={e => setDialCode(e.target.value)}
+                  className="shrink-0 border border-[#E5E5E5] rounded-xl px-2.5 py-3.5 text-sm bg-white outline-none focus:border-[#CC1016]">
+                  <option value="+91">🇮🇳 India +91</option>
+                  <option value="+1">🇺🇸 USA +1</option>
+                </select>
+                <div className="relative flex-1 min-w-0">
+                  <Phone className="absolute left-3 top-3.5 text-[#8891a8]" size={16} />
+                  <input type="tel" inputMode="tel" placeholder={dialCode === '+91' ? '98765 43210' : '(555) 000-0000'}
+                    className={`w-full border rounded-xl pl-10 p-3.5 text-sm outline-none transition-all ${errors.phone ? 'border-red-400 bg-red-50' : 'border-[#E5E5E5] focus:border-[#CC1016]'}`}
+                    value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+                </div>
+              </div>
+            ) : (
             <div className="relative">
               <Phone className="absolute left-3 top-3.5 text-[#8891a8]" size={16} />
               <input type="tel" placeholder="+1 (555) 000-0000"
                 className={`w-full border rounded-xl pl-10 p-3.5 text-sm outline-none transition-all ${errors.phone ? 'border-red-400 bg-red-50' : 'border-[#E5E5E5] focus:border-[#CC1016]'}`}
                 value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
             </div>
+            )}
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
           </div>
         </div>
