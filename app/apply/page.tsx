@@ -6,6 +6,9 @@ import Link from 'next/link';
 import { User, Phone, Mail, Briefcase, MapPin, FileText, CheckCircle, Loader2 } from 'lucide-react';
 import { insforge } from '@/lib/insforge';
 
+const RESUME_UPLOAD_URL = 'https://cizr93dz.function2.insforge.app/upload-resume';
+const MAX_RESUME_BYTES = 5 * 1024 * 1024;
+
 function ApplyFormContent() {
   const searchParams = useSearchParams();
   const jobTitle    = searchParams.get('job')   || 'General Application';
@@ -25,6 +28,7 @@ function ApplyFormContent() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Valid email is required.';
     if (form.phone.trim().length < 7)              e.phone = 'Valid phone number is required.';
     if (!file)                                     e.file  = 'Please upload your resume (PDF).';
+    else if (file.size > MAX_RESUME_BYTES)         e.file  = 'Resume must be under 5 MB.';
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -39,18 +43,27 @@ function ApplyFormContent() {
       /* 1. Upload resume to insforge storage */
       let resumeUrl = '';
       if (file) {
-        const path = `resumes/${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
-        const { data: upData, error: upErr } = await insforge.storage
-          .from('candidate-files')
-          .upload(path, file);
-
-        if (upErr || !upData) {
+        // Anonymous visitors cannot write to storage directly, so the resume goes
+        // through the upload-resume edge function, which stores it with the API key.
+        const body = new FormData();
+        body.append('file', file);
+        let upData: { url?: string; error?: string } | null = null;
+        try {
+          const upRes = await fetch(RESUME_UPLOAD_URL, { method: 'POST', body });
+          upData = await upRes.json().catch(() => null);
+          if (!upRes.ok) throw new Error(upData?.error || `HTTP ${upRes.status}`);
+        } catch (upErr) {
           console.error('[apply] Upload error:', upErr);
+          setGlobalErr(upData?.error || 'Resume upload failed. Please try again.');
+          setSubmitting(false);
+          return;
+        }
+        if (!upData?.url) {
           setGlobalErr('Resume upload failed. Please try again.');
           setSubmitting(false);
           return;
         }
-        resumeUrl = insforge.storage.from('candidate-files').getPublicUrl(path) as string;
+        resumeUrl = upData.url;
       }
 
       /* 2. Save to DB */
