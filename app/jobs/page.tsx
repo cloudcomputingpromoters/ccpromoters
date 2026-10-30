@@ -6,6 +6,9 @@ import JobsClient from './JobsClient';
 // statically prerendered and bakes in whatever the build-time fetch returned —
 // if that fetch fails/returns empty, every visitor sees "Unable to Load Jobs".
 export const dynamic = 'force-dynamic';
+// force-dynamic alone does not stop Next 14 from caching the SDK's fetches; without this,
+// job pages kept serving data from before an edit (seen 30 Oct 2026).
+export const fetchCache = 'force-no-store';
 
 export const metadata = {
   title: 'Civil Engineering Jobs | CCPromoters',

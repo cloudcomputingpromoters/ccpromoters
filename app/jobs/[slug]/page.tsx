@@ -1,4 +1,7 @@
 export const dynamic = 'force-dynamic';
+// force-dynamic alone does not stop Next 14 from caching the SDK's fetches; without this,
+// job pages kept serving data from before an edit (seen 30 Oct 2026).
+export const fetchCache = 'force-no-store';
 
 import type { ReactNode } from 'react';
 import { insforge } from '@/lib/insforge';
